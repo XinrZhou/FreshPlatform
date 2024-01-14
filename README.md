@@ -1,6 +1,6 @@
 # Getting Started
 
-<https://reactnative.cn/>
+<https://reactnative.dev/docs/getting-started/>
 
 ```bash
 # using npm
