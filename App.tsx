@@ -2,6 +2,7 @@ import React from 'react';
 import type {PropsWithChildren} from 'react';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store'
+import BottomTabNavigator from './src/routes';
 
 import {
   SafeAreaView,
@@ -60,7 +61,8 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <Text>测试数据</Text>
+      <BottomTabNavigator />
+      {/* <Text>测试数据</Text> */}
     </Provider>
     // <SafeAreaView style={backgroundStyle}>
     //   <StatusBar

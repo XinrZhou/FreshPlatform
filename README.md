@@ -14,3 +14,14 @@ yarn start
 # OR using npx
 npx react-native start
 ```
+
+## problems
+
+### 重新生成 ios android 文件夹
+
+```bash
+# react-native >= 0.61.0
+sudo rm -rf android/ ios/
+yarn add react-native-eject
+npx react-native-eject
+```
