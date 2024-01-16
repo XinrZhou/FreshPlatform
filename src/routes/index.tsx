@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import Icon from "react-native-vector-icons/AntDesign"
+import { Iconfont } from '../assets/fonts';
 import Home from "../pages/Home";
 import Classification from "../pages/Classification";
 import ShoppingCart from "../pages/ShoppingCart";
@@ -12,12 +14,19 @@ const Tab = createBottomTabNavigator();
 function BottomTabNavigator(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: '#f03726',
+        }}
+      >
         <Tab.Screen 
           name="首页" 
           component={Home}
           options={{
             headerShown: false,
+            tabBarIcon: ({ color, size}) => (
+              <Iconfont name="icon-home" color={color} size={size} />
+            )
           }}
         />
         <Tab.Screen 
@@ -25,6 +34,9 @@ function BottomTabNavigator(): React.JSX.Element {
           component={Classification}
           options={{
             headerShown: false,
+            tabBarIcon: ({ color, size}) => (
+              <Iconfont name="icon-fenlei" color={color} size={size} />
+            )
           }} 
         />
         <Tab.Screen 
@@ -32,6 +44,9 @@ function BottomTabNavigator(): React.JSX.Element {
           component={ShoppingCart} 
           options={{
             headerShown: false,
+            tabBarIcon: ({ color, size}) => (
+              <Iconfont name="icon-cart" color={color} size={size} />
+            )
           }}
         />
         <Tab.Screen 
@@ -39,6 +54,9 @@ function BottomTabNavigator(): React.JSX.Element {
           component={UserCenter} 
           options={{
             headerShown: false,
+            tabBarIcon: ({ color, size}) => (
+              <Iconfont name="icon-people" color={color} size={size} />
+            )
           }}
         />
       </Tab.Navigator>
