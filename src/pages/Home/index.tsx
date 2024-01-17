@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SearchBar from "../../components/SearchBar";
 import BannerCard from "../../components/BannerCard";
+import GoodsFeeds from "../../components/GoodsFeeds";
 import { Icon } from "../../assets/fonts";
+
 
 const Home: React.JSX.Element = () => {
   const [data, setData] = useState([
-    { id: 1, url: "https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain", price: 15.5 },
-    { id: 2, url: "https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain", price: 30 },
-    { id: 3, url: "https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain", price: 1.99 },
-    { id: 4, url: "https://th.bing.com/th/id/OIP.eqrTC1DowWkUJAq0KJCMHwHaEl?rs=1&pid=ImgDetMain", price: 9.9 },
+    { id: 1, name: '推荐', url: "https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain", price: 15.5 },
+    { id: 2, name: '蔬菜', url: "https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain", price: 30 },
+    { id: 3, name: '肉蛋', url: "https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain", price: 1.99 },
+    { id: 4, name: '水果', url: "https://th.bing.com/th/id/OIP.eqrTC1DowWkUJAq0KJCMHwHaEl?rs=1&pid=ImgDetMain", price: 9.9 },
   ]);
+
+  const Tab = createMaterialTopTabNavigator();
 
   return (
     <View>
-      <View style={styles.headerContainer}>
-        <View style={styles.routeContainer}>
+      <View>
+        <View style={styles.headerContainer}>
           <View style={styles.leftArea}>
             <Icon 
               name="icon-left"
@@ -65,14 +70,14 @@ const Home: React.JSX.Element = () => {
           </View>
         </ImageBackground>
       </View>
+      <View style={styles.feedsContainer}>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   headerContainer: {
-  },
-  routeContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

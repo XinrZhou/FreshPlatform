@@ -9,13 +9,13 @@ const BannerCard: React.JSX.Element = ({ item }) => {
       <Image
         style={styles.goodsImage}
         source={{
-          height: 120,
+          height: 100,
           width: 100,
           uri: url,
         }} 
       />
       <Text style={styles.goodsPrice}>
-        ￥{item.price}
+        ￥{price}
       </Text>
     </View>
   )
@@ -30,18 +30,17 @@ const styles = StyleSheet.create({
   },
 
   goodsPrice: {
-    position: 'absolute', 
-    marginLeft: 0,
-    marginRight: 0,
-    left: 0, 
+    left: 0,
     right: 0,
     bottom: 10,
     textAlign: 'center',
     color: '#fff',
+    backgroundColor: '#FF9818',
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
     fontSize: 16,
     fontWeight: '600',
   }
-
 })
 
 export default BannerCard;
