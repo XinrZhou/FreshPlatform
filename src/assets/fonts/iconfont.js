@@ -1,4 +1,7 @@
 export default {
+  "icon-left": 59453,
+  "icon-right": 59456,
+  "icon-search": 58938,
   "icon-list": 59010,
   "icon-cart": 59055,
   "icon-home": 59064,

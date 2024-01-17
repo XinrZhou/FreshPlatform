@@ -2,14 +2,13 @@ import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import Icon from "react-native-vector-icons/AntDesign"
-import { Iconfont } from '../assets/fonts';
+import { Icon } from '../assets/fonts';
 import Home from "../pages/Home";
 import Classification from "../pages/Classification";
 import ShoppingCart from "../pages/ShoppingCart";
 import UserCenter from "../pages/UserCenter";
 
 const Tab = createBottomTabNavigator(); 
-
 
 function BottomTabNavigator(): React.JSX.Element {
   return (
@@ -25,7 +24,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Iconfont name="icon-home" color={color} size={size} />
+              <Icon name="icon-home" color={color} size={size} />
             )
           }}
         />
@@ -35,7 +34,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Iconfont name="icon-fenlei" color={color} size={size} />
+              <Icon name="icon-fenlei" color={color} size={size} />
             )
           }} 
         />
@@ -45,7 +44,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Iconfont name="icon-cart" color={color} size={size} />
+              <Icon name="icon-cart" color={color} size={size} />
             )
           }}
         />
@@ -55,7 +54,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Iconfont name="icon-people" color={color} size={size} />
+              <Icon name="icon-people" color={color} size={size} />
             )
           }}
         />
