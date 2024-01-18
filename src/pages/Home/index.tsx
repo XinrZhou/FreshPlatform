@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SearchBar from "../../components/SearchBar";
-import BannerCard from "../../components/BannerCard";
+import BannerCard from "../../components/AnimateBanner/BannerCard";
 import GoodsFeeds from "../../components/GoodsFeeds";
 import { Icon } from "../../assets/fonts";
+import AnimateBanner from "../../components/AnimateBanner";
 
 
 const Home: React.JSX.Element = () => {
-  const [data, setData] = useState([
-    { id: 1, name: '推荐', url: "https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain", price: 15.5 },
-    { id: 2, name: '蔬菜', url: "https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain", price: 30 },
-    { id: 3, name: '肉蛋', url: "https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain", price: 1.99 },
-    { id: 4, name: '水果', url: "https://th.bing.com/th/id/OIP.eqrTC1DowWkUJAq0KJCMHwHaEl?rs=1&pid=ImgDetMain", price: 9.9 },
-  ]);
-
-  const Tab = createMaterialTopTabNavigator();
 
   return (
-    <View>
+    <View style={styles.containerWrapper}>
       <View>
         <View style={styles.headerContainer}>
           <View style={styles.leftArea}>
@@ -53,30 +45,21 @@ const Home: React.JSX.Element = () => {
           }}
         />
       <View style={styles.bannerContainer}>
-        <ImageBackground
-          source={{
-            uri: 'https://th.bing.com/th/id/OIP.PJ2Nx9jJzw6AD-T4qQJTjwHaKX?rs=1&pid=ImgDetMain'
-          }}
-        >
-          <Text style={styles.bannerTitle}>
-            年货节狂欢购
-          </Text>
-          <View style={styles.bannerContent}> 
-            {
-              data.map((item) => {
-                return <BannerCard key={item.id} item={item} />
-              })
-            }
-          </View>
-        </ImageBackground>
+        <AnimateBanner />
       </View>
       <View style={styles.feedsContainer}>
+        <GoodsFeeds />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  containerWrapper: {
+    backgroundColor: '#fff',
+    height: '100%',
+  },
+
   headerContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -117,10 +100,7 @@ const styles = StyleSheet.create({
   },
 
   bannerContainer: {
-    height: 160,
-    marginTop: 10,
-    marginLeft:8,
-    marginRight: 8,
+    marginTop: 16,
   },
 
   bannerTitle: {
@@ -138,6 +118,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
+
+  
 })
 
 export default Home;

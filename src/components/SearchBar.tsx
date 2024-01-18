@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import { StyleSheet, View, TextInput, Text, Pressable } from "react-native";
 import { Icon } from '../assets/fonts';
 
 const SearchBar: React.JSX.Element = () => {
@@ -19,9 +19,9 @@ const SearchBar: React.JSX.Element = () => {
         defaultValue={searchText}
         onChangeText={newText => setSearchText(newText)} 
       />
-      <View style={styles.searchBtn}>
+      <Pressable style={styles.searchBtn}>
         <Text style={styles.btnText}>搜索</Text>
-      </View>
+      </Pressable>
     </View>
   )
 }
