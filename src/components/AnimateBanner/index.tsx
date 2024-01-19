@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
 
   topContainer: {
-    marginTop: 24,
+    marginTop: 16,
   },
 
   bannerTitle: {

@@ -16,9 +16,10 @@ import StickyHeader from "./StickyHeader";
 import GoodsFeeds from "../../components/GoodsFeeds";
 
 const Home: React.JSX.Element = () => {
-  const stickyTopY = useRef(50).current;
+  const stickyTopY = useRef(60).current;
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScroll,setIsScroll]= useState(false);
+  const [offsetY,setOffsetY] = useState(0);
 
   return (
     <View >
@@ -27,11 +28,18 @@ const Home: React.JSX.Element = () => {
           Animated.event([{
             nativeEvent: {
               contentOffset: {y: scrollY}
+            },
+          }], { 
+            useNativeDriver: true,
+            listener: (e) => {
+              if (e.nativeEvent.contentOffset.y <= 0) {
+                setIsScroll(false);
+              } else if (e.nativeEvent.contentOffset.y > 0 && !isScroll) {
+                setIsScroll(true);
+              }
             }
-          }], { useNativeDriver: true })
+          })
         }
-        onTouchMove={() => setIsScroll(true)}
-        onTouchEnd={() => setIsScroll(false)}
         style={styles.containerWrapper}
       >
         <View style={styles.headerContainer}>
