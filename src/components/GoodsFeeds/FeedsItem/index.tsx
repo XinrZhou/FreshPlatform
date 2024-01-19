@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
 import { getPrice } from "../../../utils";
 
 const FeedsItem: React.JSX.Element = (props: object) => {
-  const { name, price, image, tags } = props?.item;
+  const { name, price, image, tags } = props?.feedItem;
 
   const onPress = () => console.log('press...')
 

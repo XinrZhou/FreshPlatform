@@ -59,6 +59,7 @@ const AnimateBanner: React.JSX.Element = () => {
                   item={item} 
                   index={index}
                   position="bottom"
+                  key={item.id}
                 />
               )
             })

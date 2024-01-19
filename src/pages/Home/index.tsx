@@ -1,24 +1,41 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
-import SearchBar from "../../components/SearchBar";
+import React, { useState, useRef } from "react";
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  Image, 
+  ImageBackground,
+  FlatList,
+  Animated,
+  ScrollView 
+} from "react-native";
 import BannerCard from "../../components/AnimateBanner/BannerCard";
-import GoodsFeeds from "../../components/GoodsFeeds";
 import { Icon } from "../../assets/fonts";
 import AnimateBanner from "../../components/AnimateBanner";
-
+import StickyHeader from "./StickyHeader";
+import GoodsFeeds from "../../components/GoodsFeeds";
 
 const Home: React.JSX.Element = () => {
+  const stickyTopY = useRef(50).current;
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const [isScroll,setIsScroll]= useState(false);
 
   return (
-    <View style={styles.containerWrapper}>
-      <View>
+    <View >
+      <Animated.ScrollView
+        onScroll={
+          Animated.event([{
+            nativeEvent: {
+              contentOffset: {y: scrollY}
+            }
+          }], { useNativeDriver: true })
+        }
+        onTouchMove={() => setIsScroll(true)}
+        onTouchEnd={() => setIsScroll(false)}
+        style={styles.containerWrapper}
+      >
         <View style={styles.headerContainer}>
           <View style={styles.leftArea}>
-            <Icon 
-              name="icon-left"
-              size={24}
-              color={'#fff'}
-            />
             <Text style={styles.leftText}>
               Siruis生鲜
             </Text>
@@ -34,9 +51,7 @@ const Home: React.JSX.Element = () => {
             />
           </View>
         </View>
-        <SearchBar />
-      </View>
-      <Image
+        <Image
           style={styles.headerBackground} 
           source={{
             height: 100,
@@ -44,12 +59,19 @@ const Home: React.JSX.Element = () => {
             uri: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.Ix2oOx8x9J1aLDeAQXatpQHaED?rs=1&pid=ImgDetMain'
           }}
         />
-      <View style={styles.bannerContainer}>
-        <AnimateBanner />
-      </View>
-      <View style={styles.feedsContainer}>
+        {/* 搜索框吸顶 */}
+        <StickyHeader
+          stickyTopY={stickyTopY}
+          stickyScrollY={scrollY} 
+          isScroll={isScroll}
+        />   
+        {/* banner模块 */}
+        <View style={styles.bannerContainer}>
+          <AnimateBanner />
+        </View>
+        {/* 商品feed流 */}
         <GoodsFeeds />
-      </View>
+      </Animated.ScrollView>
     </View>
   );
 }
@@ -78,7 +100,7 @@ const styles = StyleSheet.create({
 
   leftText: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '600',
   },
 
@@ -118,8 +140,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-
-  
 })
 
 export default Home;

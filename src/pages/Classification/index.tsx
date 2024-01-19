@@ -1,10 +1,21 @@
 import React from "react";
-import { Text } from "react-native";
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+} from "react-native";
+
 
 const Classification: React.JSX.Element = () => {
+
   return (
-    <Text>分类页</Text>
+    <View>
+      <Text>分类页</Text>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+})
 
 export default Classification;
