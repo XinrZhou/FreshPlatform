@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   topContainer: {
     padding: 4,
     borderColor: '#E6349D',
-    backgroundColor: '#E80B9B'
+    backgroundColor: '#FF5F9E'
   },
 
   goodsTag: {

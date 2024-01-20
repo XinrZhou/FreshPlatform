@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import BannerCard from "./BannerCard";
+import { Icon } from "../../assets/fonts";
 
 const customFlipInX = {
   0: {
@@ -38,10 +39,17 @@ const AnimateBanner: React.JSX.Element = () => {
   return (
     <SafeAreaView>
       <View style={styles.noticeWrapper}>
+        <Icon name="icon-laba" size={24} color={'#FF5043'}/>
         {
-          noticeList.map((item) => {
+          noticeList.map((item, index) => {
             return (
-              <Text style={styles.noticeText}>
+              <Text 
+                key={index}
+                style={[
+                  styles.noticeText,
+                  index == 0 && styles.specialNoticeText
+                ]}
+              >
                 {item}
               </Text>
             )
@@ -87,8 +95,7 @@ const AnimateBanner: React.JSX.Element = () => {
 
 const styles = StyleSheet.create({
   contianerWrapper: {
-    marginLeft: 12,
-    marginRight: 12,
+    marginHorizontal: 12,
     marginBottom: 12,
     display: 'flex',
     flexDirection: 'row',
@@ -97,23 +104,32 @@ const styles = StyleSheet.create({
   },
 
   noticeWrapper: {
+    marginHorizontal: 12,
+    marginTop: 8,
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
   },
 
   noticeText: {
-    marginTop: 16,
+    marginTop: 12,
     marginHorizontal: 8,
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 12,
     color: '#57C31F',
+    fontWeight: 'bold',
     backgroundColor: '#fff',
   },
 
+  specialNoticeText: {
+    color: '#C64F04',
+    backgroundColor: '#F6D7CE',
+  },
+
   topContainer: {
-    marginTop: 16,
+    marginTop: 12,
     paddingLeft: 6,
     paddingRight: 6,
     paddingTop: 12, 

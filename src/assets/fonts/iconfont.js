@@ -1,4 +1,5 @@
 export default {
+  "icon-laba": 58893,
   "icon-left": 59453,
   "icon-right": 59456,
   "icon-search": 58938,

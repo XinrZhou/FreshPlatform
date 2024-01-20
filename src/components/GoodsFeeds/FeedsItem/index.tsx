@@ -2,29 +2,37 @@ import React from "react";
 import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
 import { getPrice } from "../../../utils";
 import { Icon } from "../../../assets/fonts";
+import { FEED_COLUMS } from "../../../constants";
 
-const FeedsItem: React.JSX.Element = (props: object) => {
-  const { name, price, image, tags } = props?.feedItem;
+const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
+  const { name, price, image, tags } = feedItem;
+  const { 
+    imageProps = {}, 
+    containerProps = {}, 
+    contentProps = {} 
+  } = configProps;
 
   const onPress = () => console.log('press...')
 
   return (
-    <View style={styles.itemContainer}>
+    <View style={[styles.itemContainer, {...containerProps}]}>
       <Image
-        style={styles.itemImage}
-        source={{ 
-          height: 215,
-          width:215,
-          uri: image 
-        }}
+        style={[styles.itemImage, {...imageProps}]}
+        source={
+          {
+            height: 220,
+            width: 220,
+            uri: image
+          }
+        }
       />
-      <View style={styles.itemContent}>
+      <View style={[styles.itemContent, {...contentProps}]}>
         <Text style={styles.itemTitle}>
           {name}
         </Text>
         <View style={styles.tagWapper}>
           {
-            tags.map(item => {
+            tags?.map(item => {
               return (
                 <Text style={styles.itemTag}>
                   {item}

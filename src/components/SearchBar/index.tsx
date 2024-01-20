@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Text, Pressable } from "react-native";
 import { Icon } from "../../assets/fonts";
 
 const SearchBar: React.JSX.Element = ({
-  isScroll
+  isScroll = false
 }) => {
   const [ searchText, setSearchText ] = useState('');
 
@@ -18,13 +18,10 @@ const SearchBar: React.JSX.Element = ({
       ]}>
         <Icon 
           name="icon-search"
-          size={24}
+          size={28}
           style={styles.searchIcon}
         />
         <TextInput 
-          style={{
-            width: '100%'
-          }}
           defaultValue={searchText}
           onChangeText={newText => setSearchText(newText)} 
         />
@@ -41,6 +38,7 @@ const SearchBar: React.JSX.Element = ({
 
 const styles = StyleSheet.create({
   searchWrapper: {
+    flex: 1,
     backgroundColor: 'transparent'
   },
 
