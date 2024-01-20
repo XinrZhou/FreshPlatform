@@ -113,6 +113,10 @@ const GoodsFeeds: React.JSX.Element = (props) => {
         keyExtractor={(item) => item.id}
         ref={listRef}
         data={data}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+        }}
         renderItem={({item, index}) => {
           return <FeedsItem feedItem={item}/>
         }}
@@ -123,7 +127,9 @@ const GoodsFeeds: React.JSX.Element = (props) => {
 
 const styles = StyleSheet.create({
   feedsContainer: {
-    margin: 16,
+    marginTop: 16,
+    marginLeft: 12,
+    marginRight: 12,
   }
 })
 

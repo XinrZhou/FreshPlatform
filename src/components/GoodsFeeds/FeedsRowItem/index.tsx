@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
 import { getPrice } from "../../../utils";
-import { Icon } from "../../../assets/fonts";
 
-const FeedsItem: React.JSX.Element = (props: object) => {
+const FeedsRowItem: React.JSX.Element = (props: object) => {
   const { name, price, image, tags } = props?.feedItem;
 
   const onPress = () => console.log('press...')
@@ -13,8 +12,8 @@ const FeedsItem: React.JSX.Element = (props: object) => {
       <Image
         style={styles.itemImage}
         source={{ 
-          height: 215,
-          width:215,
+          height: 160,
+          width: 160,
           uri: image 
         }}
       />
@@ -46,7 +45,7 @@ const FeedsItem: React.JSX.Element = (props: object) => {
             </Text>
           </View>
           <Pressable style={styles.addCartBtn} onPress={onPress}>
-            <Icon name="icon-cart" size={20} color={'#fff'}/>
+            <Text style={styles.btnText}>加入购物车</Text>
           </Pressable>
         </View>
       </View>
@@ -58,45 +57,41 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginTop: 8,
     marginBottom: 8,
+    padding: 12,
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: 8,
     display: 'flex',
+    flexDirection: 'row',
   },
 
   itemImage: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderRadius: 4,
+    marginRight: 12,
   },
 
   itemContent: {
     flex: 1,
     display: 'flex',
-    justifyContent: 'space-between',
-    padding: 8,
+    justifyContent: 'space-between'
+  },
+
+  tagWapper: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 
   itemTitle: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  tagWapper: {
-    marginTop: 8,
-    marginBottom: 8,
-    display: 'flex',
-    flexDirection: 'row',
+    fontWeight: '700',
   },
 
   itemTag: {
     marginRight: 4,
-    paddingLeft: 4,
-    paddingRight: 4,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#FFD9CD',
-    color: '#FC4E00',
-    backgroundColor: '#FFF1EC',
+    paddingLeft: 2,
+    paddingRight: 2,
+    borderRadius: 2,
+    backgroundColor: '#FCF0B2',
   },
 
   bottomWrapper: {
@@ -128,10 +123,19 @@ const styles = StyleSheet.create({
   },
 
   addCartBtn: {
-    padding: 6,
-    borderRadius: 32,
-    backgroundColor: '#57C31F',
+    right: 6,
+    height: 36,
+    borderRadius: 36,
+    backgroundColor: '#FF5043',
   },
+
+  btnText: {
+    margin: 6,
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  }
 })
 
-export default FeedsItem;
+export default FeedsRowItem;

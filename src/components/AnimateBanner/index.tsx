@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import BannerCard from "./BannerCard";
 
@@ -29,19 +29,35 @@ const AnimateBanner: React.JSX.Element = () => {
     { id: 4, name: '水果', url: "https://th.bing.com/th/id/OIP.eqrTC1DowWkUJAq0KJCMHwHaEl?rs=1&pid=ImgDetMain", price: '满199减30' },
   ]);
 
+  const [noticeList, setNoticeList] = useState([
+    "年货节最佳攻略",
+    "今日腊八节",
+    "车厘子上新"
+  ])
+
   return (
     <SafeAreaView>
+      <View style={styles.noticeWrapper}>
+        {
+          noticeList.map((item) => {
+            return (
+              <Text style={styles.noticeText}>
+                {item}
+              </Text>
+            )
+          })
+        }
+      </View>
       <ImageBackground
-        imageStyle={styles.backgroundWrapper}
         source={{
-          uri: 'https://th.bing.com/th/id/OIP.PJ2Nx9jJzw6AD-T4qQJTjwHaKX?rs=1&pid=ImgDetMain'
-        }}
-      >
-        <View style={[
+          uri: 'https://pic.mksucai.com/00/42/73/cae8e06eaada3238.webp'
+        }} 
+        style={[
           styles.contianerWrapper,
           styles.topContainer
-        ]}>
-          <BannerCard item={data[0]}/>
+        ]}
+      >
+        <BannerCard item={data[0]}/>
           <Animatable.Text 
             animation={customFlipInX}
             iterationCount="infinite"
@@ -49,45 +65,59 @@ const AnimateBanner: React.JSX.Element = () => {
           >
             年货节大卖
           </Animatable.Text>
-          <BannerCard item={data[1]}/>
-        </View>
-        <View style={styles.contianerWrapper}>
-          {
-            data.map((item, index) => {
-              return (
-                <BannerCard 
-                  item={item} 
-                  index={index}
-                  position="bottom"
-                  key={item.id}
-                />
-              )
-            })
-          }
-        </View>
+        <BannerCard item={data[1]}/>
       </ImageBackground>
+      <View style={styles.contianerWrapper}>
+        {
+          data.map((item, index) => {
+            return (
+              <BannerCard 
+                item={item} 
+                index={index}
+                position="bottom"
+                key={item.id}
+              />
+            )
+          })
+        }
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  backgroundWrapper: {
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8
-  },
-
   contianerWrapper: {
-    margin: 8,
+    marginLeft: 12,
+    marginRight: 12,
+    marginBottom: 12,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
+  noticeWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+
+  noticeText: {
+    marginTop: 16,
+    marginHorizontal: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 12,
+    color: '#57C31F',
+    backgroundColor: '#fff',
+  },
+
   topContainer: {
     marginTop: 16,
+    paddingLeft: 6,
+    paddingRight: 6,
+    paddingTop: 12, 
+    paddingBottom: 12
   },
 
   bannerTitle: {

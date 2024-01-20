@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   goodsImage: {
-    borderRadius: 4,
+    borderRadius: 8,
   },
 
   goodsPrice: {

@@ -86,7 +86,6 @@ const Home: React.JSX.Element = () => {
 
 const styles = StyleSheet.create({
   containerWrapper: {
-    backgroundColor: '#fff',
     height: '100%',
   },
 
@@ -131,6 +130,11 @@ const styles = StyleSheet.create({
 
   bannerContainer: {
     marginTop: 16,
+    backgroundColor: '#FFEBEC',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
   },
 
   bannerTitle: {
