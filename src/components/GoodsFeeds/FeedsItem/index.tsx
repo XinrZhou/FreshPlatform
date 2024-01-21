@@ -5,7 +5,7 @@ import { Icon } from "../../../assets/fonts";
 import { FEED_COLUMS } from "../../../constants";
 
 const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
-  const { name, price, image, tags } = feedItem;
+  const { name, price, image, tags, saleAttribute } = feedItem;
   const { 
     imageProps = {}, 
     containerProps = {}, 
@@ -16,16 +16,25 @@ const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
 
   return (
     <View style={[styles.itemContainer, {...containerProps}]}>
-      <Image
-        style={[styles.itemImage, {...imageProps}]}
-        source={
-          {
-            height: 220,
-            width: 220,
-            uri: image
+      <View>
+        <Image
+          style={[styles.itemImage, {...imageProps}]}
+          source={
+            {
+              height: 220,
+              width: 220,
+              uri: image
+            }
           }
+        />
+        {
+          saleAttribute && (
+            <Text style={styles.itemAttribue}>
+              {saleAttribute}
+            </Text>
+          )
         }
-      />
+      </View>
       <View style={[styles.itemContent, {...contentProps}]}>
         <Text style={styles.itemTitle}>
           {name}
@@ -74,6 +83,16 @@ const styles = StyleSheet.create({
   itemImage: {
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
+  },
+
+  itemAttribue: {
+    position: 'absolute',
+    top: 6,
+    left: 8,
+    backgroundColor: '#57C31F',
+    color: '#fff',
+    paddingHorizontal: 2,
+    borderRadius: 4,
   },
 
   itemContent: {

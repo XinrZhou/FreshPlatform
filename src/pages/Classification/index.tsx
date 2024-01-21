@@ -10,6 +10,7 @@ import SearchBar from "../../components/SearchBar";
 import TopNav from "../../components/TopNav";
 import ScrollNavBar from "../../components/ScrollNavBar";
 import GoodsFeeds from "../../components/GoodsFeeds";
+import SortItem from "./SortItem";
 
 const data = [
   {
@@ -128,38 +129,44 @@ const Classification: React.JSX.Element = () => {
         <ScrollNavBar navList={navList}/>
       </LinearGradient>
       <View style={styles.feedsContainer}>
-          <View style={styles.feedsColNav}>
-            {
-              colNavList.map((item, index) => {
-                return (
-                  <Text 
-                    key={index}
-                    style={[
-                      styles.colNavItem,
-                      index === colNavActiveIndex && (
-                        styles.colNavActiveItem
-                      ),
-                      index === 0 && {borderTopLeftRadius: 24}
-                    ]} 
-                    onPress={() => setColNavActiveIndex(index)}
-                  >
-                    {item}
-                  </Text>
-                )
-              })
-            }
-          </View>
-          <View style={styles.feedsWrapper}>
-            <View style={styles.listNav}>
-              <Text style={styles.leftArea}>全部商品</Text>
-              <View style={styles.rightArea}>
-                <Text>销量</Text>
-                <Text>价格</Text>
-              </View>
-            </View>
-            <GoodsFeeds data={data} numColumns={1}/>
-          </View>
+        <View style={styles.feedsColNav}>
+          {
+            colNavList.map((item, index) => {
+              return (
+                <Text 
+                  key={index}
+                  style={[
+                    styles.colNavItem,
+                    index === colNavActiveIndex && (
+                      styles.colNavActiveItem
+                    ),
+                    index === 0 && {borderTopLeftRadius: 24}
+                  ]} 
+                  onPress={() => setColNavActiveIndex(index)}
+                >
+                  {item}
+                </Text>
+              )
+            })
+          }
         </View>
+        <View style={styles.feedsWrapper}>
+          <View style={styles.sortNav}>
+            <Text style={styles.leftArea}>全部商品</Text>
+            <View style={styles.rightArea}>
+              <SortItem 
+                name="销量"
+                attribute="saleCount"
+              />
+              <SortItem 
+                name="价格"
+                attribute="price"
+              />
+            </View>
+          </View>
+          <GoodsFeeds data={data} numColumns={1}/>
+        </View>
+      </View>
     </View>
   );
 }
@@ -170,6 +177,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   feedsContainer: {
@@ -215,7 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  listNav: {
+  sortNav: {
     height: 48,
     display: 'flex',
     flexDirection: 'row',

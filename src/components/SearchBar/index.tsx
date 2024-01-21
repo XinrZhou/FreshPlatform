@@ -17,8 +17,8 @@ const SearchBar: React.JSX.Element = ({
         isScroll && styles.scrollContainer
       ]}>
         <Icon 
-          name="icon-search"
-          size={28}
+          name="icon-sousuo"
+          size={24}
           style={styles.searchIcon}
         />
         <TextInput 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   searchIcon: {
     marginLeft: 10,
-    color: '#696969',
+    color: '#959595',
   },
 
   searchBtn: {

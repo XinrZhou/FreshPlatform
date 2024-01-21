@@ -15,12 +15,14 @@ import AnimateBanner from "../../components/AnimateBanner";
 import StickyHeader from "./StickyHeader";
 import GoodsFeeds from "../../components/GoodsFeeds";
 import TopNav from "../../components/TopNav";
+import SelfPickUpPoint from "../../components/SelfPickUpPoint";
 
 const data = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: '精品草莓',
     price: '20.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -31,6 +33,7 @@ const data = [
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     name: '精品车厘子',
     price: '50.99',
+    saleAttribute: '限时秒杀',
     image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -41,6 +44,7 @@ const data = [
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     name: '精品黄瓜',
     price: '5.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购"
@@ -50,6 +54,7 @@ const data = [
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2222',
     name: '精品草莓',
     price: '20.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -60,6 +65,7 @@ const data = [
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa456',
     name: '精品车厘子',
     price: '50.99',
+    saleAttribute: '百亿补贴',
     image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -70,6 +76,7 @@ const data = [
     id: '58694a0f-3da1-471f-bd96-145571e246456',
     name: '精品黄瓜',
     price: '5.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购"
@@ -79,6 +86,7 @@ const data = [
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abbfdsf',
     name: '精品草莓',
     price: '20.99',
+    saleAttribute: '百亿补贴',
     image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -89,6 +97,7 @@ const data = [
     id: '3ac68afc-c605-48d3-a4f8-fbd91aavgrtg',
     name: '精品车厘子',
     price: '50.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购",
@@ -99,6 +108,7 @@ const data = [
     id: '58694a0f-3da1-471f-bd96-145571e29dooo',
     name: '精品黄瓜',
     price: '5.99',
+    saleAttribute: '年货节',
     image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
     tags: [
       "年货超值购"
@@ -139,16 +149,7 @@ const Home: React.JSX.Element = () => {
             showBackIcon={false}
             themeColor="#fff"
           />
-          <View style={styles.rightArea}>
-            <Text style={styles.rightText}>
-            自提点：天猫超市
-            </Text>
-            <Icon 
-              name="icon-right"
-              size={16}
-              color={'#fff'}
-            />
-          </View>
+          <SelfPickUpPoint themeColor="#fff"/>
         </View>
         <Image
           style={styles.headerBackground} 
@@ -195,17 +196,6 @@ const styles = StyleSheet.create({
     height: 60,
     paddingLeft: 10, 
     paddingRight: 10,
-  },
-
-  rightArea: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  rightText: {
-    color: '#fff',
-    fontSize: 16,
   },
 
   headerBackground: {

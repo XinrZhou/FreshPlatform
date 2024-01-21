@@ -12,14 +12,14 @@ const TopNav: React.JSX.Element = ({
   themeColor
 }) => {
   return (
-    <View style={styles.leftArea}>
+    <View style={styles.containerWrapper}>
       {
         showBackIcon && (
           <Icon name="icon-left" size={28} color={"#000"}/>
         )
       }
       <Text style={[
-        styles.leftText,
+        styles.contianerText,
         themeColor && {color: themeColor}
       ]}>
         {pageTitle}
@@ -29,13 +29,13 @@ const TopNav: React.JSX.Element = ({
 }
 
 const styles = StyleSheet.create({
-  leftArea: {
+  containerWrapper: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
 
-  leftText: {
+  contianerText: {
     color: "#000",
     fontSize: 24,
     fontWeight: '500',
