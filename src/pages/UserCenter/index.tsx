@@ -14,7 +14,23 @@ import SortItem from "./SortItem";
 import { Image } from "react-native-animatable";
 import SelfPickUpPoint from "../../components/SelfPickUpPoint";
 import VipCard from "./VipCard";
+import { 
+  USER_OPERATION_LIST, 
+  PLATFORM_OPERATION_LIST 
+} from "../../constants";
+import IconItem from "./IconItem";
 
+const OperationContainer = ({operationList}) => {
+  return (
+    <View style={styles.operationContainer}>
+      {
+        operationList?.map((item, index) => {
+          return <IconItem iindex={index} {...item} color={"#000"} />
+        })
+      }
+    </View>
+  )
+}
 
 const UserCenter: React.JSX.Element = () => {
 
@@ -28,10 +44,7 @@ const UserCenter: React.JSX.Element = () => {
             pageTitle="" 
             showBackIcon={true}
           />
-          <View style={styles.rightWrapper}>
-            <Text style={styles.rightText}>规则</Text>
-            <Text style={styles.rightText}>设置</Text>
-          </View>
+          <Text style={styles.rightText}>规则</Text>
         </View>
         <View style={styles.userInfoContainer}>
           <Image
@@ -49,6 +62,9 @@ const UserCenter: React.JSX.Element = () => {
         </View>
       </LinearGradient>
       <VipCard />
+      <OperationContainer operationList={USER_OPERATION_LIST} />
+      <OperationContainer operationList={PLATFORM_OPERATION_LIST} />
+
     </View>
   );
 }
@@ -61,11 +77,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  rightWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
   },
 
   rightText: {
@@ -93,6 +104,16 @@ const styles = StyleSheet.create({
   nickName: {
     fontSize: 18,
     color: '#000',
+  },
+
+  operationContainer: {
+    marginTop: 12,
+    marginHorizontal: 12,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#fff',
+    borderRadius: 16,
   }
 })
 

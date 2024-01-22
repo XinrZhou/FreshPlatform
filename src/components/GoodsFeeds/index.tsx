@@ -32,7 +32,8 @@ const GoodsFeeds: React.JSX.Element = (props={}) => {
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <FeedsItem 
+      <FeedsItem
+        key={item.id} 
         feedItem={item}
         configProps={
           props.numColumns ==FEED_COLUMS.SINGLE ? 

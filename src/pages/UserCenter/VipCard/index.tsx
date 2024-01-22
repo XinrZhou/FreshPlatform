@@ -3,21 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Icon } from "../../../assets/fonts";
 import { CARD_CONTENT_LIST } from "../../../constants";
-
-const ContentItem = ({title, iconName, color}) => {
-  return (
-    <View style={styles.itemWrapper}>
-      <Icon 
-        size={40} 
-        color={'#8D4200'}
-        name={iconName}
-      />
-      <Text style={styles.itemTitle}>
-        {title}
-      </Text>
-    </View>
-  )
-}
+import IconItem from "../IconItem";
 
 const VipCard: React.JSX.Element = () => {
 
@@ -36,7 +22,7 @@ const VipCard: React.JSX.Element = () => {
         <Text style={styles.contentTitle}>享4大权益</Text>
         {
           CARD_CONTENT_LIST.map((item, index) => {
-            return <ContentItem key={index} {...item} />
+            return <IconItem key={index} {...item} color={"#000"}/>
           })
         }
       </View>
@@ -59,9 +45,9 @@ const styles = StyleSheet.create({
   },
 
   cardTitle: {
+    marginRight: 12,
     fontSize: 20,
     fontWeight: 'bold',
-    marginRight: 12,
   },
 
   cardContent: {
@@ -76,19 +62,8 @@ const styles = StyleSheet.create({
 
   contentTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#000',
   },
-
-  itemWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  itemTitle: {
-    textAlign: 'center',
-    color: '#8D4200'
-  }
 });
 
 export default VipCard;
