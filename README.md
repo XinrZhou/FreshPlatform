@@ -40,3 +40,37 @@ android/app/src/main/build.gradle 添加`apply from: file("../../node_modules/re
 
 说明：react native ≥ 0.60，自动 link，删除 android 文件夹下的 *.tff 文件即可编译成功
 
+### 安装 react-native-numeric-input 报错
+
+之前安装 `react-native-vector-icons` 版本为10.x，而 `react-native-numeric-input`支持的vector-icons版本为9.x，将vector-icons降级即可  
+
+```bash
+npm install react-native-vector-icons@9
+```
+
+### Text不同字号文字无法对齐
+
+为小号字体设置 `line-height`，值与大号字体`fontSize`相同
+
+```css
+  priceWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+
+  priceInteger: {
+    includeFontPadding: false,
+    color: '#FF5043',
+    fontSize: 24,
+    fontWeight: '600',
+  },
+
+  priceDecimal: {
+    color: '#FF5043',
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 24,
+  },
+```

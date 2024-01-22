@@ -1,8 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image } from "react-native";
+import { 
+  View, 
+  Text, 
+  SafeAreaView, 
+  ImageBackground, 
+  StyleSheet, 
+  Image 
+} from "react-native";
 import * as Animatable from 'react-native-animatable';
-import BannerCard from "./BannerCard";
-import { Icon } from "../../assets/fonts";
+import BannerCard from "./Card";
+import { Icon } from "assets/fonts";
 
 const customFlipInX = {
   0: {

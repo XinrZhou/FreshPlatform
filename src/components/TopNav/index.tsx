@@ -1,10 +1,7 @@
 import React from "react";
-import { 
-  View, 
-  Text,
-  StyleSheet
-} from "react-native";
-import { Icon } from "../../assets/fonts";
+import { View, Text,StyleSheet } from "react-native";
+import { Icon } from "assets/fonts";
+
 
 const TopNav: React.JSX.Element = ({
   pageTitle,

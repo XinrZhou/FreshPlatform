@@ -1,8 +1,8 @@
-import React from 'react';
-import {StyleSheet, Animated} from 'react-native';
-import {useRef} from 'react';
+import React, { useRef } from 'react';
+import { StyleSheet, Animated } from 'react-native';
 import { Text } from 'react-native-animatable';
-import SearchBar from '../../components/SearchBar';
+import SearchBar from 'components/SearchBar';
+import { Icon } from 'assets/fonts';
 
 const StickyHeader: React.JSX.Element = ({
   stickyTopY = null,

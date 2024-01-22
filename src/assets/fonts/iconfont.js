@@ -1,4 +1,6 @@
 export default {
+  "icon-icons-": 58988,
+  "icon-yuan": 59443,
   "icon-shengxian_xia": 58915,
   "icon-shucai": 58886,
   "icon-liwu1": 59062,

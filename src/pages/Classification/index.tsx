@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  Text, 
-  StyleSheet,
-  ScrollView 
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import SearchBar from "../../components/SearchBar";
-import TopNav from "../../components/TopNav";
-import ScrollNavBar from "../../components/ScrollNavBar";
-import GoodsFeeds from "../../components/GoodsFeeds";
-import SortItem from "./SortItem";
+import SearchBar from "components/SearchBar";
+import TopNav from "components/TopNav";
+import ScrollNavBar from "components/ScrollNavBar";
+import FeedsList from "components/FeedsList";
+import NavItem from "./NavItem";
 
 const data = [
   {
@@ -154,17 +149,17 @@ const Classification: React.JSX.Element = () => {
           <View style={styles.sortNav}>
             <Text style={styles.leftArea}>全部商品</Text>
             <View style={styles.rightArea}>
-              <SortItem 
+              <NavItem
                 name="销量"
                 attribute="saleCount"
               />
-              <SortItem 
+              <NavItem 
                 name="价格"
                 attribute="price"
               />
             </View>
           </View>
-          <GoodsFeeds data={data} numColumns={1}/>
+          <FeedsList data={data} numColumns={1}/>
         </View>
       </View>
     </View>

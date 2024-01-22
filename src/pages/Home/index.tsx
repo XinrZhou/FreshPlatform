@@ -9,13 +9,13 @@ import {
   Animated,
   ScrollView 
 } from "react-native";
-import BannerCard from "../../components/AnimateBanner/BannerCard";
-import { Icon } from "../../assets/fonts";
-import AnimateBanner from "../../components/AnimateBanner";
+import BannerCard from "components/BannerCard";
+import AnimateBanner from "components/AnimateBanner";
+import FeedsList from "components/FeedsList";
+import TopNav from "components/TopNav";
+import SelfPickUpPoint from "components/SelfPickUpPoint";
 import StickyHeader from "./StickyHeader";
-import GoodsFeeds from "../../components/GoodsFeeds";
-import TopNav from "../../components/TopNav";
-import SelfPickUpPoint from "../../components/SelfPickUpPoint";
+import { Icon } from "assets/fonts";
 
 const data = [
   {
@@ -170,7 +170,7 @@ const Home: React.JSX.Element = () => {
           <AnimateBanner />
         </View>
         {/* 商品feeds */}
-        <GoodsFeeds
+        <FeedsList
           horizontal={false}
           data={data}
           numColumns={2} 

@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { Icon } from "../../../assets/fonts";
-import { CARD_CONTENT_LIST } from "../../../constants";
 import IconItem from "../IconItem";
+import { Icon } from "assets/fonts";
+import { CARD_CONTENT_LIST } from "constants";
 
 const VipCard: React.JSX.Element = () => {
 

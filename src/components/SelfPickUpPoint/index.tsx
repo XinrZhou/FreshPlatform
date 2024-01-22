@@ -1,10 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { Icon } from "../../assets/fonts";
+import { Icon } from "assets/fonts";
 
-const SelfPickUpPoint: React.JSX.Element = ({
-  themeColor = '#fff'
-}) => {
+
+const SelfPickUpPoint: React.JSX.Element = ({ themeColor = '#fff' }) => {
   return (
     <View style={styles.containerWrapper}>
       <Text style={{

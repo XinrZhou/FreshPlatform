@@ -62,4 +62,9 @@ export const PLATFORM_OPERATION_LIST = [
     title: "商家入驻",
     iconName: "icon-hezuo"
   }
-]
+];
+
+export const FEED_BTN_TYPE = {
+  SHOP_CART: 'shopCart',
+  COUNTER: 'counter'
+}

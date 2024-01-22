@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
   View, 
   Text, 
@@ -7,9 +7,8 @@ import {
   FlatList,
   Animated 
 } from "react-native";
-import FeedsItem from "./FeedsItem";
-import FeedsRowItem from "./FeedsRowItem";
-import { FEED_COLUMS } from "../../constants";
+import FeedsItem from "./Item";
+import { FEED_COLUMS } from "constants";
 
 // '1x1'商卡配置
 const configProps = {
@@ -27,7 +26,7 @@ const configProps = {
   }
 }
 
-const GoodsFeeds: React.JSX.Element = (props={}) => {
+const FeedsList: React.JSX.Element = (props={}) => {
   const listRef = useRef<FlatList>(null);
 
   const renderItem = ({ item }: { item: any }) => {
@@ -39,6 +38,8 @@ const GoodsFeeds: React.JSX.Element = (props={}) => {
           props.numColumns ==FEED_COLUMS.SINGLE ? 
           configProps : {}
         }
+        dataList={props?.dataList}
+        setDataList={props?.setDataList}
       />
     )
   }
@@ -64,4 +65,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default GoodsFeeds;
+export default FeedsList;

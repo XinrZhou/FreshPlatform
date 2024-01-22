@@ -1,11 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Icon } from "../../assets/fonts";
+import { Icon } from "assets/fonts";
 
-const SortItem: React.JSX.Element = ({
-  name,
-  attribute,
-}: {
+const NavItem: React.JSX.Element = ({ name, attribute }: {
   name: string,
   attribute: string, 
 }) => {
@@ -43,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SortItem;
+export default NavItem;

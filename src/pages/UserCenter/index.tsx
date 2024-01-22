@@ -3,29 +3,23 @@ import {
   View, 
   Text, 
   StyleSheet,
-  ScrollView 
+  ScrollView,
+  Image 
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import SearchBar from "../../components/SearchBar";
-import TopNav from "../../components/TopNav";
-import ScrollNavBar from "../../components/ScrollNavBar";
-import GoodsFeeds from "../../components/GoodsFeeds";
-import SortItem from "./SortItem";
-import { Image } from "react-native-animatable";
-import SelfPickUpPoint from "../../components/SelfPickUpPoint";
+import TopNav from "components/TopNav";
+import SelfPickUpPoint from "components/SelfPickUpPoint";
 import VipCard from "./VipCard";
-import { 
-  USER_OPERATION_LIST, 
-  PLATFORM_OPERATION_LIST 
-} from "../../constants";
 import IconItem from "./IconItem";
+import { USER_OPERATION_LIST, PLATFORM_OPERATION_LIST } from "constants";
+
 
 const OperationContainer = ({operationList}) => {
   return (
     <View style={styles.operationContainer}>
       {
         operationList?.map((item, index) => {
-          return <IconItem iindex={index} {...item} color={"#000"} />
+          return <IconItem key={index} {...item} color={"#000"} />
         })
       }
     </View>
@@ -71,7 +65,7 @@ const UserCenter: React.JSX.Element = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 12,
+    marginTop: 16,
     marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'row',

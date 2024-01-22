@@ -5,3 +5,12 @@ export const getPrice = (price: number) => {
 
   return priceArr;
 }
+
+// 获取商品总价
+export const getTotalPrice = (dataList: Array) => {
+  let totalPrice = 0;
+  dataList?.forEach((item) => {
+    totalPrice += item.price * item.count;
+  });
+  return totalPrice.toFixed(2);
+}

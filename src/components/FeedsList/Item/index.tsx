@@ -1,18 +1,39 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, Button, Pressable } from "react-native";
-import { getPrice } from "../../../utils";
-import { Icon } from "../../../assets/fonts";
-import { FEED_COLUMS } from "../../../constants";
+import React, { useState } from "react";
+import { 
+  View, 
+  Text, 
+  Image, 
+  StyleSheet, 
+  Button, 
+  Pressable 
+} from "react-native";
+import NumericInput from 'react-native-numeric-input';
+import { Icon } from "assets/fonts";
+import { FEED_COLUMS } from "constants";
+import SalePrice from "../../SalePrice";
 
-const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
-  const { name, price, image, tags, saleAttribute } = feedItem;
-  const { 
-    imageProps = {}, 
-    containerProps = {}, 
-    contentProps = {} 
-  } = configProps;
+
+const FeedsItem: React.JSX.Element = ({
+  feedItem = {}, 
+  configProps = {},
+  dataList = [],
+  isNumeric = false,
+  setDataList = () => {},
+}) => {
+  const { name, price, image, tags, saleAttribute, count, id } = feedItem;
+  const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
+
+  const [itemCount, setItemCount] = useState(count)
 
   const onPress = () => console.log('press...')
+  
+  const onNumericValueChange = ((value: number) => {
+    const newDataList = dataList.map((item, index) => {
+      return item.id === id ? {...item, count: value} : item;
+    })
+    setItemCount(value);
+    setDataList(newDataList);
+  })
 
   return (
     <View style={[styles.itemContainer, {...containerProps}]}>
@@ -51,20 +72,22 @@ const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
           }
         </View>
         <View style={styles.bottomWrapper}>
-          <View style={styles.itemPrice}>
-            <Text style={styles.priceDecimal}>
-              ￥
-            </Text>
-            <Text style={styles.priceInteger}>
-              {getPrice(price)?.[0]}
-            </Text>
-            <Text style={styles.priceDecimal}>
-              .{getPrice(price)?.[1]}
-            </Text>
-          </View>
-          <Pressable style={styles.addCartBtn} onPress={onPress}>
-            <Icon name="icon-cart" size={20} color={'#fff'}/>
-          </Pressable>
+          <SalePrice price={price} />
+          {
+            isNumeric ?
+              <NumericInput
+                rounded
+                value={itemCount}
+                minValue={1}
+                maxValue={999}
+                totalWidth={80}
+                iconStyle={{color: '#000'}}
+                onChange={onNumericValueChange}
+              /> :
+              <Pressable style={styles.addCartBtn} onPress={onPress}>
+                <Icon name="icon-cart" size={20} color={'#fff'}/>
+              </Pressable>
+          }
         </View>
       </View>
     </View>
@@ -73,6 +96,7 @@ const FeedsItem: React.JSX.Element = ({feedItem = {}, configProps = {}}) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
+    flex: 1,
     marginTop: 8,
     marginBottom: 8,
     backgroundColor: '#fff',
@@ -130,28 +154,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-
-  itemPrice: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-
-  priceInteger: {
-    includeFontPadding: false,
-    bottom: -2,
-    color: '#FF5043',
-    fontSize: 24,
-    fontWeight: '600',
-  },
-
-  priceDecimal: {
-    includeFontPadding: false,
-    color: '#FF5043',
-    fontSize: 16,
-    fontWeight: '600',
   },
 
   addCartBtn: {

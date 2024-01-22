@@ -1,14 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { Icon } from '../../../assets/fonts'
+import { Icon } from 'assets/fonts'
 
 const IconItem: React.JSX.Element = ({title, iconName, color}) => {
   return (
     <View style={styles.itemWrapper}>
       <Icon 
-        size={40} 
+        size={32} 
         color={color}
-        // color={'#8D4200'}
         name={iconName}
       />
       <Text style={styles.itemTitle}>

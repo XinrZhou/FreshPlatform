@@ -1,6 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Text, Pressable } from "react-native";
-import { Icon } from "../../assets/fonts";
+import { 
+  StyleSheet, 
+  View, 
+  TextInput, 
+  Text, 
+  Pressable 
+} from "react-native";
+import { Icon } from "assets/fonts";
+
 
 const SearchBar: React.JSX.Element = ({
   isScroll = false
