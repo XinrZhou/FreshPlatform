@@ -2,113 +2,75 @@ import React, { useState } from "react";
 import { 
   View, 
   Text, 
-  StyleSheet,
-  ScrollView,
   Image 
 } from "react-native";
+import { InputItem, List, Button} from "@ant-design/react-native";
 import LinearGradient from "react-native-linear-gradient";
-import TopNav from "components/TopNav";
-import SelfPickUpPoint from "components/SelfPickUpPoint";
-import VipCard from "./VipCard";
-import IconItem from "./IconItem";
-import { USER_OPERATION_LIST, PLATFORM_OPERATION_LIST } from "constants";
-
-
-const OperationContainer = ({operationList}) => {
-  return (
-    <View style={styles.operationContainer}>
-      {
-        operationList?.map((item, index) => {
-          return <IconItem key={index} {...item} color={"#000"} />
-        })
-      }
-    </View>
-  )
-}
+import CustomStyleSheet from "../../styles";
 
 const UserCenter: React.JSX.Element = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.containerWrapper}>
-      <LinearGradient
-        colors={['#FBEDBF', '#FEF3F1']} 
-      >
-        <View style={styles.headerContainer}>
-          <TopNav 
-            pageTitle="" 
-            showBackIcon={true}
+    <View style={[
+      styles.flexContainer,
+      styles.containerWrapper
+    ]}>
+      <View style={[styles.flexContainer]}>
+        <Image
+          source={{
+            width: 160,
+            height: 160,
+            uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/v2-812e699a6105d9681d9855b1e61adad2_xll.png',
+          }}
+        />
+        <Text style={styles.title}>欢迎来到Sirius 开启鲜美生活</Text>
+      </View>
+      <View  style={styles.formContainer}>
+        <List>
+          <InputItem
+            value={userName}
+            type="phone"
+            clear={true}
+            placeholder="请输入手机号"
+            onChange={value => setUserName(value)}
           />
-          <Text style={styles.rightText}>规则</Text>
-        </View>
-        <View style={styles.userInfoContainer}>
-          <Image
-            width={68}
-            height={68}
-            source={{
-              uri: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.9IFFP25NR6-Rna3JUzGMpgHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7'
-            }}
-            style={styles.avatar}
+           <InputItem 
+            value={password}
+            clear={true}
+            placeholder="请输入密码"
+            onChange={value => setPassword(value)}
           />
-          <View style={styles.detailInfoWrapper}>
-            <Text style={styles.nickName}>香菜</Text>
-            <SelfPickUpPoint themeColor="#959595"/>
-          </View>
-        </View>
-      </LinearGradient>
-      <VipCard />
-      <OperationContainer operationList={USER_OPERATION_LIST} />
-      <OperationContainer operationList={PLATFORM_OPERATION_LIST} />
-
+        </List>
+        <Button type="primary">
+          登录
+        </Button>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    marginTop: 16,
-    marginHorizontal: 8,
+const styles = CustomStyleSheet.create({
+  flexContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
-
-  rightText: {
-    marginRight: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  userInfoContainer: {
-    margin: 12,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-
-  detailInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-  },
-
-  avatar: {
-    borderRadius: 34,
-    marginRight: 12,
-  },
-
-  nickName: {
-    fontSize: 18,
-    color: '#000',
-  },
-
-  operationContainer: {
-    marginTop: 12,
-    marginHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+  containerWrapper: {
+    height: 750,
     backgroundColor: '#fff',
-    borderRadius: 16,
-  }
+    gap: 10,
+  },
+  title: {
+    color: '#1476fd'
+  },
+  formContainer: {
+    marginTop: 20,
+    width: 260,
+    gap: 20
+  },
 })
 
 export default UserCenter;
