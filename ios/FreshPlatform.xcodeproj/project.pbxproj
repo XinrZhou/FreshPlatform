@@ -14,7 +14,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-FreshPlatform-FreshPlatformTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-FreshPlatform-FreshPlatformTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		3B01BE45313F487A8EED6AD8 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 939C97A4AAAA4D678226598C /* iconfont.ttf */; };
+		C10917BD901048A2B80B3957 /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F4292EE5AA7429EB7EBDBEC /* antfill.ttf */; };
+		3CFA81AA72ED4576A8EA8DCD /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACA08E6AF33F4FD6B686D8B5 /* antoutline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FreshPlatform/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-FreshPlatform-FreshPlatformTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreshPlatform-FreshPlatformTests.release.xcconfig"; path = "Target Support Files/Pods-FreshPlatform-FreshPlatformTests/Pods-FreshPlatform-FreshPlatformTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		939C97A4AAAA4D678226598C /* iconfont.ttf */ = {isa = PBXFileReference; name = "iconfont.ttf"; path = "../src/assets/fonts/iconfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F4292EE5AA7429EB7EBDBEC /* antfill.ttf */ = {isa = PBXFileReference; name = "antfill.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ACA08E6AF33F4FD6B686D8B5 /* antoutline.ttf */ = {isa = PBXFileReference; name = "antoutline.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +156,8 @@
 		F2E9F81902F1484396DD6E6F /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				939C97A4AAAA4D678226598C /* iconfont.ttf */,
+				5F4292EE5AA7429EB7EBDBEC /* antfill.ttf */,
+				ACA08E6AF33F4FD6B686D8B5 /* antoutline.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -255,7 +258,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				3B01BE45313F487A8EED6AD8 /* iconfont.ttf in Resources */,
+				C10917BD901048A2B80B3957 /* antfill.ttf in Resources */,
+				3CFA81AA72ED4576A8EA8DCD /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

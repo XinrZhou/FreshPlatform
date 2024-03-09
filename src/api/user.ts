@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./http";
 
 // 登录
 export function goLogin(data) {

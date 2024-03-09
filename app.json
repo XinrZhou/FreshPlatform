@@ -1,4 +1,7 @@
 {
   "name": "FreshPlatform",
-  "displayName": "FreshPlatform"
+  "displayName": "FreshPlatform",
+  "packagerOpts": {
+    "config": "metro.config.js"
+  }
 }

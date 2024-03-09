@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import Icon from "react-native-vector-icons/AntDesign"
-import { Icon } from '../assets/fonts';
+import { Icon } from '@ant-design/react-native';
 import Home from "../pages/Home";
 import Classification from "../pages/Classification";
 import ShoppingCart from "../pages/ShoppingCart";
-import UserCenter from "../pages/UserCenter";
+import UserCenterStack from './stack/userCenter';
+import ShoppingCartStack from './stack/shoppingCart';
 
 const Tab = createBottomTabNavigator(); 
 
@@ -24,7 +24,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-home" color={color} size={size} />
+              <Icon name="home" color={color} size={size}  />
             )
           }}
         />
@@ -34,27 +34,27 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-fenlei" color={color} size={size} />
+              <Icon name="bars" color={color} size={size} />
             )
           }} 
         />
         <Tab.Screen 
           name="购物车" 
-          component={ShoppingCart} 
+          component={ShoppingCartStack} 
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-cart" color={color} size={size} />
+              <Icon name="shopping-cart" color={color} size={size} />
             )
           }}
         />
         <Tab.Screen 
           name="我的" 
-          component={UserCenter} 
+          component={UserCenterStack} 
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-people" color={color} size={size} />
+              <Icon name="user" color={color} size={size} />
             )
           }}
         />

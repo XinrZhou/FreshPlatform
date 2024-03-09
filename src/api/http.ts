@@ -1,13 +1,14 @@
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const service = axios.create({
-    baseURL: 'http://localhost:8080/',
+    baseURL: 'http://192.168.1.11:8080',
     timeout: 20000
 });
 
 // request interceptor
-service.interceptors.request.use((config: any) => {
-  const token: string | null = sessionStorage.getItem('TOKEN');
+service.interceptors.request.use(async (config: any) => {
+  const token: string | null = await AsyncStorage.getItem('token');
   if (token) {
     config.headers['token'] = token;
   }
@@ -21,7 +22,6 @@ service.interceptors.response.use((response: any) => {
   if (response.data.code === 200) {
     return response;
   } else {
-    ElMessage.error(response.data.message);
     return Promise.reject(new Error(response.data.message));
   }
 }, error => {
@@ -29,12 +29,4 @@ service.interceptors.response.use((response: any) => {
   return Promise.reject(error);
 });
 
-// request handler
-service (options)
-  .then ((res) => {
-    resolve(res);
-  })
-  .catch ((error) => {
-    reject(error);
-  });
 export default service;
