@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Icon } from "../../assets/fonts";
 import LinearGradient from "react-native-linear-gradient";
-import SearchBar from "components/SearchBar";
-import TopNav from "components/TopNav";
 import ScrollNavBar from "components/ScrollNavBar";
 import FeedsList from "components/FeedsList";
 import NavItem from "./NavItem";
+import SearchBar from "./SearchBar";
 
 const data = [
   {
@@ -115,10 +115,7 @@ const Classification: React.JSX.Element = () => {
         colors={['#FBEDBF', '#FEF3F1']} 
       >
         <View style={styles.headerContainer}>
-          <TopNav 
-            pageTitle="分类" 
-            showBackIcon={true}
-          />
+          <Icon name="icon-left" size={24} color={"#000"}/>
           <SearchBar />
         </View>
         <ScrollNavBar navList={navList}/>

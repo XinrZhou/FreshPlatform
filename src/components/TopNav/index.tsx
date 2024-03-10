@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text,StyleSheet } from "react-native";
-import { Icon } from "assets/fonts";
+import { Icon } from "@ant-design/react-native";
 
 
 const TopNav: React.JSX.Element = ({
@@ -12,15 +12,9 @@ const TopNav: React.JSX.Element = ({
     <View style={styles.containerWrapper}>
       {
         showBackIcon && (
-          <Icon name="icon-left" size={28} color={"#000"}/>
+          <Icon name="left" size={24} color={"#000"}/>
         )
       }
-      <Text style={[
-        styles.contianerText,
-        themeColor && {color: themeColor}
-      ]}>
-        {pageTitle}
-      </Text>
     </View>
   )
 }

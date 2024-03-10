@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   View, 
   Text, 
@@ -10,7 +10,7 @@ import LinearGradient from "react-native-linear-gradient";
 import CustomStyleSheet from "styles";
 import { login } from '../../store/slices/userSlice';
 
-const LoginPage: React.JSX.Element = ({navigation}: any) => {
+const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -20,9 +20,14 @@ const LoginPage: React.JSX.Element = ({navigation}: any) => {
     }
   })
 
+  useEffect(() => {
+    if (isLogin) {
+      navigation.navigate(route.params.nextPage);
+    }
+  }, [isLogin])
+
   const handleLogin = () => {
     dispatch(login({ number, password }));
-    isLogin && navigation.navigate("UserCenter");
   }
 
   return (

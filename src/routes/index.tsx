@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from '@ant-design/react-native';
+import { Icon } from '../assets/fonts';
 import Home from "../pages/Home";
 import Classification from "../pages/Classification";
-import ShoppingCart from "../pages/ShoppingCart";
 import UserCenterStack from './stack/userCenter';
 import ShoppingCartStack from './stack/shoppingCart';
 
@@ -15,7 +14,7 @@ function BottomTabNavigator(): React.JSX.Element {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: '#f03726',
+          tabBarActiveTintColor: '#17A3D4',
         }}
       >
         <Tab.Screen 
@@ -24,7 +23,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="home" color={color} size={size}  />
+              <Icon name="icon-home" color={color} size={size}  />
             )
           }}
         />
@@ -34,7 +33,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="bars" color={color} size={size} />
+              <Icon name="icon-fenlei" color={color} size={size} />
             )
           }} 
         />
@@ -44,7 +43,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="shopping-cart" color={color} size={size} />
+              <Icon name="icon-gouwuche" color={color} size={size} />
             )
           }}
         />
@@ -54,7 +53,7 @@ function BottomTabNavigator(): React.JSX.Element {
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (
-              <Icon name="user" color={color} size={size} />
+              <Icon name="icon-people" color={color} size={size} />
             )
           }}
         />

@@ -6,7 +6,8 @@ import {
   Text, 
   Pressable 
 } from "react-native";
-import { Icon } from "assets/fonts";
+import { Icon } from "@ant-design/react-native";
+// import { Icon } from "assets/fonts";
 
 
 const SearchBar: React.JSX.Element = ({
@@ -24,7 +25,7 @@ const SearchBar: React.JSX.Element = ({
         isScroll && styles.scrollContainer
       ]}>
         <Icon 
-          name="icon-sousuo"
+          name="search"
           size={24}
           style={styles.searchIcon}
         />

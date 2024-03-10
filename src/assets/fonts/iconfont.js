@@ -1,4 +1,9 @@
 export default {
+  "icon-552cc1babd9aa": 58882,
+  "icon-left": 58898,
+  "icon-didian": 58909,
+  "icon-gouwuche": 59336,
+  "icon-send-o": 59194,
   "icon-icons-": 58988,
   "icon-yuan": 59443,
   "icon-shengxian_xia": 58915,
@@ -19,11 +24,7 @@ export default {
   "icon-pingjiabaoxian": 59447,
   "icon-a-fukuan3": 60229,
   "icon-laba": 58893,
-  "icon-left": 59453,
-  "icon-right": 59456,
-  "icon-search": 58938,
   "icon-list": 59010,
-  "icon-cart": 59055,
   "icon-home": 59064,
   "icon-people": 59190,
   "icon-fenlei": 58927

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Icon } from "assets/fonts";
+import { Icon } from "@ant-design/react-native";
 
 const NavItem: React.JSX.Element = ({ name, attribute }: {
   name: string,
@@ -10,14 +10,8 @@ const NavItem: React.JSX.Element = ({ name, attribute }: {
     <View style={styles.itemWrapper}>
       <Text>{name}</Text>
       <View style={styles.iconWrapper}>
-        <Icon 
-          name="icon-top" 
-          size={18} 
-        />
-        <Icon 
-          name="icon-down" 
-          size={18} 
-        />
+        <Icon name="up" size={10} />
+        <Icon name="down" size={10} />
       </View>
     </View>
   )
@@ -33,7 +27,6 @@ const styles = StyleSheet.create({
   
   iconWrapper: {
     height: 12,
-    marginTop: -4,
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
