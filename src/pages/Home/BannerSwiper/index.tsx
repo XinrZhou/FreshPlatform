@@ -4,12 +4,16 @@ import Swiper from 'react-native-swiper';
 import CustomStyleSheet from "styles";
 import { Icon } from "assets/fonts";
 
-const BannerSwiper: React.JSX.Element = () => {
+const BannerSwiper: React.JSX.Element = ({
+  handleSwiperChange,
+}) => {
 
   return (
     <Swiper style={styles.swiper} 
       showsButtons={false} 
       autoplay
+      autoplayTimeout={5}
+      onIndexChanged={index => handleSwiperChange(index)}
     >
       <Image
         source={{
@@ -19,7 +23,7 @@ const BannerSwiper: React.JSX.Element = () => {
       />
       <Image
         source={{
-          uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143355054.jpg'
+          uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143370862.jpg'
         }}
         style={styles.swiperImage}
       />
@@ -28,6 +32,9 @@ const BannerSwiper: React.JSX.Element = () => {
 }
 
 const styles = CustomStyleSheet.create({
+  swiper: {
+    borderRadius: 16,
+  },
   swiperImage: {
     width: '100%',
     height: '100%',

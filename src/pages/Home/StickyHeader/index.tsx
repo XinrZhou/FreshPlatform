@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Animated } from 'react-native';
 import { Text } from 'react-native-animatable';
-import SearchBar from 'components/SearchBar';
+import SearchBar from '../SearchBar';
 import { Icon } from 'assets/fonts';
 
 const StickyHeader: React.JSX.Element = ({
   stickyTopY = null,
   stickyScrollY,
-  isScroll = false
+  isScroll = false,
+  themeColor = '',
 }) => {
   let stickyLayoutY = useRef(0).current;
   const y = stickyScrollY !== null ? stickyTopY : stickyLayoutY;
@@ -32,7 +33,7 @@ const StickyHeader: React.JSX.Element = ({
           ],
         },
       ]}>
-      <SearchBar isScroll={isScroll} />
+      <SearchBar isScroll={isScroll} themeColor={themeColor}/>
     </Animated.View>
   );
 };

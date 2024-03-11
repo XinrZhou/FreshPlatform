@@ -9,7 +9,8 @@ import {
 
 
 const SearchBar: React.JSX.Element = ({
-  isScroll = false
+  isScroll = false,
+  themeColor = '#FF5043',
 }) => {
   const [ searchText, setSearchText ] = useState('');
 
@@ -20,7 +21,7 @@ const SearchBar: React.JSX.Element = ({
     ]}>
       <View style={[
         styles.searchContainer,
-        isScroll && styles.scrollContainer
+        isScroll && styles.scrollContainer,
       ]}>
         <TextInput 
           defaultValue={searchText}
@@ -28,6 +29,7 @@ const SearchBar: React.JSX.Element = ({
         />
         <Pressable style={[
           styles.searchBtn,
+          { backgroundColor: themeColor },
           isScroll && styles.scrollBtn
         ]}>
           <Text style={styles.btnText}>搜索</Text>
@@ -73,7 +75,6 @@ const styles = StyleSheet.create({
     right: 2,
     width: 66,
     borderRadius: 36,
-    backgroundColor: '#FF5043',
   },
 
   scrollBtn: {
