@@ -5,7 +5,7 @@ import {
   Image 
 } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import { InputItem, List, Button, Icon} from "@ant-design/react-native";
+import { InputItem, List, Button} from "@ant-design/react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CustomStyleSheet from "styles";
 import { login } from '../../store/slices/userSlice';

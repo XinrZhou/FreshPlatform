@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "postinstall": "patch-package",
     "build:iconfont": "iconfonttojson ./src/assets/fonts/iconfont.css"
   },
   "dependencies": {
@@ -27,8 +28,10 @@
     "axios": "^1.6.7",
     "babel-plugin-import": "^1.13.8",
     "babel-plugin-module-resolver": "^5.0.0",
+    "deprecated-react-native-prop-types": "^5.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
-    "react-native": "0.73.2",
+    "react-native": "^0.73.2",
     "react-native-animatable": "^1.4.0",
     "react-native-asset": "^2.1.1",
     "react-native-check-box": "^2.1.7",
@@ -39,6 +42,7 @@
     "react-native-pager-view": "^6.2.3",
     "react-native-safe-area-context": "^4.8.2",
     "react-native-screens": "^3.29.0",
+    "react-native-swiper": "^1.6.0-rc.3",
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^9.1.0",
@@ -57,6 +61,7 @@
     "babel-jest": "^29.6.3",
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
+    "patch-package": "^8.0.0",
     "prettier": "2.8.8",
     "react-test-renderer": "18.2.0",
     "typescript": "5.0.4"

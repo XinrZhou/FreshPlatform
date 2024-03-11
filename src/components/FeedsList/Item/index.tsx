@@ -85,7 +85,7 @@ const FeedsItem: React.JSX.Element = ({
                 onChange={onNumericValueChange}
               /> :
               <Pressable style={styles.addCartBtn} onPress={onPress}>
-                <Icon name="icon-cart" size={20} color={'#fff'}/>
+                <Icon name="icon-gouwuche" size={20} color={'#fff'}/>
               </Pressable>
           }
         </View>

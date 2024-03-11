@@ -1,242 +1,172 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Icon } from "../../assets/fonts";
-import LinearGradient from "react-native-linear-gradient";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "assets/fonts";
+import { CATEGORY_LEVEL } from "constants/enums";
+import { getCategoryList, getCategoryListByParentId } from "store/slices/classificationSlice";
+import CustomStyleSheet from "styles";
 import ScrollNavBar from "components/ScrollNavBar";
+import ScrollSquareNav from "./ScrollSquareNav";
 import FeedsList from "components/FeedsList";
 import NavItem from "./NavItem";
 import SearchBar from "./SearchBar";
+import { Category } from "/types/type";
 
-const data = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: '精品草莓',
-    price: '20.99',
-    image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    name: '精品车厘子',
-    price: '50.99',
-    image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    name: '精品黄瓜',
-    price: '5.99',
-    image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购"
-    ]
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2222',
-    name: '精品草莓',
-    price: '20.99',
-    image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa456',
-    name: '精品车厘子',
-    price: '50.99',
-    image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e246456',
-    name: '精品黄瓜',
-    price: '5.99',
-    image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购"
-    ]
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abbfdsf',
-    name: '精品草莓',
-    price: '20.99',
-    image: 'https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aavgrtg',
-    name: '精品车厘子',
-    price: '50.99',
-    image: 'https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购",
-      "年终大促"
-    ]
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29dooo',
-    name: '精品黄瓜',
-    price: '5.99',
-    image: 'https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain',
-    tags: [
-      "年货超值购"
-    ]
-  },
-];
+const NAV_IMAGE_URL = "https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/QQ%E5%9B%BE%E7%89%8720240311130900.png";
 
 const Classification: React.JSX.Element = () => {
-  const [navList, setNavList] = useState([
-    { id: 1, name: '推荐', url: "https://th.bing.com/th/id/OIP.laihirSzYwAEHE4NPX_EfwHaE8?rs=1&pid=ImgDetMain", price: '9.9秒杀' },
-    { id: 2, name: '蔬菜', url: "https://th.bing.com/th/id/OIP.bstf-HJs-456v538Q2LOzAHaHa?rs=1&pid=ImgDetMain", price: '9.9秒杀' },
-    { id: 3, name: '肉蛋', url: "https://th.bing.com/th/id/OIP.gwl6hSA6Z0zOWr0sKpwIDwHaHa?rs=1&pid=ImgDetMain", price: '9.9秒杀' },
-    { id: 4, name: '水果', url: "https://th.bing.com/th/id/OIP.eqrTC1DowWkUJAq0KJCMHwHaEl?rs=1&pid=ImgDetMain", price: '满199减30' },
-  ])
-  const [colNavList, setColNavList] = useState([
-    "全部商品", "叶菜", "土豆根茎", "菌菇", "调味蔬菜"
-  ]); 
   const [colNavActiveIndex, setColNavActiveIndex] = useState(0);
+  const [rowNavActiveIndex, setRowNavActiveIndex] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategoryList(CATEGORY_LEVEL.FIRST));
+  }, []);
+
+  const { firstCategoryList, secondCategoryList, thirdCategoryList } = useSelector(state => state.classification);
+
+  useEffect(() => {
+    if (firstCategoryList.length > 0) {
+      const pid = firstCategoryList[0].id;
+      dispatch(getCategoryListByParentId({ pid, level: CATEGORY_LEVEL.SECOND }));
+    }
+  }, [firstCategoryList]);
+
+  useEffect(() => {
+    if (secondCategoryList.length > 0) {
+      const pid = secondCategoryList[0].id;
+      dispatch(getCategoryListByParentId({ pid, level: CATEGORY_LEVEL.THIRD }));
+    }
+  }, [secondCategoryList]);
+
+  const handleNavIndexChange = (index: number, pid: string) => {
+    dispatch(getCategoryListByParentId({ pid, level: CATEGORY_LEVEL.SECOND }));
+  };
+
+  const handleColNavIndexChange = (index: number, item: Category) => {
+    setColNavActiveIndex(index);
+    dispatch(getCategoryListByParentId({ pid: item.id, level: CATEGORY_LEVEL.THIRD }));
+  };
+
+  const handleRowNavIndexChange = (index: number, item: Category) => {
+    setRowNavActiveIndex(index);
+  };
 
   return (
     <View>
-      <LinearGradient
-        colors={['#FBEDBF', '#FEF3F1']} 
-      >
-        <View style={styles.headerContainer}>
-          <Icon name="icon-left" size={24} color={"#000"}/>
+      <View>
+        <View style={styles.searchBox}>
+          <Icon name="icon-left" size={24} color={"#000"} />
           <SearchBar />
         </View>
-        <ScrollNavBar navList={navList}/>
-      </LinearGradient>
+        <ScrollNavBar
+          navList={firstCategoryList}
+          handleNavIndexChange={handleNavIndexChange}
+        />
+      </View>
       <View style={styles.feedsContainer}>
         <View style={styles.feedsColNav}>
-          {
-            colNavList.map((item, index) => {
-              return (
-                <Text 
-                  key={index}
-                  style={[
-                    styles.colNavItem,
-                    index === colNavActiveIndex && (
-                      styles.colNavActiveItem
-                    ),
-                    index === 0 && {borderTopLeftRadius: 24}
-                  ]} 
-                  onPress={() => setColNavActiveIndex(index)}
-                >
-                  {item}
-                </Text>
-              )
-            })
-          }
+          {secondCategoryList.map((item, index) => (
+            <Text
+              key={index}
+              style={[
+                styles.colNavItem,
+                index === colNavActiveIndex && styles.colNavActiveItem,
+                index === 0 && { borderTopLeftRadius: 24 }
+              ]}
+              onPress={() => handleColNavIndexChange(index, item)}
+            >
+              {item.name}
+            </Text>
+          ))}
         </View>
         <View style={styles.feedsWrapper}>
+          <View style={styles.feedsRowNav}>
+            <ScrollSquareNav
+              navList={thirdCategoryList}
+              handleNavIndexChange={handleRowNavIndexChange}
+            />
+            <Icon style={styles.navIcon} name="icon-down" size={24} color={"#000"} />
+          </View>
           <View style={styles.sortNav}>
-            <Text style={styles.leftArea}>全部商品</Text>
+            <Image source={{ uri: NAV_IMAGE_URL }} style={styles.leftArea} />
             <View style={styles.rightArea}>
-              <NavItem
-                name="销量"
-                attribute="saleCount"
-              />
-              <NavItem 
-                name="价格"
-                attribute="price"
-              />
+              <NavItem name="销量" attribute="saleCount" />
+              <NavItem name="价格" attribute="price" />
             </View>
           </View>
-          <FeedsList data={data} numColumns={1}/>
+          {/* <FeedsList data={data} numColumns={1} /> */}
         </View>
       </View>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  headerContainer: {
+const styles = CustomStyleSheet.create({
+  searchBox: {
     marginTop: 12,
     marginHorizontal: 8,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
   },
-
   feedsContainer: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'row',
+    height: "100%",
+    display: "flex",
+    flexDirection: "row",
     backgroundColor: "#fff",
     borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopRightRadius: 24
   },
-
   feedsColNav: {
     width: 120,
     borderTopLeftRadius: 24,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5"
   },
-
   colNavItem: {
-    top: 'auto',
-    bottom: 'auto',
-    height: 56,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    color: '#000',
-  },
-
-  colNavActiveItem: {
-    backgroundColor: '#fff',
-    color: '#FF5043',
-    fontWeight: 'bold'
-  },
-
-  colNavItem: {
-    top: 'auto',
-    bottom: 'auto',
-    height: 56,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    color: '#000',
-  },
-
-  feedsWrapper: {
-    flex: 1,
-  },
-
-  sortNav: {
+    top: "auto",
+    bottom: "auto",
     height: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    textAlign: "center",
+    textAlignVertical: "center",
+    color: "#000"
   },
-
+  colNavActiveItem: {
+    backgroundColor: "#fff",
+    color: "#17A3D4",
+    fontWeight: "bold"
+  },
+  feedsWrapper: {
+    flex: 1
+  },
+  feedsRowNav: {
+    width: "100%",
+    paddingVertical: 8,
+    display: "flex",
+    flexDirection: "row"
+  },
+  navIcon: {
+    marginHorizontal: 8
+  },
+  sortNav: {
+    marginVertical: 6,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
   leftArea: {
     flex: 1,
-    marginLeft: 12,
-    color: '#000',
-    fontSize: 16,
-    fontWeight: 'bold',
+    marginLeft: 8,
+    width: 48,
+    height: 18
   },
-
   rightArea: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly"
   }
-})
+});
 
 export default Classification;

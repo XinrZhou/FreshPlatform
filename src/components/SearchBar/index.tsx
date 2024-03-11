@@ -6,8 +6,6 @@ import {
   Text, 
   Pressable 
 } from "react-native";
-import { Icon } from "@ant-design/react-native";
-// import { Icon } from "assets/fonts";
 
 
 const SearchBar: React.JSX.Element = ({
@@ -24,11 +22,6 @@ const SearchBar: React.JSX.Element = ({
         styles.searchContainer,
         isScroll && styles.scrollContainer
       ]}>
-        <Icon 
-          name="search"
-          size={24}
-          style={styles.searchIcon}
-        />
         <TextInput 
           defaultValue={searchText}
           onChangeText={newText => setSearchText(newText)} 
@@ -63,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: "#fff",
-    height: 40,
+    height: 36,
     borderRadius: 36,
   },
 
@@ -71,11 +64,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#379E01',
     backgroundColor: '#fff',
-  },
-
-  searchIcon: {
-    marginLeft: 10,
-    color: '#959595',
   },
 
   searchBtn: {

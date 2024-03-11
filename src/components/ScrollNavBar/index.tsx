@@ -4,54 +4,64 @@ import {
   Image,
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Pressable
  } from "react-native";
  import LinearGradient from "react-native-linear-gradient";
+ import { Category } from "../../types/type";
 
 const ScrollNavBar: React.JSX.Element = ({
-  navList = []
+  navList = [],
+  handleNavIndexChange = () => {},
 }) => {
-  const [navActiveIndex, setNavActiveIndex] = useState(0)
+  const [navActiveIndex, setNavActiveIndex] = useState(0);
+
+  const onNavIndexChange = (index: number, item: Category) => {
+    setNavActiveIndex(index);
+    handleNavIndexChange(index, item.id)
+  }
 
   return (
     <ScrollView 
       horizontal
+      showsHorizontalScrollIndicator={false}
       style={styles.scrollWrapper}
     >
       {
         navList.map((item, index) => {
           return (
-            <View 
-              key={item.id} 
-              style={styles.navItemWrapper}
-              onPointerDown={() => setNavActiveIndex(index)}
-            >
-              <Image
-                source={{
-                  uri: item.url
-                }}
-                style={[
-                  styles.navItemImage,
-                  index === navActiveIndex && {borderColor: '#FF7E45'}
-                ]} 
-              />
-              {
-                index === navActiveIndex ?
-                <LinearGradient
-                  start={{ x: 0, y: 0 }} 
-                  end={{ x: 1, y: 0 }}
-                  colors={['#FF8E44', '#FF2042']}
-                  style={styles.navItemText}
-                >
-                  <Text style={{color: '#fff'}}>
-                    蔬菜
+            <Pressable onPress={() => onNavIndexChange(index, item)}>
+              <View 
+                key={item.id} 
+                style={styles.navItemWrapper}
+              >
+                <Image
+                  source={{
+                    uri: item.imageUrl
+                  }}
+                  style={[
+                    styles.navItemImage,
+                    index === navActiveIndex && {borderColor: '#08B1FE'}
+                  ]} 
+                />
+                {
+                  index === navActiveIndex ?
+                  <LinearGradient
+                    start={{ x: 0, y: 0 }} 
+                    end={{ x: 1, y: 0 }}
+                    colors={['#61C7E0', '#08B1FE']}
+                    style={styles.navItemText}
+                  >
+                    <Text style={{color: '#fff'}}>
+                      {item.name}
+                    </Text>
+                  </LinearGradient> :
+                  <Text style={styles.navItemText}>
+                    {item.name}
                   </Text>
-                </LinearGradient> :
-                <Text style={styles.navItemText}>
-                  蔬菜
-                </Text>
-              }
-            </View>
+                }
+              </View>
+            </Pressable>
           )
         })
       }
@@ -61,12 +71,12 @@ const ScrollNavBar: React.JSX.Element = ({
 
 const styles = StyleSheet.create({
   scrollWrapper: {
+    paddingHorizontal: 12,
     display: 'flex',
     flexDirection: 'row',
   },
 
   navItemWrapper: {
-    marginHorizontal: 16,
     marginVertical: 12,
     display: 'flex',
     alignItems: 'center',
@@ -82,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   navItemText: {
-    paddingHorizontal: 18,
+    paddingHorizontal: 10,
     marginTop: 6,
     color: '#000',
     borderRadius: 16,
@@ -90,7 +100,7 @@ const styles = StyleSheet.create({
 
   navItemActiveText: {
     color: '#fff',
-    backgroundColor: '#FF7E45'
+    backgroundColor: '#17A3D4'
   }
 })
 

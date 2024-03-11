@@ -7,34 +7,31 @@ import {
   Pressable 
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { Icon } from "../../../assets/fonts";
+import { Icon } from "assets/fonts";
 
 
 const SearchBar: React.JSX.Element = () => {
   const [searchText, setSearchText] = useState('');
-  const [isPress, setIsPress] = useState(true);
+  const [isPress, setIsPress] = useState(false);
 
   return (
     <View style={styles.searchWrapper}>
-      <View style={styles.searchInput}>
+      <View style={styles.searchBox}>
         <Icon 
           name="icon-sousuo"
           size={24}
           style={styles.searchIcon}
         />
-        <TextInput 
+        <TextInput
+          style={styles.searchInput}
           defaultValue={searchText}
           onChangeText={newText => setSearchText(newText)} 
+          onFocus={() => setIsPress(true)}
+          onBlur={() => setIsPress(false)}
         />
       </View>
       {
         isPress ?
-          <Icon 
-            name="icon-gouwuche"
-            size={28}
-            color="black"
-            style={styles.searchLeft}
-          /> :
           <LinearGradient 
             style={[
               styles.searchBtn,
@@ -45,7 +42,13 @@ const SearchBar: React.JSX.Element = () => {
             <Pressable>
               <Text style={styles.btnText}>搜索</Text>
             </Pressable>
-          </LinearGradient>
+          </LinearGradient> :
+          <Icon 
+            name="icon-gouwuche"
+            size={28}
+            color="black"
+            style={styles.searchLeft}
+          />
       }
     </View>
   )
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
 
-  searchInput: {
+  searchBox: {
     flex: 1,
     marginLeft: 16,
     marginRight: 16,
@@ -78,6 +81,11 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginLeft: 10,
     color: '#DDDDDD',
+  },
+
+  searchInput: {
+    height: 36,
+    width: '100%'
   },
 
   searchLeft: {

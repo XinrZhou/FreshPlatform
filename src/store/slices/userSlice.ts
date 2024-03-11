@@ -22,11 +22,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loadDataEnd: (state, {payload}) => {
-      // state.list = payload;
-      // state.totals = payload.length;
-      console.log('state===', state, payload)
-    },
   },
   extraReducers: builder => {
     builder
@@ -36,6 +31,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { loadDataEnd } = userSlice.actions;
+export const { } = userSlice.actions;
 
 export default userSlice.reducer;

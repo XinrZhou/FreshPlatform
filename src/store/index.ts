@@ -7,6 +7,7 @@ import userSlice from "./slices/userSlice.ts";
 export const store = configureStore({
   reducer: {
     home: homeSlice,
+    classification: classificationSlice,
     user: userSlice,
   }
 });

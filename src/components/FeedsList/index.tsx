@@ -31,6 +31,7 @@ const FeedsList: React.JSX.Element = (props={}) => {
 
   const renderItem = ({ item }: { item: any }) => {
     return (
+      // <Text>测试</Text>
       <FeedsItem
         key={item.id} 
         feedItem={item}

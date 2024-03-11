@@ -2,14 +2,15 @@ import React, { useState, useRef } from "react";
 import { 
   View, 
   Text, 
+  StyleSheet, 
   Image, 
   ImageBackground,
+  FlatList,
   Animated,
   ScrollView 
 } from "react-native";
-import CustomStyleSheet from "styles";
 import BannerCard from "components/BannerCard";
-import BannerSwiper from "./BannerSwiper";
+import AnimateBanner from "components/AnimateBanner";
 import FeedsList from "components/FeedsList";
 import LocationSelector from "components/LocationSelector";
 import StickyHeader from "./StickyHeader";
@@ -160,7 +161,7 @@ const Home: React.JSX.Element = () => {
         />   
         {/* banner模块 */}
         <View style={styles.bannerContainer}>
-          <BannerSwiper />
+          <AnimateBanner />
         </View>
         {/* 商品feeds */}
         <FeedsList
@@ -176,7 +177,7 @@ const Home: React.JSX.Element = () => {
   );
 }
 
-const styles = CustomStyleSheet.create({
+const styles = StyleSheet.create({
   containerWrapper: {
     height: '100%',
   },
@@ -199,8 +200,11 @@ const styles = CustomStyleSheet.create({
 
   bannerContainer: {
     marginTop: 16,
-    marginHorizontal: 20,
-    height: 160,
+    backgroundColor: '#FFEBEC',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
   },
 
   bannerTitle: {
