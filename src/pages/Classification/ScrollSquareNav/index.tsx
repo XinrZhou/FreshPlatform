@@ -11,13 +11,14 @@ import {
 
 const ScrollSquareNav: React.JSX.Element = ({
   navList = [],
+  navIndex = 0,
+  setNavIndex = () => {},
   handleNavIndexChange = () => {},
 }) => {
-  const [navActiveIndex, setNavActiveIndex] = useState(0);
 
   const onNavIndexChange = (index: number, item: Category) => {
-    setNavActiveIndex(index);
-    handleNavIndexChange(index, item.id)
+    setNavIndex(index);
+    handleNavIndexChange(index, item)
   }
 
   return (
@@ -33,14 +34,14 @@ const ScrollSquareNav: React.JSX.Element = ({
               key={item.id}
               style={[
                 styles.navButton,
-                index === navActiveIndex && styles.navActiveButton
+                index === navIndex && styles.navActiveButton
               ]}
               onPress={() => onNavIndexChange(index, item)} 
             >
               <Text
                 style={[
                   styles.navText,
-                  index === navActiveIndex && styles.navActiveText
+                  index === navIndex && styles.navActiveText
                 ]} 
               >
                 {item.name}

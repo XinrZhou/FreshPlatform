@@ -30,9 +30,11 @@ const ScrollNavBar: React.JSX.Element = ({
       {
         navList.map((item, index) => {
           return (
-            <Pressable onPress={() => onNavIndexChange(index, item)}>
+            <Pressable 
+              key={item.id} 
+              onPress={() => onNavIndexChange(index, item)}
+            >
               <View 
-                key={item.id} 
                 style={styles.navItemWrapper}
               >
                 <Image

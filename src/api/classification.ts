@@ -9,3 +9,13 @@ export function getCategories(level: number) {
 export function getCategoriesByParentId(pid: string) {
   return axios.get(`/category/category/${pid}`);
 }
+
+// 获取商品列表
+export function getProductsByCategoryId(cid: string) {
+  return axios.get(`/spu/spus/${cid}`)
+}
+
+// 获取商品详情
+export function getProductDetails(sid: string) {
+  return axios.get(`/spu/detail/${sid}`)
+}

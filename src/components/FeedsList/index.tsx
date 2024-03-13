@@ -5,7 +5,8 @@ import {
   StyleSheet, 
   SafeAreaView, 
   FlatList,
-  Animated 
+  Animated,
+  Pressable 
 } from "react-native";
 import FeedsItem from "./Item";
 import { FEED_COLUMS } from "constants";
@@ -26,22 +27,27 @@ const configProps = {
   }
 }
 
-const FeedsList: React.JSX.Element = (props={}) => {
+const FeedsList: React.JSX.Element = ({
+  data = [],
+  numColumns = 1, 
+  handleFeedsItemClick = () => {},
+}) => {
   const listRef = useRef<FlatList>(null);
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      // <Text>测试</Text>
-      <FeedsItem
-        key={item.id} 
-        feedItem={item}
-        configProps={
-          props.numColumns ==FEED_COLUMS.SINGLE ? 
-          configProps : {}
-        }
-        dataList={props?.dataList}
-        setDataList={props?.setDataList}
-      />
+      <Pressable 
+        onPress={() => handleFeedsItemClick(item)}
+      >
+        <FeedsItem
+          key={item.id} 
+          feedItem={item}
+          configProps={
+            numColumns == FEED_COLUMS.SINGLE ? configProps : {}
+          }
+          dataList={data}
+        />
+      </Pressable>
     )
   }
 
@@ -51,7 +57,8 @@ const FeedsList: React.JSX.Element = (props={}) => {
         style={styles.feedsContainer}
         keyExtractor={(item) => item.id}
         ref={listRef}
-        {...props}
+        data={data}
+        numColumns={numColumns}
         renderItem={renderItem}
       />
     </SafeAreaView> 

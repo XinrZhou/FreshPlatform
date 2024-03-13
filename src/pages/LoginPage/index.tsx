@@ -14,11 +14,7 @@ const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isLogin } = useSelector(state => {
-    return {
-      isLogin: state.user.isLogin
-    }
-  })
+  const { isLogin } = useSelector(state => state.user);
 
   useEffect(() => {
     if (isLogin) {

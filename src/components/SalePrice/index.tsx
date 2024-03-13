@@ -2,18 +2,28 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { getPrice } from "utils";
 
-const SalePrice: React.JSX.Element = ({price}) => {
+const SalePrice: React.JSX.Element = ({
+  originPrice = 0, 
+  discountPrice = 0,
+  styleProps = {},
+}) => {
+  const price = discountPrice || originPrice;
   return (
-    <View style={styles.priceWrapper}>
+    <View style={[styles.priceWrapper, styleProps]}>
       <Text style={styles.priceDecimal}>
         ￥
       </Text>
-      <Text style={styles.priceInteger}>
-        {getPrice(price)?.[0]}
-      </Text>
-      <Text style={styles.priceDecimal}>
-        .{getPrice(price)?.[1]}
-      </Text>
+      {
+        getPrice(price)?.[1] &&
+        <>
+          <Text style={styles.priceInteger}>
+            {getPrice(price)?.[0]}
+          </Text>
+          <Text style={styles.priceDecimal}>
+            .{getPrice(price)?.[1]}
+          </Text>
+        </> 
+      }
     </View>
   )
 };
@@ -28,16 +38,16 @@ const styles = StyleSheet.create({
 
   priceInteger: {
     includeFontPadding: false,
-    color: '#FF5043',
-    fontSize: 24,
+    color: '#ff502f',
+    fontSize: 28,
     fontWeight: '600',
   },
 
   priceDecimal: {
-    color: '#FF5043',
-    fontSize: 16,
+    color: '#ff502f',
+    fontSize: 20,
     fontWeight: '600',
-    lineHeight: 24,
+    lineHeight: 30,
   },
 });
 

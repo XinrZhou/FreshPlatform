@@ -20,10 +20,12 @@ const FeedsItem: React.JSX.Element = ({
   isNumeric = false,
   setDataList = () => {},
 }) => {
-  const { name, price, image, tags, saleAttribute, count, id } = feedItem;
+  const { 
+    name, imageUrl, tags, specialSpec, originPrice, discountPrice 
+  } = feedItem;
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
 
-  const [itemCount, setItemCount] = useState(count)
+  const [itemCount, setItemCount] = useState(0);
 
   const onPress = () => console.log('press...')
   
@@ -35,6 +37,10 @@ const FeedsItem: React.JSX.Element = ({
     setDataList(newDataList);
   })
 
+  const renderSpecialSpec = () => {
+    return 
+  }
+
   return (
     <View style={[styles.itemContainer, {...containerProps}]}>
       <View>
@@ -44,17 +50,10 @@ const FeedsItem: React.JSX.Element = ({
             {
               height: 220,
               width: 220,
-              uri: image
+              uri: imageUrl
             }
           }
         />
-        {
-          saleAttribute && (
-            <Text style={styles.itemAttribue}>
-              {saleAttribute}
-            </Text>
-          )
-        }
       </View>
       <View style={[styles.itemContent, {...contentProps}]}>
         <Text style={styles.itemTitle}>
@@ -62,17 +61,22 @@ const FeedsItem: React.JSX.Element = ({
         </Text>
         <View style={styles.tagWapper}>
           {
-            tags?.map(item => {
-              return (
-                <Text style={styles.itemTag}>
-                  {item}
-                </Text>
-              )
-            })
+            tags?.length > 0 && (
+              <Text style={styles.itemTag}>{tags.join(' | ')}</Text>
+            )
+          }
+          {
+            Object.values(specialSpec).flat().join(' | ') && (
+              <Text style={styles.itemTag}>
+                {
+                  Object.values(specialSpec).flat().join(' | ')
+                }
+              </Text>
+            )
           }
         </View>
         <View style={styles.bottomWrapper}>
-          <SalePrice price={price} />
+          <SalePrice  originPrice={originPrice} discountPrice={discountPrice}/>
           {
             isNumeric ?
               <NumericInput
@@ -141,13 +145,7 @@ const styles = StyleSheet.create({
 
   itemTag: {
     marginRight: 4,
-    paddingLeft: 4,
-    paddingRight: 4,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#FFD9CD',
-    color: '#FC4E00',
-    backgroundColor: '#FFF1EC',
+    color: '#999',
   },
 
   bottomWrapper: {
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
   addCartBtn: {
     padding: 6,
     borderRadius: 32,
-    backgroundColor: '#57C31F',
+    backgroundColor: '#07aefd',
   },
 })
 

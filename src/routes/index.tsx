@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '../assets/fonts';
 import Home from "../pages/Home";
-import Classification from "../pages/Classification";
+import ClassificationStack from './stack/classification';
 import UserCenterStack from './stack/userCenter';
 import ShoppingCartStack from './stack/shoppingCart';
 
@@ -29,7 +29,7 @@ function BottomTabNavigator(): React.JSX.Element {
         />
         <Tab.Screen 
           name="分类" 
-          component={Classification}
+          component={ClassificationStack}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size}) => (

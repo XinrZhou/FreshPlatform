@@ -55,7 +55,7 @@ export interface Brand {
   updateTime?: string
 };
 
-export interface Spu {
+export interface Product {
   id?: string
   name?: string
   title?: string
@@ -63,6 +63,8 @@ export interface Spu {
   brandId?: string
   imageUrl?: string
   detailImageUrl?: string
+  originPrice?: number
+  discountPrice?: number
   saleStatus?: number
   description?: string
   insertTime?: string
