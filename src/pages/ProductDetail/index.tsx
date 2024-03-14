@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, ScrollView , Text, Image, Pressable } from "react-native";
 import CustomStyleSheet from "/styles";
 import { Icon } from "/assets/fonts";
-import { getProductDetail } from "/store/slices/productSlice";
+import { getProductDetail, getSkuList } from "/store/slices/productSlice";
 import InfoCard from "./InfoCard";
-import ScaledImage from "./SacledImage";
+import DetailCard from "./DetailCard";
+import ServiceCard from "./ServiceCard";
 
 const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
   const dispatch = useDispatch();
   const { productInfo, skuList } = useSelector(state => state.product);
 
   useEffect(() => {
-    dispatch(getProductDetail(route.params.id));
+    const id = route.params.id;
+    dispatch(getProductDetail(id));
+    dispatch(getSkuList(id));
   }, [])
 
   return (
@@ -30,6 +33,7 @@ const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
           <Icon name="icon-gouwuche" size={28} color="#fff"/>
         </View>
       </View>
+      {/* 主图 */}
       <View>
         <Image
           source={{
@@ -38,10 +42,12 @@ const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
           style={styles.mainImage}  
         />
       </View>
+      {/* 基本信息 */}
       <InfoCard productInfo={productInfo} />
-      {
-        productInfo.detailImageUrl && <ScaledImage uri={productInfo.detailImageUrl}/>
-      }
+      {/* 相关服务 */}
+      <ServiceCard skuList={skuList} />
+      {/* 详细信息 */}
+      <DetailCard productInfo={productInfo} />
     </ScrollView>
   );
 }

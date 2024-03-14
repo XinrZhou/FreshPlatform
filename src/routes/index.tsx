@@ -1,65 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from '../assets/fonts';
-import Home from "../pages/Home";
-import ClassificationStack from './stack/classification';
-import UserCenterStack from './stack/userCenter';
-import ShoppingCartStack from './stack/shoppingCart';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BottomTabNavigator from './tabs/BottomTab';
+import LoginPage from 'pages/LoginPage';
+import ProductDetail from 'pages/ProductDetail';
 
-const Tab = createBottomTabNavigator(); 
+const Stack = createNativeStackNavigator(); 
 
-function BottomTabNavigator(): React.JSX.Element {
+function PageStack(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Stack.Navigator
+        mode="modal"
         screenOptions={{
-          tabBarActiveTintColor: '#17A3D4',
+          headerShown: false, 
         }}
       >
-        <Tab.Screen 
-          name="首页" 
-          component={Home}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-home" color={color} size={size}  />
-            )
-          }}
+        <Stack.Screen 
+          name="bottom"
+          component={BottomTabNavigator}
         />
-        <Tab.Screen 
-          name="分类" 
-          component={ClassificationStack}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-fenlei" color={color} size={size} />
-            )
-          }} 
+        <Stack.Screen 
+          name="ProductDetail"
+          component={ProductDetail} 
         />
-        <Tab.Screen 
-          name="购物车" 
-          component={ShoppingCartStack} 
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-gouwuche" color={color} size={size} />
-            )
-          }}
+        <Stack.Screen
+          name="loginPage"
+          component={LoginPage}
         />
-        <Tab.Screen 
-          name="我的" 
-          component={UserCenterStack} 
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size}) => (
-              <Icon name="icon-people" color={color} size={size} />
-            )
-          }}
-        />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default BottomTabNavigator;
+export default PageStack;

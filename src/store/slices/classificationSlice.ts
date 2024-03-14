@@ -22,6 +22,14 @@ const initialState: ClassificationState = {
   productList: [],
 }
 
+const parseJSONIfExists = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return {};
+  }
+};
+
 export const getCategoryList = createAsyncThunk('getCategoryTree', 
   async (params: number) => {
     const res = await getCategories(params);
@@ -67,7 +75,8 @@ export const classificationSlice = createSlice({
         state.productList = spuList.map(item => {
           return {
             ...item,
-            specialSpec: item.specialSpec ? JSON.parse(item.specialSpec) : {},
+            defaultSku: parseJSONIfExists(item.defaultSku),
+            specialSpec: parseJSONIfExists(item.specialSpec),
             tags: item.tags ? JSON.parse(item.tags) : [] 
           }
         })

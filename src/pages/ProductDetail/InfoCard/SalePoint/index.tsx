@@ -37,10 +37,15 @@ const styles = CustomStyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
     padding: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
     borderRadius: 8,
+    flexWrap: 'wrap',
+    flexDirection: 'row', 
+    justifyContent: 'space-around',
+  },
+  
+  itemWrapper: { 
+    marginVertical: 4,
+    alignItems: 'center',
   },
   
   value: {

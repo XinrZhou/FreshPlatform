@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   View, 
   Text, 
@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image 
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import LinearGradient from "react-native-linear-gradient";
 import TopNav from "components/TopNav";
 import SelfPickUpPoint from "components/SelfPickUpPoint";
@@ -26,7 +27,18 @@ const OperationContainer = ({operationList}) => {
   )
 }
 
-const UserCenter: React.JSX.Element = () => {
+const UserCenter: React.JSX.Element = ({navigation, route}) => {
+  const { isLogin } = useSelector(state => state.user);
+
+  console.log('isLogin', isLogin)
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigation.navigate('loginPage', {
+        lastPage: '我的'
+      });
+    }
+  }, [isLogin])
 
   return (
     <View style={styles.containerWrapper}>

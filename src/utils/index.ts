@@ -1,3 +1,8 @@
+/**
+ * 获取价格整数、小数
+ * @param price 
+ * @returns 
+ */
 export const getPrice = (price: number) => {
   const priceArr: Array = [];
   priceArr[0] = price?.toString()?.split('.')[0];
@@ -6,7 +11,11 @@ export const getPrice = (price: number) => {
   return priceArr;
 }
 
-// 获取商品总价
+/**
+ * 获取购物车商品总价
+ * @param dataList 
+ * @returns 
+ */
 export const getTotalPrice = (dataList: Array) => {
   let totalPrice = 0;
   dataList?.forEach((item) => {
@@ -14,3 +23,5 @@ export const getTotalPrice = (dataList: Array) => {
   });
   return totalPrice.toFixed(2);
 }
+
+

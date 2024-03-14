@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  ScrollView, 
-  SafeAreaView 
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { CheckBox, Avatar, Divider } from '@rneui/themed';
 import LinearGradient from "react-native-linear-gradient";
 import CartItem from "./Item";
@@ -79,10 +74,20 @@ const data = [
 ];
 
 
-const ShoppingCart: React.JSX.Element = () => {
+const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
   const [dataList, setDataList] = useState(data)
   const [isSelectALL, setIsSelectALL] = useState(false);
   const [selectedList, setSelectedList] = useState<string[]>([]);
+
+  const { isLogin } = useSelector(state => state.user);
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigation.navigate('loginPage', {
+        lastPage: '购物车'
+      });
+    }
+  }, [isLogin])
 
   useEffect(() => {
     if (!isSelectALL && selectedList.length === data.length) {
@@ -115,7 +120,7 @@ const ShoppingCart: React.JSX.Element = () => {
         />
         <Text style={styles.rightText}>管理</Text>
       </View>
-      <SafeAreaView>
+      {/* <SafeAreaView>
         <ScrollView style={styles.cartList}>
           <View style={styles.listHeader}>
             <CustomCheckBox
@@ -156,7 +161,7 @@ const ShoppingCart: React.JSX.Element = () => {
             }
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </SafeAreaView> */}
       <View style={[
         styles.footerContainer,
         styles.flexRowWrapper,

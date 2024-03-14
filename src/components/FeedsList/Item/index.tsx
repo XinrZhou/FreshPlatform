@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   View, 
   Text, 
@@ -20,12 +20,20 @@ const FeedsItem: React.JSX.Element = ({
   isNumeric = false,
   setDataList = () => {},
 }) => {
-  const { 
-    name, imageUrl, tags, specialSpec, originPrice, discountPrice 
-  } = feedItem;
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
+  const { defaultSku, name, description, specialSpec, tags, imageUrl } = feedItem;
+  const [orgPrice, setOrgPrice] = useState(0);
+  const [disPrice, setDisPrice] = useState(0);
+
+  useEffect(() => {
+    const { originPrice, discountPrice } = defaultSku;
+    originPrice && setOrgPrice(originPrice);
+    discountPrice && setDisPrice(discountPrice);
+  }, [defaultSku]);
 
   const [itemCount, setItemCount] = useState(0);
+
+  console.log('fee====', feedItem)
 
   const onPress = () => console.log('press...')
   
@@ -76,7 +84,7 @@ const FeedsItem: React.JSX.Element = ({
           }
         </View>
         <View style={styles.bottomWrapper}>
-          <SalePrice  originPrice={originPrice} discountPrice={discountPrice}/>
+          <SalePrice  originPrice={orgPrice} discountPrice={disPrice}/>
           {
             isNumeric ?
               <NumericInput

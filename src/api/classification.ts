@@ -19,3 +19,8 @@ export function getProductsByCategoryId(cid: string) {
 export function getProductDetails(sid: string) {
   return axios.get(`/spu/detail/${sid}`)
 }
+
+// 获取sku列表
+export function getSkusBySpuId(sid: string) {
+  return axios.get(`/sku/skus/${sid}`)
+}
