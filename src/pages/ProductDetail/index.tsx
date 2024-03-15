@@ -9,14 +9,23 @@ import DetailCard from "./DetailCard";
 import ServiceCard from "./ServiceCard";
 
 const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
+  const [selectedSku, setSelectedSku] = useState<Sku>({});
   const dispatch = useDispatch();
   const { productInfo, skuList } = useSelector(state => state.product);
+
+  const onSelectedSkuChange = (sku: Sku) => setSelectedSku(sku);
 
   useEffect(() => {
     const id = route.params.id;
     dispatch(getProductDetail(id));
     dispatch(getSkuList(id));
   }, [])
+
+  useEffect(() => {
+    skuList.forEach(item => {
+      item.isDefault && setSelectedSku(item);
+    })
+  }, [skuList])
 
   return (
     <ScrollView
@@ -37,15 +46,19 @@ const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
       <View>
         <Image
           source={{
-            uri: productInfo.imageUrl
+            uri: selectedSku.imageUrl
           }}
           style={styles.mainImage}  
         />
       </View>
       {/* 基本信息 */}
-      <InfoCard productInfo={productInfo} />
+      <InfoCard productInfo={productInfo} selectedSku={selectedSku} />
       {/* 相关服务 */}
-      <ServiceCard skuList={skuList} />
+      <ServiceCard 
+        skuList={skuList} 
+        selectedSku={selectedSku}
+        onSelectedSkuChange={onSelectedSkuChange}
+      />
       {/* 详细信息 */}
       <DetailCard productInfo={productInfo} />
     </ScrollView>

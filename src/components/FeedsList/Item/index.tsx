@@ -33,8 +33,6 @@ const FeedsItem: React.JSX.Element = ({
 
   const [itemCount, setItemCount] = useState(0);
 
-  console.log('fee====', feedItem)
-
   const onPress = () => console.log('press...')
   
   const onNumericValueChange = ((value: number) => {

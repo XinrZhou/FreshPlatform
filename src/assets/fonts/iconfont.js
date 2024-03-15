@@ -1,5 +1,6 @@
 export default {
-  "icon-552cc1babd9aa": 58882,
+  "icon-guanbi": 58895,
+  "icon-right": 58882,
   "icon-left": 58898,
   "icon-didian": 58909,
   "icon-gouwuche": 59336,

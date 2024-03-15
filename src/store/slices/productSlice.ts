@@ -47,15 +47,14 @@ export const productSlice = createSlice({
       state.productInfo = {
         ...payload.spus,
         defaultSku: parseJSONIfExists(spuObj.defaultSku),
-        genericSpec: parseJSONIfExists(payload.spus.genericSpec),
-        specialSpec: parseJSONIfExists(payload.spus.specialSpec),
-        tags: parseJSONIfExists(payload.spus.tags),
+        genericSpec: parseJSONIfExists(spuObj.genericSpec),
+        specialSpec: parseJSONIfExists(spuObj.specialSpec),
+        tags: parseJSONIfExists(spuObj.tags),
       };
       state.skuList = payload.skus;
     })
     .addCase(getSkuList.fulfilled, (state, {payload}) => {
       state.skuList = payload.skus;
-      console.log('pay====', payload.skus)
     })
   }
 })

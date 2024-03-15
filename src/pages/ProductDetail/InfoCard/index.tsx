@@ -9,28 +9,22 @@ const PRICE_STYLE = {
   alignItems: 'flex-end',
 }
 
-const InfoCard: React.JSX.Element = ({ productInfo = {} }) => {
-  const { defaultSku, name, description, specialSpec, tags } = productInfo;
-  const [orgPrice, setOrgPrice] = useState(0);
-  const [disPrice, setDisPrice] = useState(0);
-
-  useEffect(() => {
-    const { originPrice, discountPrice } = defaultSku;
-    originPrice && setOrgPrice(originPrice);
-    discountPrice && setDisPrice(discountPrice);
-  }, [defaultSku]);
-
-  console.log('info====',productInfo)
+const InfoCard: React.JSX.Element = ({ 
+  productInfo = {}, 
+  selectedSku = {} 
+}) => {
+  const { name, description, specialSpec, tags } = productInfo;
+  const { originPrice, discountPrice } = selectedSku;
 
   return (
     <View style={styles.introduceContainer}>
       <SalePrice  
-        originPrice={orgPrice} 
-        discountPrice={disPrice}
+        originPrice={originPrice} 
+        discountPrice={discountPrice}
         styleProps={PRICE_STYLE}
       />
       <Text style={styles.title}>
-        {name} {defaultSku?.name}
+        {name} {selectedSku.name}
       </Text>
       {
         specialSpec && Object.keys(specialSpec).length > 0 && (

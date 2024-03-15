@@ -13,16 +13,14 @@ const SalePrice: React.JSX.Element = ({
       <Text style={styles.priceDecimal}>
         ￥
       </Text>
+      <Text style={styles.priceInteger}>
+        {getPrice(price)?.[0]}
+      </Text>
       {
         getPrice(price)?.[1] &&
-        <>
-          <Text style={styles.priceInteger}>
-            {getPrice(price)?.[0]}
-          </Text>
-          <Text style={styles.priceDecimal}>
-            .{getPrice(price)?.[1]}
-          </Text>
-        </> 
+        <Text style={styles.priceInteger}>
+          .{getPrice(price)?.[1]}
+        </Text>
       }
     </View>
   )
