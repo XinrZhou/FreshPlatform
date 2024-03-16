@@ -36,18 +36,22 @@ const ServiceCard: React.JSX.Element = ({
         </Text>
       </View>
       <View style={styles.serviceWrapper}>
-        <View style={styles.itemWrapper}>
-          <Text style={styles.itemTitle}>选择</Text>
-          <Text style={styles.itemValue} numberOfLines={1}>
-            已选: {selectedSku.name}
-          </Text>
-          <Text style={styles.itemDescription}>
-            共{skuList.length}种产品名称可选
-          </Text>
-          <Pressable onPress={openModal}>
-            <Icon name='icon-right' size={16} color='#696969' />
-          </Pressable>
-        </View>
+        {
+          skuList.length > 1 && (
+            <View style={styles.itemWrapper}>
+              <Text style={styles.itemTitle}>选择</Text>
+              <Text style={styles.itemValue} numberOfLines={1}>
+                已选: {selectedSku.name}
+              </Text>
+              <Text style={styles.itemDescription}>
+                共{skuList.length}种产品名称可选
+              </Text>
+              <Pressable onPress={openModal}>
+                <Icon name='icon-right' size={16} color='#696969' />
+              </Pressable>
+            </View>
+          )
+        }
         <View style={styles.itemWrapper}>
           <Text style={styles.itemTitle}>配送</Text>
           <Text style={styles.itemValue}>现在下单，最快今日21:00-21:30送达</Text>

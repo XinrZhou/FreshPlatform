@@ -21,16 +21,7 @@ const FeedsItem: React.JSX.Element = ({
   setDataList = () => {},
 }) => {
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
-  const { defaultSku, name, description, specialSpec, tags, imageUrl } = feedItem;
-  const [orgPrice, setOrgPrice] = useState(0);
-  const [disPrice, setDisPrice] = useState(0);
-
-  useEffect(() => {
-    const { originPrice, discountPrice } = defaultSku;
-    originPrice && setOrgPrice(originPrice);
-    discountPrice && setDisPrice(discountPrice);
-  }, [defaultSku]);
-
+  const { name, spuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit } = feedItem;
   const [itemCount, setItemCount] = useState(0);
 
   const onPress = () => console.log('press...')
@@ -42,10 +33,6 @@ const FeedsItem: React.JSX.Element = ({
     setItemCount(value);
     setDataList(newDataList);
   })
-
-  const renderSpecialSpec = () => {
-    return 
-  }
 
   return (
     <View style={[styles.itemContainer, {...containerProps}]}>
@@ -63,7 +50,7 @@ const FeedsItem: React.JSX.Element = ({
       </View>
       <View style={[styles.itemContent, {...contentProps}]}>
         <Text style={styles.itemTitle}>
-          {name}
+          {spuName} {name}
         </Text>
         <View style={styles.tagWapper}>
           {
@@ -82,7 +69,11 @@ const FeedsItem: React.JSX.Element = ({
           }
         </View>
         <View style={styles.bottomWrapper}>
-          <SalePrice  originPrice={orgPrice} discountPrice={disPrice}/>
+          <SalePrice  
+            originPrice={originPrice} 
+            discountPrice={discountPrice}
+            unit={unit}
+          />
           {
             isNumeric ?
               <NumericInput

@@ -54,7 +54,7 @@ const styles = CustomStyleSheet.create({
 
   infoContainer: {
     marginHorizontal: 16,
-    marginVertical: 10,
+    marginVertical: 16,
   },
 
   title: {

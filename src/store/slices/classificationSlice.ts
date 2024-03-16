@@ -71,11 +71,10 @@ export const classificationSlice = createSlice({
           state.thirdCategoryList = data.categories;
       })
       .addCase(getProductList.fulfilled, (state, { payload }) => {
-        const spuList = payload.spus;
-        state.productList = spuList.map(item => {
+        const skuList = payload.skus;
+        state.productList = skuList.map(item => {
           return {
             ...item,
-            defaultSku: parseJSONIfExists(item.defaultSku),
             specialSpec: parseJSONIfExists(item.specialSpec),
             tags: item.tags ? JSON.parse(item.tags) : [] 
           }

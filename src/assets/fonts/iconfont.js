@@ -1,4 +1,5 @@
 export default {
+  "icon-xingxing": 58950,
   "icon-guanbi": 58895,
   "icon-right": 58882,
   "icon-left": 58898,

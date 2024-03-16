@@ -12,15 +12,15 @@ export function getCategoriesByParentId(pid: string) {
 
 // 获取商品列表
 export function getProductsByCategoryId(cid: string) {
-  return axios.get(`/spu/spus/${cid}`)
+  return axios.get(`/sku/skus/${cid}`)
 }
 
 // 获取商品详情
 export function getProductDetails(sid: string) {
-  return axios.get(`/spu/detail/${sid}`)
+  return axios.get(`/sku/detail/${sid}`)
 }
 
-// 获取sku列表
-export function getSkusBySpuId(sid: string) {
-  return axios.get(`/sku/skus/${sid}`)
-}
+// // 获取sku列表
+// export function getSkusBySpuId(sid: string) {
+//   return axios.get(`/sku/skus/${sid}`)
+// }

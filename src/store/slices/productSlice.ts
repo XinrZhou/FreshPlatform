@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProductDetails, getSkusBySpuId } from "/api/classification";
+import { getProductDetails } from "api/classification";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Sku, Product } from "types/type";
 
@@ -28,13 +28,6 @@ export const getProductDetail = createAsyncThunk('getProductDetail',
   }
 )
 
-export const getSkuList = createAsyncThunk('getSkuList',
-  async (params) => {
-    const res = await getSkusBySpuId(params);
-    return res.data.data;
-  }
-)
-
 export const productSlice = createSlice({
   name: "product",
   initialState,
@@ -43,18 +36,14 @@ export const productSlice = createSlice({
   extraReducers: builder => {
     builder
     .addCase(getProductDetail.fulfilled, (state, {payload}) => {
-      const spuObj = payload.spus;
+      const skuObj = payload.skus;
       state.productInfo = {
-        ...payload.spus,
-        defaultSku: parseJSONIfExists(spuObj.defaultSku),
-        genericSpec: parseJSONIfExists(spuObj.genericSpec),
-        specialSpec: parseJSONIfExists(spuObj.specialSpec),
-        tags: parseJSONIfExists(spuObj.tags),
+        ...skuObj,
+        genericSpec: parseJSONIfExists(skuObj.genericSpec),
+        specialSpec: parseJSONIfExists(skuObj.specialSpec),
+        tags: parseJSONIfExists(skuObj.tags),
       };
-      state.skuList = payload.skus;
-    })
-    .addCase(getSkuList.fulfilled, (state, {payload}) => {
-      state.skuList = payload.skus;
+      state.skuList = payload.skuList;
     })
   }
 })

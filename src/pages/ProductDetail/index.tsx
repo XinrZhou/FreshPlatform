@@ -1,67 +1,72 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, ScrollView , Text, Image, Pressable } from "react-native";
+import { View, ScrollView , Text, Image, Pressable, KeyboardAvoidingView, SafeAreaView } from "react-native";
 import CustomStyleSheet from "/styles";
 import { Icon } from "/assets/fonts";
-import { getProductDetail, getSkuList } from "/store/slices/productSlice";
+import { getProductDetail } from "/store/slices/productSlice";
 import InfoCard from "./InfoCard";
 import DetailCard from "./DetailCard";
 import ServiceCard from "./ServiceCard";
+import BottomFixed from "components/BottomFixed";
+import { Button } from "@ant-design/react-native";
+
 
 const ProductDetail: React.JSX.Element = ({navigation, route}: any) => {
   const [selectedSku, setSelectedSku] = useState<Sku>({});
   const dispatch = useDispatch();
-  const { productInfo, skuList } = useSelector(state => state.product);
+  const { productInfo, skuList } = useSelector(state => state.product)
 
   const onSelectedSkuChange = (sku: Sku) => setSelectedSku(sku);
 
   useEffect(() => {
     const id = route.params.id;
     dispatch(getProductDetail(id));
-    dispatch(getSkuList(id));
   }, [])
 
+  // Sku默认选中
   useEffect(() => {
-    skuList.forEach(item => {
-      item.isDefault && setSelectedSku(item);
-    })
-  }, [skuList])
+    setSelectedSku(productInfo);
+  }, [productInfo])
 
   return (
-    <ScrollView
-      showsHorizontalScrollIndicator={false} 
-      style={styles.container}
-    >
-      <View style={styles.iconWrapper}>
-        <View style={styles.iconItem}>
-          <Pressable onPress={() => navigation.goBack()}>
-            <Icon name="icon-left" size={28} color="#fff"/>
-          </Pressable>
+    <SafeAreaView style={{flex: 1}} >
+      <ScrollView
+        showsHorizontalScrollIndicator={false} 
+        style={styles.container}
+      >
+        <View style={styles.iconWrapper}>
+          <View style={styles.iconItem}>
+            <Pressable onPress={() => navigation.goBack()}>
+              <Icon name="icon-left" size={28} color="#fff"/>
+            </Pressable>
+          </View>
+          <View style={styles.iconItem}>
+            <Icon name="icon-gouwuche" size={28} color="#fff"/>
+          </View>
         </View>
-        <View style={styles.iconItem}>
-          <Icon name="icon-gouwuche" size={28} color="#fff"/>
+        {/* 主图 */}
+        <View>
+          <Image
+            source={{
+              uri: selectedSku.imageUrl
+            }}
+            style={styles.mainImage}  
+          />
         </View>
-      </View>
-      {/* 主图 */}
-      <View>
-        <Image
-          source={{
-            uri: selectedSku.imageUrl
-          }}
-          style={styles.mainImage}  
+        {/* 基本信息 */}
+        <InfoCard productInfo={productInfo} selectedSku={selectedSku} />
+        {/* 相关服务 */}
+        <ServiceCard 
+          skuList={skuList} 
+          selectedSku={selectedSku}
+          onSelectedSkuChange={onSelectedSkuChange}
         />
-      </View>
-      {/* 基本信息 */}
-      <InfoCard productInfo={productInfo} selectedSku={selectedSku} />
-      {/* 相关服务 */}
-      <ServiceCard 
-        skuList={skuList} 
-        selectedSku={selectedSku}
-        onSelectedSkuChange={onSelectedSkuChange}
-      />
-      {/* 详细信息 */}
-      <DetailCard productInfo={productInfo} />
-    </ScrollView>
+        {/* 详细信息 */}
+        <DetailCard productInfo={productInfo} />
+      </ScrollView>
+      {/* 底部固定 */}
+      <BottomFixed />
+    </SafeAreaView>
   );
 }
 
@@ -69,10 +74,12 @@ const styles = CustomStyleSheet.create({
   container: {
     height: '100%',
     position: 'relative',
+    display: 'flex',
+    flex: 1
   },
 
   iconWrapper: {
-    position: 'absolute',
+    position: 'fixed',
     marginTop: 10,
     left: 15,
     zIndex: 100,
@@ -91,6 +98,23 @@ const styles = CustomStyleSheet.create({
     width: 375,
     height: 300,
     objectFit: 'cover',
+  },
+
+  bottomWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 100,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  button: {
+    color: "#fff",
+    backgroundColor: "#00aefd"
   }
 })
 

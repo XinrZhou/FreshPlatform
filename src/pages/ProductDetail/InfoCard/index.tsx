@@ -13,18 +13,21 @@ const InfoCard: React.JSX.Element = ({
   productInfo = {}, 
   selectedSku = {} 
 }) => {
-  const { name, description, specialSpec, tags } = productInfo;
-  const { originPrice, discountPrice } = selectedSku;
+  const { spuName } = productInfo;
+  const { 
+    name, description, specialSpec, tags, originPrice, discountPrice, unit 
+  } = selectedSku;
 
   return (
     <View style={styles.introduceContainer}>
       <SalePrice  
         originPrice={originPrice} 
         discountPrice={discountPrice}
+        unit={unit}
         styleProps={PRICE_STYLE}
       />
       <Text style={styles.title}>
-        {name} {selectedSku.name}
+        {spuName} {name}
       </Text>
       {
         specialSpec && Object.keys(specialSpec).length > 0 && (

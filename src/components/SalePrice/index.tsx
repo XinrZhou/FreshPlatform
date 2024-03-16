@@ -5,6 +5,7 @@ import { getPrice } from "utils";
 const SalePrice: React.JSX.Element = ({
   originPrice = 0, 
   discountPrice = 0,
+  unit = '',
   styleProps = {},
 }) => {
   const price = discountPrice || originPrice;
@@ -22,6 +23,9 @@ const SalePrice: React.JSX.Element = ({
           .{getPrice(price)?.[1]}
         </Text>
       }
+      <Text style={styles.unit}>
+        /{unit}
+      </Text>
     </View>
   )
 };
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
     color: '#ff502f',
     fontSize: 28,
     fontWeight: '600',
+    lineHeight: 30,
   },
 
   priceDecimal: {
@@ -47,6 +52,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 30,
   },
+
+  unit: {
+    marginLeft: 6,
+    lineHeight: 30,
+  }
 });
 
 export default SalePrice;
