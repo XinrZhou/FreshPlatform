@@ -8,6 +8,7 @@ import {
   getCategoryListByParentId,
   getProductList 
 } from "store/slices/classificationSlice";
+import { addCart } from "store/slices/shoppingCartSlice";
 import CustomStyleSheet from "styles";
 import ScrollNavBar from "components/ScrollNavBar";
 import ScrollSquareNav from "./ScrollSquareNav";
@@ -33,6 +34,7 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
     thirdCategoryList,
     productList 
   } = useSelector(state => state.classification);
+  const { userInfo } = useSelector(state => state.user);
 
   useEffect(() => {
     if (firstCategoryList.length > 0) {
@@ -77,6 +79,10 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
 
   const handleFeedsItemClick = (params) => {
     navigation.navigate('ProductDetail', { id: params.id});
+  }
+
+  const handleAddCart = (sid) => {
+    dispatch(addCart({ skuId: sid, userId: userInfo.id }));
   }
 
   return (
@@ -132,6 +138,7 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
           <FeedsList 
             data={productList} 
             numColumns={1}
+            handleAddCart={handleAddCart}
             handleFeedsItemClick={handleFeedsItemClick} 
           />
         </View>

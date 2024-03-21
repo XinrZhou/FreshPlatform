@@ -10,12 +10,12 @@ export interface User {
   updateTime?: string
 };
 
-export interface Category {
+export interface Cart {
   id?: string,
-  name?: string
-  parentId?: string
-  level?: number
-  status?: number
+  userId?: string
+  skuId?: string
+  count?: number
+  type?: number
   insertTime?: string
   updateTime?: string
 };

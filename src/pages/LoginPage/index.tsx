@@ -5,7 +5,7 @@ import { Icon } from "assets/fonts";
 import { InputItem, List, Button} from "@ant-design/react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CustomStyleSheet from "styles";
-import { login } from '../../store/slices/userSlice';
+import { login, getInfo, checkToken } from 'store/slices/userSlice';
 
 const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
   const [number, setNumber] = useState("");
@@ -14,7 +14,14 @@ const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
   const { isLogin } = useSelector(state => state.user);
 
   useEffect(() => {
-   isLogin && navigation.goBack();
+    dispatch(checkToken());
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getInfo());
+      navigation.goBack();
+    }
   }, [isLogin])
 
   const handleLogin = () => {
@@ -46,13 +53,11 @@ const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
           <List>
             <InputItem
               value={number}
-              clear={true}
               placeholder="请输入手机号"
               onChange={value => setNumber(value)}
             />
             <InputItem 
               value={password}
-              clear={true}
               type="password"
               placeholder="请输入密码"
               onChange={value => setPassword(value)}

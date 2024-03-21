@@ -9,6 +9,7 @@ export const store = configureStore({
   reducer: {
     home: homeSlice,
     classification: classificationSlice,
+    ShoppingCart: shoppingCartSlice,
     user: userSlice,
     product: productSlice
   }

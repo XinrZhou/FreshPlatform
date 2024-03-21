@@ -30,6 +30,7 @@ const configProps = {
 const FeedsList: React.JSX.Element = ({
   data = [],
   numColumns = 1, 
+  handleAddCart = () => {},
   handleFeedsItemClick = () => {},
 }) => {
   const listRef = useRef<FlatList>(null);
@@ -46,6 +47,7 @@ const FeedsList: React.JSX.Element = ({
             numColumns == FEED_COLUMS.SINGLE ? configProps : {}
           }
           dataList={data}
+          handleAddCart={handleAddCart}
         />
       </Pressable>
     )

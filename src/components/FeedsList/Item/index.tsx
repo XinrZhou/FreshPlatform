@@ -18,20 +18,17 @@ const FeedsItem: React.JSX.Element = ({
   configProps = {},
   dataList = [],
   isNumeric = false,
-  setDataList = () => {},
+  handleAddCart = () => {},
 }) => {
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
-  const { name, spuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit } = feedItem;
+  const { id, name, spuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit } = feedItem;
   const [itemCount, setItemCount] = useState(0);
 
-  const onPress = () => console.log('press...')
-  
   const onNumericValueChange = ((value: number) => {
     const newDataList = dataList.map((item, index) => {
       return item.id === id ? {...item, count: value} : item;
     })
     setItemCount(value);
-    setDataList(newDataList);
   })
 
   return (
@@ -85,7 +82,10 @@ const FeedsItem: React.JSX.Element = ({
                 iconStyle={{color: '#000'}}
                 onChange={onNumericValueChange}
               /> :
-              <Pressable style={styles.addCartBtn} onPress={onPress}>
+              <Pressable 
+                style={styles.addCartBtn} 
+                onPress={() => handleAddCart(id)}
+              >
                 <Icon name="icon-gouwuche" size={20} color={'#fff'}/>
               </Pressable>
           }
