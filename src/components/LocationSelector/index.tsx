@@ -4,14 +4,27 @@ import CustomStyleSheet from "styles";
 import { Icon } from "assets/fonts";
 
 
-const LocationSelector: React.JSX.Element = () => {
+const LocationSelector: React.JSX.Element = ({
+  iconProps = {},
+  textProps = {}
+}) => {
   return (
     <View style={styles.locationWrapper}>
-      <Icon name="icon-didian" size={32} color="#fff"/>
-      <Text style={styles.locationText}>
+      <Icon 
+        name="icon-didian" 
+        size={32} 
+        color="#fff"
+        style={iconProps}
+      />
+      <Text style={[styles.locationText, textProps]}>
         亲橙里购物中心8号
       </Text>
-      <Icon name="icon-down" size={32} color="#fff"/>
+      <Icon 
+        name="icon-down" 
+        size={32} 
+        color="#fff"
+        style={iconProps}
+      />
     </View>
   )
 };

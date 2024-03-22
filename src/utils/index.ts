@@ -12,16 +12,18 @@ export const getPrice = (price: number) => {
 }
 
 /**
- * 获取购物车商品总价
- * @param dataList 
+ * 获取购物车总价
+ * @param selectedList 已选择购物车列表
+ * @param cartList 购物车所有商品列表
  * @returns 
  */
-export const getTotalPrice = (dataList: Array) => {
-  let totalPrice = 0;
-  dataList?.forEach((item) => {
-    totalPrice += item.price * item.count;
-  });
-  return totalPrice.toFixed(2);
+export const getTotalPrice = (selectedList: Array, cartList: Array) => {
+  return cartList.reduce((totalPrice, cartItem) => {
+    if (selectedList.includes(cartItem.id)) {
+      totalPrice += cartItem.discountPrice * cartItem.count;
+    }
+    return totalPrice;
+  }, 0).toFixed(2);
 }
 
 

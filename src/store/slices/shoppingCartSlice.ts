@@ -12,18 +12,15 @@ const initialState: ShoppingCartState = {
 }
 
 export const addCart = createAsyncThunk('addCart', 
-  async ({ skuId, userId }) => {
-    if (skuId && userId) {
-      console.log(skuId, userId);
-      const res = await addCarts({ skuId, userId });
-      return skuId;
-    }
+  async (params) => {
+    const res = await addCarts(params);
+    return res.data.data;
   }
 )
 
 export const getCart = createAsyncThunk('getCart', 
-  async (params) => {
-    const res = await getCarts(params);
+  async () => {
+    const res = await getCarts();
     return res.data.data;
   }
 )
@@ -36,7 +33,7 @@ export const shoppingCartSlice = createSlice({
   extraReducers: builder => {
     builder
     .addCase(addCart.fulfilled, (state, {payload, dispatch}) => {
-      dispatch(getCart(payload))
+      dispatch(getCart())
     })
     .addCase(getCart.fulfilled, (state, {payload}) => {
       state.cartList = payload.carts;

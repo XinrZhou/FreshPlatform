@@ -5,7 +5,7 @@ export function addCarts(data) {
   return axios.post("/cart/carts", data);
 }
 
-// 获取购物车
-export function getCarts(uid: string) {
-  return axios.get(`/cart/carts/${uid}`);
+// 获取购物车信息
+export function getCarts() {
+  return axios.get("/cart/carts");
 }

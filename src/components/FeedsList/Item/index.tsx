@@ -18,17 +18,22 @@ const FeedsItem: React.JSX.Element = ({
   configProps = {},
   dataList = [],
   isNumeric = false,
+  showTags = false,
+  handleNumericChange = () => {},
   handleAddCart = () => {},
 }) => {
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
-  const { id, name, spuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit } = feedItem;
-  const [itemCount, setItemCount] = useState(0);
+  const { id, name, spuName, skuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit, count = 1, skuId, userId } = feedItem;
+  const [itemCount, setItemCount] = useState(count);
 
-  const onNumericValueChange = ((value: number) => {
-    const newDataList = dataList.map((item, index) => {
-      return item.id === id ? {...item, count: value} : item;
-    })
+  const onNumericChange = ((value: number) => {
     setItemCount(value);
+    handleNumericChange({
+      id, 
+      count: value, 
+      skuId, 
+      userId
+    });
   })
 
   return (
@@ -47,24 +52,28 @@ const FeedsItem: React.JSX.Element = ({
       </View>
       <View style={[styles.itemContent, {...contentProps}]}>
         <Text style={styles.itemTitle}>
-          {spuName} {name}
+          {name || skuName}
         </Text>
-        <View style={styles.tagWapper}>
-          {
-            tags?.length > 0 && (
-              <Text style={styles.itemTag}>{tags.join(' | ')}</Text>
-            )
-          }
-          {
-            Object.values(specialSpec).flat().join(' | ') && (
-              <Text style={styles.itemTag}>
-                {
-                  Object.values(specialSpec).flat().join(' | ')
-                }
-              </Text>
-            )
-          }
-        </View>
+        {
+          showTags && (
+            <View style={styles.tagWapper}>
+              {
+                tags?.length > 0 && (
+                  <Text style={styles.itemTag}>{tags.join(' | ')}</Text>
+                )
+              }
+              {
+                Object.values(specialSpec).flat().join(' | ') && (
+                  <Text style={styles.itemTag}>
+                    {
+                      Object.values(specialSpec).flat().join(' | ')
+                    }
+                  </Text>
+                )
+              }
+            </View>
+          )
+        }
         <View style={styles.bottomWrapper}>
           <SalePrice  
             originPrice={originPrice} 
@@ -80,7 +89,7 @@ const FeedsItem: React.JSX.Element = ({
                 maxValue={999}
                 totalWidth={80}
                 iconStyle={{color: '#000'}}
-                onChange={onNumericValueChange}
+                onChange={onNumericChange}
               /> :
               <Pressable 
                 style={styles.addCartBtn} 

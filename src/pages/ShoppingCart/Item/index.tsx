@@ -36,10 +36,10 @@ const toggleCheckboxState = (selectedList, id, setSelectedList) => {
 
 const CartItem: React.JSX.Element = ({
   item = {},
-  dataList, 
-  setDataList,
+  cartList = [],
   selectedList = [],
   setSelectedList,
+  handleNumericChange = () => {},
 }) => {
   return (
     <View style={styles.listItem} key={item.id}>
@@ -52,10 +52,11 @@ const CartItem: React.JSX.Element = ({
       <FeedsItem
         key={item.id} 
         feedItem={item}
+        dataList={cartList}
         configProps={configProps}
-        dataList={dataList}
-        setDataList={setDataList}
         isNumeric={true}
+        showTags={false}
+        handleNumericChange={handleNumericChange}
       />
     </View>
   )

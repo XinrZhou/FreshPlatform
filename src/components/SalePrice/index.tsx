@@ -19,13 +19,17 @@ const SalePrice: React.JSX.Element = ({
       </Text>
       {
         getPrice(price)?.[1] &&
-        <Text style={styles.priceInteger}>
+        <Text style={styles.priceDecimal}>
           .{getPrice(price)?.[1]}
         </Text>
       }
-      <Text style={styles.unit}>
-        /{unit}
-      </Text>
+      {
+        unit && (
+          <Text style={styles.unit}>
+            /{unit}
+          </Text>
+        )
+      }
     </View>
   )
 };
