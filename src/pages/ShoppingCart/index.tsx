@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Text, View, Image, ScrollView, SafeAreaView } from "react-native";
+import { Text, View, Image, ScrollView, SafeAreaView, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { getCart, addCart } from "store/slices/shoppingCartSlice";
+import { Icon } from "assets/fonts";
+import { getTotalPrice, mapSelectedList } from "utils";
 import CustomStyleSheet from "styles";
-import LinearGradient from "react-native-linear-gradient";
 import CartItem from "./Item";
 import LocationSelector from "components/LocationSelector";
 import SalePrice from "components/SalePrice";
 import CustomCheckBox from "components/CustomCheckBox";
-import { getCart, addCart } from "store/slices/shoppingCartSlice";
-import { Icon } from "assets/fonts";
-import { getTotalPrice } from "utils";
 
 const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
-  const [isSelectALL, setIsSelectALL] = useState(false);
+  const [isSelectAll, setIsSelectAll] = useState(false);
   const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [selectedCartList, setSelectedCartList] = useState([]);
 
   const dispatch = useDispatch();
   const { cartList } = useSelector(state => state.shoppingCart);
@@ -27,36 +27,37 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigation.navigate('loginPage', {
+      navigation.navigate('LoginPage', {
         lastPage: '购物车'
       });
     }
   }, [isLogin])
 
   useEffect(() => {
-    if (selectedList.length === cartList.length) {
-      setIsSelectALL(true);
-    } else if (isSelectALL) {
-      setIsSelectALL(false);
-    }
+    setIsSelectAll(selectedList.length === cartList.length);
   }, [selectedList, cartList]);
 
   // checked/cancel checked
   const toggleSelectedAllState = () => {
-    if (isSelectALL) {
-      setSelectedList([]);
-    } else {
-      setSelectedList(current => [...new Set(
-        [...cartList.map(item => item.id), ...current]
-      )])
-    }
+    setIsSelectAll(prev => !prev);
+    setSelectedList(prev => prev.length === cartList.length ? [] : cartList.map(item => item.id));
   };
 
   // 购物车商品数量变化
-  const handleNumericChange = (params) => {
-    console.log('paramss===', params)
-    dispatch(addCart(params));
+  const handleNumericChange = async(params) => {
+    try {
+      await dispatch(addCart(params));
+      dispatch(getCart());
+    } catch (error) {
+      console.error('Error while adding item to cart:', error);
+    }
   };  
+
+  const goPayPage = () => {
+    navigation.navigate('PayPage', {
+      selectedList: mapSelectedList(selectedList, cartList),
+    });
+  }
 
   return (
     <View style={styles.containerWrapper}>
@@ -66,7 +67,7 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
       ]}>
         <LocationSelector
           iconProps={{fontSize: 24, color: '#000'}}
-          textProps={{fontSize: 16, color: '#000'}}
+          textProps={{fontSize: 16, fontWeight: '600', color: '#000'}}
         />
         <Text style={styles.rightText}>管理</Text>
       </View>
@@ -74,7 +75,7 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
         <ScrollView style={styles.cartList}>
           <View style={styles.listHeader}>
             <CustomCheckBox
-              isChecked={isSelectALL}
+              isChecked={isSelectAll}
               onClick={toggleSelectedAllState} 
             />
             <Image
@@ -108,26 +109,23 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
       ]}>
         <View style={styles.flexRowWrapper}>
           <CustomCheckBox
-            isChecked={isSelectALL}
+            isChecked={isSelectAll}
             onClick={toggleSelectedAllState} 
           />
-          <Text>全选</Text>
+          <Text style={styles.selectAll}>全选</Text>
         </View>
         <View style={styles.flexRowWrapper}>
           <Text style={styles.commonText} >
             合计:
           </Text>
-          <SalePrice originPrice={getTotalPrice(selectedList, cartList)} />
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            colors={['#FF8F00', '#FF5100']}
-            style={styles.payBtn}
-          >
-            <Text style={styles.btnText}>
-              结算
-            </Text>
-          </LinearGradient>
+          <SalePrice originPrice={getTotalPrice(mapSelectedList(selectedList, cartList))} />
+          <Pressable onPress={goPayPage}>
+            <View style={styles.payBtn}>
+              <Text style={styles.btnText}>
+                结算
+              </Text>
+            </View>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -153,7 +151,7 @@ const styles = CustomStyleSheet.create({
 
   rightText: {
     marginRight: 8,
-    fontSize: 16,
+    fontSize: 12,
     color: '#000',
   },
   
@@ -189,20 +187,26 @@ const styles = CustomStyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  selectAll: {
+    color: '#000',
+    fontSize: 12,
+  },
+
   commonText: {
     color: '#000'
   },
 
   payBtn: {
     width: 100,
-    borderRadius: 24,
     marginHorizontal: 12,
     paddingVertical: 12,
+    borderRadius: 24,
+    backgroundColor: '#23a2ff',
   },
 
   btnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     textAlign: 'center',
   }

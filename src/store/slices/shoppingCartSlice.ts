@@ -32,9 +32,6 @@ export const shoppingCartSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-    .addCase(addCart.fulfilled, (state, {payload, dispatch}) => {
-      dispatch(getCart())
-    })
     .addCase(getCart.fulfilled, (state, {payload}) => {
       state.cartList = payload.carts;
     })

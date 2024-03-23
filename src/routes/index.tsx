@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './tabs/BottomTab';
 import LoginPage from 'pages/LoginPage';
+import PayPage from 'pages/PayPage';
 import ProductDetail from 'pages/ProductDetail';
 
 const Stack = createNativeStackNavigator(); 
@@ -25,8 +26,12 @@ function PageStack(): React.JSX.Element {
           component={ProductDetail} 
         />
         <Stack.Screen
-          name="loginPage"
+          name="LoginPage"
           component={LoginPage}
+        />
+        <Stack.Screen
+          name="PayPage"
+          component={PayPage}
         />
       </Stack.Navigator>
     </NavigationContainer>

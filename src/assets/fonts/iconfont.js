@@ -1,4 +1,6 @@
 export default {
+  "icon-zhifubao": 59018,
+  "icon-dagou": 58881,
   "icon-xingxing": 58950,
   "icon-guanbi": 58895,
   "icon-right": 58882,

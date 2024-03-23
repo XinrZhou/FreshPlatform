@@ -11,10 +11,10 @@ const CustomCheckBox: React.JSX.Element = ({isChecked, onClick}) => {
       isChecked={isChecked}
       onClick={onClick}
       checkedImage={
-        <Icon name="icon-icons-" size={26} color={"#FF5100"}/>
+        <Icon name="icon-dagou" size={24} color={"#23a2ff"}/>
       }
       unCheckedImage={
-        <Icon name="icon-yuan" size={26} color={"#BFBFBF"}/>
+        <Icon name="icon-yuan" size={24} color={"#BFBFBF"}/>
       }
     />
   )

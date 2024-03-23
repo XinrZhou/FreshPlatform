@@ -32,7 +32,7 @@ const UserCenter: React.JSX.Element = ({navigation, route}) => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigation.navigate('loginPage', {
+      navigation.navigate('LoginPage', {
         lastPage: '我的'
       });
     }
