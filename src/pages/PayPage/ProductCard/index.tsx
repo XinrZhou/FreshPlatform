@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from "assets/fonts";
 import { getTotalPrice } from "utils";
 import { DISTRIBUTION_LIST } from "constants/enums";
@@ -13,24 +12,30 @@ const DISTRIBUTION = [
   { type: 1, name: '门店自提' }
 ];
 
-const DEFAULT_TEXT = "支持选择无接触配送"
+const DEFAULT_TEXT = "支持选择无接触配送";
 
-const ProductCard: React.FC = ({ selectedList = [] }) => {
+const ProductCard: React.FC = ({ 
+  selectedList = [],
+  handleValueChange = () => {} 
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDistribution, setSelectedDistribution] = useState(0);
-  const [remarkText, setRemarkText] = useState(DEFAULT_TEXT);
-  const dispatch = useDispatch();
-  const { isLogin } = useSelector(state => state.user);
+  const [distributeType, setDistributeType] = useState(0);
+  const [remark, setRemark] = useState('');
 
   const openModal = () => setModalVisible(true);
 
   const closeModal = () => setModalVisible(false);
 
+  // select remark text
   const handleRemarkSelect = (indexList: number[]) => {
     const selectedItems = indexList.map(index => DISTRIBUTION_LIST[index]);
     
-    setRemarkText(selectedItems.join(','));
+    setRemark(selectedItems.join(','));
   }
+
+  useEffect(() => {
+    handleValueChange({ type: distributeType, remark })
+  }, [distributeType, remark])
 
   const DetailsRow: React.FC<{ title: string; details: string;}> = ({ title, details }) => (
     <View style={styles.detailsRow}>
@@ -54,8 +59,8 @@ const ProductCard: React.FC = ({ selectedList = [] }) => {
         {DISTRIBUTION.map((item, index) => (
           <View style={styles.optionWrapper} key={index}>
             <CustomCheckBox
-              isChecked={selectedDistribution === item.type}
-              onClick={() => setSelectedDistribution(item.type)}
+              isChecked={distributeType === item.type}
+              onClick={() => setDistributeType(item.type)}
             />
             <Text style={styles.optionText}>{item.name}</Text>
           </View>
@@ -70,7 +75,7 @@ const ProductCard: React.FC = ({ selectedList = [] }) => {
             {selectedList.map((item, index) => (
               <View key={item.id} style={styles.imageWrapper}>
                 <Image
-                  source={{ uri: item.imageUrl }}
+                  source={{ uri: item?.imageUrl }}
                   style={styles.image}
                 />
                 <View style={styles.imageOverlay} />
@@ -88,7 +93,7 @@ const ProductCard: React.FC = ({ selectedList = [] }) => {
       <View style={styles.detailsContainer}>
         <DetailsRow 
           title="配送备注" 
-          details={remarkText}
+          details={remark || DEFAULT_TEXT}
           modalList={DISTRIBUTION_LIST}
         />
       </View>

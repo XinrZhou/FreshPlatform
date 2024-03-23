@@ -20,29 +20,18 @@ export interface Cart {
   updateTime?: string
 };
 
-export interface Rdc {
-  id?: string
-  name?: string
-  province?: string
-  city?: string
-  district?: string
-  address?: string[]
-  detail?: string
+export interface Order {
+  id?: string,
+  userId?: string
+  addressSpec?: string
+  orderSpec?: string
+  type?: number
+  status?: number
+  price?: number
+  remark?: string
   insertTime?: string
   updateTime?: string
-};
-
-export interface Attribute {
-  id?: string
-  categoryId?: string
-  name?: string
-  isNumeric?: number
-  unit?: string
-  isGeneric?: number
-  value?: string
-  insertTime?: string
-  updateTime?: string
-};
+}
 
 export interface Brand {
   id?: string
@@ -70,31 +59,6 @@ export interface Product {
   insertTime?: string
   updateTime?: string
 };
-
-export interface Sku {
-  id?: string
-  name?: string
-  spuId?: string
-  imageUrl?: string
-  stock?: number
-  originPrice?: number
-  discountPrice?: number
-  enable?: number
-  genericSpec?: string
-  specialSpec?: string
-  insertTime?: string
-  updateTime?: string
-};
-
-export interface RdcSpu {
-  id?: string
-  rdcId?: string
-  rdcName?: string
-  spuId?: string
-  spuName?: string
-  insertTime?: string
-  updateTime?: string
-}
 
 interface ResultConfig {
   Resolution?: string

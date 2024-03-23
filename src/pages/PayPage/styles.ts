@@ -29,7 +29,7 @@ export default CustomStyleSheet.create({
 
   headerWrapper: {
     marginHorizontal: 12,
-    marginTop: 16,
+    marginTop: 12,
     justifyContent: 'center',
   },
 

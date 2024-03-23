@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Pressable, Modal, TouchableOpacity, Image } fro
 import CustomStyleSheet from "/styles";
 import { Icon } from "assets/fonts";
 
-const RemarkModal = ({ 
+const RemarkModal: React.FC = ({ 
   modalVisible = false, 
   modalContent = [], 
   handleRemarkSelect = () => {},

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { addCarts, getCarts } from "api/shoppingCart";
-import { Cart } from "types/type";
+import { postCart, getCarts, postOrder } from "api/shoppingCart";
+import { Cart, Order } from "types/type";
 
 interface ShoppingCartState {
   cartList: Cart[];
@@ -11,33 +10,70 @@ const initialState: ShoppingCartState = {
   cartList: []
 }
 
-export const addCart = createAsyncThunk('addCart', 
-  async (params) => {
-    const res = await addCarts(params);
-    return res.data.data;
+// 添加购物车
+export const addCart = createAsyncThunk(
+  'shoppingCart/addCart',
+  async (params: any, { rejectWithValue }) => {
+    try {
+      const res = await postCart(params);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
-)
+);
 
-export const getCart = createAsyncThunk('getCart', 
-  async () => {
-    const res = await getCarts();
-    return res.data.data;
+// 获取购物车
+export const getCart = createAsyncThunk(
+  'shoppingCart/getCart',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await getCarts();
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
-)
+);
+
+// 添加订单
+interface AddOrderParams {
+  extParams?: any;
+  addressSpec: any;
+  selectedList: Cart[];
+  price: number;
+  userId: string;
+}
+
+export const addOrder = createAsyncThunk(
+  'shoppingCart/addOrder',
+  async ({ extParams = {}, addressSpec, selectedList, price, userId }: AddOrderParams, { rejectWithValue }) => {
+    try {
+      const params: Order = {
+        userId,
+        addressSpec: JSON.stringify(addressSpec),
+        orderSpec: JSON.stringify(selectedList),
+        price,
+        ...extParams,
+      };
+      const res = await postOrder(params);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const shoppingCartSlice = createSlice({
   name: "shoppingCart",
   initialState,
-  reducers: {
-  },
-  extraReducers: builder => {
+  reducers: {},
+  extraReducers: (builder) => {
     builder
-    .addCase(getCart.fulfilled, (state, {payload}) => {
-      state.cartList = payload.carts;
-    })
+      .addCase(getCart.fulfilled, (state, { payload }) => {
+        state.cartList = payload.carts;
+      });
   }
-})
-
-export const {} = shoppingCartSlice.actions;
+});
 
 export default shoppingCartSlice.reducer;

@@ -1,19 +1,51 @@
-import React from "react";
-import { View, Text, Image, Pressable, SafeAreaView, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, SafeAreaView, ScrollView, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "assets/fonts";
+import { getTotalPrice } from "utils";
+import { addOrder } from "store/slices/shoppingCartSlice";
 import styles from "./styles";
 import ProductCard from "./ProductCard";
 import PriceCard from "./PriceCard";
 import CustomCheckBox from "components/CustomCheckBox";
-import { getTotalPrice } from "../../utils";
+
+const ADDRESS_SPEC = {
+  name: '测试',
+  phone: '19912345678',
+  address: '亲橙里购物中心8号'
+}
 
 const PayPage = ({ navigation, route }: any) => {
-  const { selectedList } = route.params || {};
+  const { selectedList } = route.params || [];
+  const [price, setPrice] = useState(0);
+  const [extParams, setExtParams] = useState({});
   const dispatch = useDispatch();
+  const { userInfo } = useSelector(state => state.user);
+
+  useEffect(() => {
+    setPrice(getTotalPrice(selectedList));
+  }, [selectedList]);
+
+  const handleValueChange = (params) => setExtParams(params);
+
+  const handleSubmitOrder = () => {
+    dispatch(addOrder({
+      userId: userInfo.id,
+      selectedList, 
+      price, 
+      extParams,
+      addressSpec: ADDRESS_SPEC
+    }))
+    .then(() => {
+      navigation.navigate('PaySuccess');
+    })
+    .catch(error => {
+      console.error("Error submitting order:", error);
+    });
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.headerWrapper}>
           <Pressable onPress={() => navigation.goBack()}>
@@ -24,15 +56,15 @@ const PayPage = ({ navigation, route }: any) => {
         <View style={[styles.containerWrapper, styles.addressWrapper]}>
           <Icon name="icon-didian" size={24} />
           <View>
-            <Text style={styles.addressText}>亲橙里购物中心8号</Text>
+            <Text style={styles.addressText}>{ADDRESS_SPEC.address}</Text>
             <View style={styles.infoWrapper} >
-              <Text>测试</Text>
-              <Text>19912345678</Text>
+              <Text>{ADDRESS_SPEC.name}</Text>
+              <Text>{ADDRESS_SPEC.phone}</Text>
             </View>
           </View>
         </View>
         <View style={styles.containerWrapper}>
-          <ProductCard selectedList={selectedList} />
+          <ProductCard selectedList={selectedList} handleValueChange={handleValueChange} />
         </View>
         <View style={styles.containerWrapper}>
           <PriceCard selectedList={selectedList} />
@@ -50,9 +82,9 @@ const PayPage = ({ navigation, route }: any) => {
         <Text style={styles.bottomText}>合计:</Text>
         <View style={styles.priceWrapper}>
           <Text style={styles.priceCurrency}>￥</Text>
-          <Text style={styles.priceText}>{(getTotalPrice(selectedList) + 1).toFixed(2)}</Text>
+          <Text style={styles.priceText}>{(price + 1).toFixed(2)}</Text>
         </View>
-        <Pressable onPress={() => console.log('test....')}>
+        <Pressable onPress={handleSubmitOrder}>
           <Text style={styles.payBtn}>提交订单</Text>
         </Pressable>
       </View>
