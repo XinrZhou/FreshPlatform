@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import FeedsItem from "components/FeedsList/Item";
 import CustomCheckBox from "components/CustomCheckBox";
@@ -19,35 +19,20 @@ const configProps = {
   }
 };
 
-const toggleCheckboxState = (selectedList, id, setSelectedList) => {
-  setSelectedList(current => {
-    if (current.includes(id)) {
-      // checked
-      return current.filter((item) => {
-        return item !== id
-      })
-    } else {
-      // unChecked
-      return [...current, id]
-    }
-  })
-};
-
-
 const CartItem: React.JSX.Element = ({
   item = {},
   cartList = [],
   selectedList = [],
-  setSelectedList,
+  handleSelectedChange = () => {},
   handleNumericChange = () => {},
 }) => {
+  const toggleCheckboxState = (id) => handleSelectedChange(id);
+
   return (
     <View style={styles.listItem} key={item.id}>
       <CustomCheckBox
         isChecked={selectedList?.includes(item.id)}
-        onClick={() => toggleCheckboxState(
-          selectedList, item.id, setSelectedList
-        )}
+        onClick={() => toggleCheckboxState(item.id)}
       />
       <FeedsItem
         key={item.id} 

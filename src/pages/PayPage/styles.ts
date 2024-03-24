@@ -30,22 +30,17 @@ export default CustomStyleSheet.create({
   headerWrapper: {
     marginHorizontal: 12,
     marginTop: 12,
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  backIcon: {
-    position: 'absolute',
-  },
-
-  headerTitle: {
+  headerTitle: { 
+    flex: 1, 
+    alignItems: 'center' ,
     textAlign: 'center',
     fontSize: 14,
     color: '#000',
-  },
-
-  logo: {
-    width: 80,
-    height: 16,
   },
 
   payWrapper: {

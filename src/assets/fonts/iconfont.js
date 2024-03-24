@@ -1,4 +1,5 @@
 export default {
+  "icon-konggouwuche": 58947,
   "icon-zhifubao": 59018,
   "icon-dagou": 58881,
   "icon-xingxing": 58950,

@@ -48,7 +48,7 @@ const PayPage = ({ navigation, route }: any) => {
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.headerWrapper}>
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() =>navigation.goBack()}>
             <Icon name="icon-left" size={28} color="#000" style={styles.backIcon} />
           </Pressable>
           <Text style={styles.headerTitle}>确认订单</Text>

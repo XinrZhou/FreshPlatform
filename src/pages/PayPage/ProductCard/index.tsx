@@ -73,7 +73,7 @@ const ProductCard: React.FC = ({
         <View style={styles.contentWrapper}>
           <View style={styles.detailsImage}>
             {selectedList.map((item, index) => (
-              <View key={item.id} style={styles.imageWrapper}>
+              <View key={item?.id} style={styles.imageWrapper}>
                 <Image
                   source={{ uri: item?.imageUrl }}
                   style={styles.image}

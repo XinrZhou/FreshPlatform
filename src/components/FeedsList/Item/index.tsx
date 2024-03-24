@@ -25,6 +25,10 @@ const FeedsItem: React.JSX.Element = ({
   const { imageProps = {}, containerProps = {}, contentProps = {} } = configProps;
   const { id, name, spuName, skuName, specialSpec, tags, imageUrl, originPrice, discountPrice, unit, count = 1, skuId, userId } = feedItem;
   const [itemCount, setItemCount] = useState(count);
+  
+  useEffect(() => {
+    setItemCount(count);
+  }, [count]);
 
   const onNumericChange = ((value: number) => {
     setItemCount(value);
@@ -84,6 +88,7 @@ const FeedsItem: React.JSX.Element = ({
             isNumeric ?
               <NumericInput
                 rounded
+                initValue={itemCount}
                 value={itemCount}
                 minValue={1}
                 maxValue={999}

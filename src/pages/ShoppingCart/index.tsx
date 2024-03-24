@@ -10,11 +10,11 @@ import CartItem from "./Item";
 import LocationSelector from "components/LocationSelector";
 import SalePrice from "components/SalePrice";
 import CustomCheckBox from "components/CustomCheckBox";
+import EmptyCard from "components/EmptyCard";
 
-const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
+const ShoppingCart = ({navigation, route}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
-  const [selectedList, setSelectedList] = useState<string[]>([]);
-  const [selectedCartList, setSelectedCartList] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
 
   const dispatch = useDispatch();
   const { cartList } = useSelector(state => state.shoppingCart);
@@ -37,11 +37,20 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
     setIsSelectAll(selectedList.length === cartList.length);
   }, [selectedList, cartList]);
 
+  const handleSelectedChange = (id) => {
+    if (selectedList.includes(id)) {
+      setSelectedList(current => current.filter(item => item !== id));
+    } else {
+      setSelectedList(current => [...current, id]);
+    }
+  };
+
   // checked/cancel checked
   const toggleSelectedAllState = () => {
-    setIsSelectAll(prev => !prev);
-    setSelectedList(prev => prev.length === cartList.length ? [] : cartList.map(item => item.id));
+    const allItemIds = cartList.map(item => item.id);
+    setSelectedList(isSelectAll ? [] : allItemIds);
   };
+
 
   // 购物车商品数量变化
   const handleNumericChange = async(params) => {
@@ -72,36 +81,41 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
         <Text style={styles.rightText}>管理</Text>
       </View>
       <SafeAreaView>
-        <ScrollView style={styles.cartList}>
-          <View style={styles.listHeader}>
-            <CustomCheckBox
-              isChecked={isSelectAll}
-              onClick={toggleSelectedAllState} 
-            />
-            <Image
-              source={{
-                uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/20240322214648%20%281%29.png'
-              }}
-              style={styles.logo}
-            />
-          </View>
-          <View style={styles.listContent}>
-            {
-              cartList.map((item, index) => {
-                return (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    cartList={cartList}
-                    selectedList={selectedList}
-                    setSelectedList={setSelectedList}
-                    handleNumericChange={handleNumericChange}
-                  />
-                )
-              })
-            }
-          </View>
-        </ScrollView>
+        {
+          cartList.length > 0 ?
+            <ScrollView style={styles.cartList}>
+              <View style={styles.listHeader}>
+                <CustomCheckBox
+                  isChecked={isSelectAll}
+                  onClick={toggleSelectedAllState} 
+                />
+                <Image
+                  source={{
+                    uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/20240322214648%20%281%29.png'
+                  }}
+                  style={styles.logo}
+                />
+              </View>
+              <View style={styles.listContent}>
+                {
+                  cartList.map((item, index) => {
+                    return (
+                      <CartItem
+                        key={item.id}
+                        item={item}
+                        cartList={cartList}
+                        selectedList={selectedList}
+                        handleSelectedChange={handleSelectedChange}
+                        handleNumericChange={handleNumericChange}
+                      />
+                    )
+                  })
+                }
+              </View>
+            </ScrollView> :
+            <EmptyCard />
+        }
+        
       </SafeAreaView>
       <View style={[
         styles.footerContainer,
@@ -119,8 +133,8 @@ const ShoppingCart: React.JSX.Element = ({navigation, route}) => {
             合计:
           </Text>
           <SalePrice originPrice={getTotalPrice(mapSelectedList(selectedList, cartList))} />
-          <Pressable onPress={goPayPage}>
-            <View style={styles.payBtn}>
+          <Pressable onPress={selectedList.length > 0 ? goPayPage : null}>
+            <View style={[styles.payBtn, styles.disabledBtn]}>
               <Text style={styles.btnText}>
                 结算
               </Text>
@@ -183,7 +197,7 @@ const styles = CustomStyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 68,
+    height: 56,
     backgroundColor: '#fff',
   },
 
@@ -204,9 +218,13 @@ const styles = CustomStyleSheet.create({
     backgroundColor: '#23a2ff',
   },
 
+  disabledBtn: {
+    backgroundColor: '#dcdcdc',
+  },
+
   btnText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
     textAlign: 'center',
   }

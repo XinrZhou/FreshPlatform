@@ -25,15 +25,14 @@ export const getPrice = (price: number) => {
  * 已选商品映射
  * @param selectedList 已选择购物车列表
  * @param cartList 购物车所有商品列表
- * @returns 
+ * @returns 已选商品列表
  */
-export const mapSelectedList = (selectedList: Array, cartList: Array) => {
-  return cartList.map((cartItem) => {
-    if (selectedList.includes(cartItem.id)) {
-      return cartItem;
-    }
-  })
-}
+export const mapSelectedList = (selectedList: string[], cartList: any[]) => {
+  return cartList.filter((cartItem) => {
+    return selectedList.includes(cartItem.id);
+  });
+};
+
 
 /**
  * 获取购物车总价
