@@ -5,6 +5,7 @@ import CustomStyleSheet from "styles";
 import { Icon } from "assets/fonts";
 
 const BannerSwiper: React.JSX.Element = ({
+  bannerList = [],
   handleSwiperChange,
 }) => {
 
@@ -15,18 +16,19 @@ const BannerSwiper: React.JSX.Element = ({
       autoplayTimeout={5}
       onIndexChanged={index => handleSwiperChange(index)}
     >
-      <Image
-        source={{
-          uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143355054.jpg'
-        }}
-        style={styles.swiperImage}
-      />
-      <Image
-        source={{
-          uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143370862.jpg'
-        }}
-        style={styles.swiperImage}
-      />
+      {
+        bannerList.map((item, index) => {
+          return (
+            <Image
+              key={index}
+              source={{
+                uri: item
+              }}
+              style={styles.swiperImage}
+            />
+          )
+        })
+      }
     </Swiper>
   );
 }

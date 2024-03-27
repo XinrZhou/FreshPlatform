@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Sku, Product } from "types/type";
 
 interface UserState {
-  productInfo: Product,
-  skuList: Sku[],
+  productInfo: Product;
+  skuList: Sku[];
 }
 
 const initialState: UserState = {

@@ -4,8 +4,8 @@ import { User } from "types/type";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface UserState {
-  isLogin: boolean,
-  userInfo: User,
+  isLogin: boolean;
+  userInfo: User;
 }
 
 const initialState: UserState = {

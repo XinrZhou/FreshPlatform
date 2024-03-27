@@ -9,10 +9,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CATEGORY_LEVEL } from "../../constants/enums";
 
 interface ClassificationState {
-  firstCategoryList: Category[],
-  secondCategoryList: Category[],
-  thirdCategoryList: Category[],
-  productList: Product[],
+  firstCategoryList: Category[];
+  secondCategoryList: Category[];
+  thirdCategoryList: Category[];
+  productList: Product[];
 }
 
 const initialState: ClassificationState = {

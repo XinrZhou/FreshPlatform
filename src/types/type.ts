@@ -101,12 +101,10 @@ export interface Resource {
   updateTime?: string
 }
 
-export interface Model {
+export interface Page {
   id?: string
-  version?: string
-  type?: number
-  status?: number
-  params?: string
+  name?: string
+  settings?: string
   insertTime?: string
   updateTime?: string
 }

@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, Text, Image, ImageBackground, Animated, ScrollView } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector, useDispatch } from "react-redux";
+import { getPageInfo } from "store/slices/homeSlice";
 import { getCategoryList } from "store/slices/classificationSlice";
 import CustomStyleSheet from "styles";
 import LocationSelector from "components/LocationSelector";
 import BannerSwiper from "./BannerSwiper";
 import StickyHeader from "./StickyHeader";
 import NavCardItem from "./NavCardItem";
+import AnimateBanner from "components/AnimateBanner";
 
 
 const THEME_BACKGROUD = [
@@ -26,6 +28,7 @@ const THEME_COLOR = [
   }
 ]
 
+const PAGE_NAME = 'Home';
 const NAV_LEVEL = 1;
 
 const Home: React.JSX.Element = () => {
@@ -35,9 +38,15 @@ const Home: React.JSX.Element = () => {
   const [swiperIndex, setSwiperIndex] = useState(0);
 
   const dispatch = useDispatch();
+  const { pageInfo } = useSelector(state => state.home);
   const { firstCategoryList} = useSelector(state => state.classification);
 
+  const themeColors = Object.keys(pageInfo)
+  .filter(key => key.startsWith('themeColor'))
+  .map(key => pageInfo[key]);
+
   useEffect(() => {
+    dispatch(getPageInfo(PAGE_NAME));
     dispatch(getCategoryList(NAV_LEVEL));
   }, []);
 
@@ -50,6 +59,7 @@ const Home: React.JSX.Element = () => {
     }
   };
 
+  console.log('info===', pageInfo)
   const handleSwiperChange = (index: number) => setSwiperIndex(index);
 
 
@@ -60,9 +70,14 @@ const Home: React.JSX.Element = () => {
         scrollEventThrottle={16}
         style={styles.containerWrapper}
       >
-        <ImageBackground
-          source={{ uri: THEME_BACKGROUD[swiperIndex] }}
-          style={[styles.imageBackground]}
+        <View
+          // source={{ uri: pageInfo.bannerImages[swiperIndex] }}
+          style={[
+            styles.imageBackground, 
+            {
+              backgroundColor: themeColors[swiperIndex]
+            }
+          ]}
         >
           {/* 位置 */}
           <View style={styles.headerContainer}>
@@ -73,20 +88,23 @@ const Home: React.JSX.Element = () => {
             stickyTopY={stickyTopY}
             stickyScrollY={scrollY} 
             isScroll={isScroll}
-            themeColor={THEME_COLOR[swiperIndex].start}
+            themeColor={themeColors[swiperIndex]}
           />   
           {/* banner轮播图 */}
           <View style={styles.bannerContainer}>
-            <BannerSwiper handleSwiperChange={handleSwiperChange} />
+            <BannerSwiper 
+              bannerList={pageInfo.bannerImages}
+              handleSwiperChange={handleSwiperChange} 
+            />
           </View>  
-        </ImageBackground>  
+        </View>  
         {/* 渐变效果 */}
         <LinearGradient 
           colors={[
-            THEME_COLOR[swiperIndex].start, 
-            THEME_COLOR[swiperIndex].end, 
-            THEME_COLOR[swiperIndex].end, 
-            THEME_COLOR[swiperIndex].end, 
+            themeColors[swiperIndex] || 'rgba(0, 0, 0, 1)', 
+            'rgba(0, 0, 0, 0)',
+            'rgba(0, 0, 0, 0)',
+            'rgba(0, 0, 0, 0)',
           ]} 
         >
           <View style={styles.navCard}>
@@ -125,6 +143,7 @@ const styles = CustomStyleSheet.create({
     marginTop: 36,
     marginHorizontal: 20,
     height: 120,
+    borderRadius: 16,
   },
 
   imageBackground: {
