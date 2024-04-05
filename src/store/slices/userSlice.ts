@@ -39,7 +39,6 @@ export const getInfo = createAsyncThunk('getUserInfo',
   }
 )
 
-
 export const userSlice = createSlice({
   name: "user",
   initialState,

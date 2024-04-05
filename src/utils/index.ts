@@ -1,3 +1,5 @@
+import { Cart } from "types/type";
+
 /**
  * 获取价格整数、小数
  * @param price 
@@ -49,6 +51,17 @@ export const getTotalPrice = (selectedList: Array): number => {
   }, 0);
 
   return parseFloat(totalPrice.toFixed(2));
+}
+
+/**
+ * 获取购物车商品数量
+ * @param cartList 购物车列表
+ * @returns 总数量
+ */
+export const getCartTotalCount = (cartList: Cart[]) => {
+  return cartList.reduce((totalCount, item) => {
+    return totalCount + item.count;
+  }, 0);
 }
 
 

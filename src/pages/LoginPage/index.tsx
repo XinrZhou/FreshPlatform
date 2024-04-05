@@ -5,24 +5,17 @@ import { Icon } from "assets/fonts";
 import { InputItem, List, Button} from "@ant-design/react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CustomStyleSheet from "styles";
-import { login, getInfo, checkToken } from 'store/slices/userSlice';
+import { login, getInfo } from 'store/slices/userSlice';
 
 const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isLogin } = useSelector(state => state.user);
+  const { isLogin, userInfo } = useSelector(state => state.user);
 
   useEffect(() => {
-    dispatch(checkToken());
-  }, []);
-
-  useEffect(() => {
-    if (isLogin) {
-      dispatch(getInfo());
-      navigation.goBack();
-    }
-  }, [isLogin])
+    isLogin && navigation.goBack();
+  }, [])
 
   const handleLogin = () => {
     dispatch(login({ number, password }));

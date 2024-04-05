@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postCart, getCarts, postOrder } from "api/shoppingCart";
 import { Cart, Order } from "types/type";
+import { getCartTotalCount } from "utils";
 
 interface ShoppingCartState {
   cartList: Cart[];
+  cartCount: number;
 }
 
 const initialState: ShoppingCartState = {
-  cartList: []
+  cartList: [],
+  cartCount: 0,
 }
 
 // 添加购物车
@@ -72,6 +75,7 @@ export const shoppingCartSlice = createSlice({
     builder
       .addCase(getCart.fulfilled, (state, { payload }) => {
         state.cartList = payload.carts;
+        state.cartCount = getCartTotalCount(payload.carts);
       });
   }
 });

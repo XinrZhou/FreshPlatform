@@ -12,8 +12,9 @@ const BannerSwiper: React.JSX.Element = ({
   return (
     <Swiper style={styles.swiper} 
       showsButtons={false} 
-      autoplay
+      autoplay={true}
       autoplayTimeout={5}
+      loop={true}
       onIndexChanged={index => handleSwiperChange(index)}
     >
       {

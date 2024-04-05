@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { View, Text, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "assets/fonts";
@@ -8,7 +9,7 @@ import {
   getCategoryListByParentId,
   getProductList 
 } from "store/slices/classificationSlice";
-import { addCart } from "store/slices/shoppingCartSlice";
+import { addCart, getCart } from "store/slices/shoppingCartSlice";
 import CustomStyleSheet from "styles";
 import ScrollNavBar from "components/ScrollNavBar";
 import ScrollSquareNav from "./ScrollSquareNav";
@@ -22,9 +23,12 @@ const NAV_IMAGE_URL = "https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/
 const Classification: React.JSX.Element = ({navigation, route}: any) => {
   const [colNavActiveIndex, setColNavActiveIndex] = useState(0);
   const [rowNavActiveIndex, setRowNavActiveIndex] = useState(0);
+  const { isLogin } = useSelector(state => state.user);
+  const { cartCount } = useSelector(state => state.shoppingCart);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    isLogin && dispatch(getCart());
     dispatch(getCategoryList(CATEGORY_LEVEL.FIRST));
   }, []);
 
@@ -77,20 +81,24 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
     dispatch(getProductList(item.id))
   };
 
+  const handleAddCart = async(sid) => {
+    await dispatch(addCart({ skuId: sid, userId: userInfo.id }));
+    await dispatch(getCart());
+  };
+
   const handleFeedsItemClick = (params) => {
-    navigation.navigate('ProductDetail', { id: params.id});
+    navigation.navigate('ProductDetail', { 
+      id: params.id
+    });
   }
 
-  const handleAddCart = (sid) => {
-    dispatch(addCart({ skuId: sid, userId: userInfo.id }));
-  }
 
   return (
     <View>
       {/* 搜索框 */}
       <View style={styles.searchBox}>
         <Icon name="icon-left" size={24} color={"#000"} />
-        <SearchBar />
+        <SearchBar cartCount={cartCount} />
       </View>
       {/* 一级导航 */}
       <View>
@@ -135,7 +143,7 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
             </View>
           </View>
           {/* 商品feeds流 */}
-          <FeedsList 
+          <FeedsList
             data={productList} 
             numColumns={1}
             handleAddCart={handleAddCart}

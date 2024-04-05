@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector, useDispatch } from 'react-redux';
+import { checkToken, getInfo } from 'store/slices/userSlice';
 import BottomTabNavigator from './tabs/BottomTab';
 import LoginPage from 'pages/LoginPage';
 import PayPage from 'pages/PayPage';
@@ -10,6 +12,17 @@ import ProductDetail from 'pages/ProductDetail';
 const Stack = createNativeStackNavigator(); 
 
 function PageStack(): React.JSX.Element {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(checkToken())
+  }, []);
+
+  useEffect(() => {
+    isLogin && dispatch(getInfo());
+  }, [isLogin])
+
   return (
     <NavigationContainer>
       <Stack.Navigator

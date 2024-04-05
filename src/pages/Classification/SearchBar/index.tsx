@@ -6,13 +6,15 @@ import {
   Text, 
   Pressable 
 } from "react-native";
+import { useSelector } from "react-redux";
 import LinearGradient from "react-native-linear-gradient";
+import { Badge } from "@ant-design/react-native";
 import { Icon } from "assets/fonts";
 
-
-const SearchBar: React.JSX.Element = () => {
+const SearchBar: React.JSX.Element = ({ cartCount }) => {
   const [searchText, setSearchText] = useState('');
   const [isPress, setIsPress] = useState(false);
+  // const { cartCount } = useSelector(state => state.shoppingCart);
 
   return (
     <View style={styles.searchWrapper}>
@@ -43,12 +45,13 @@ const SearchBar: React.JSX.Element = () => {
               <Text style={styles.btnText}>搜索</Text>
             </Pressable>
           </LinearGradient> :
-          <Icon 
-            name="icon-gouwuche"
-            size={28}
-            color="black"
-            style={styles.searchLeft}
-          />
+          <Badge text={cartCount} style={styles.cartIcon}>
+            <Icon 
+              name="icon-gouwuche"
+              size={32}
+              color="black"
+            />
+          </Badge>
       }
     </View>
   )
@@ -89,7 +92,11 @@ const styles = StyleSheet.create({
   },
 
   searchLeft: {
-    right: 2,
+    right: 4,
+  },
+
+  cartIcon: {
+    right: 8
   },
 
   searchBtn: {

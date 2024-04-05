@@ -59,17 +59,18 @@ const Home: React.JSX.Element = () => {
     }
   };
 
-  console.log('info===', pageInfo)
-  const handleSwiperChange = (index: number) => setSwiperIndex(index);
+  const handleSwiperChange = (index: number) => {
+    setSwiperIndex(index);
+  }
 
 
   return (
     <View style={styles.container}>
-      <ScrollView
+      {/* <ScrollView
         onScroll={handleScroll}
         scrollEventThrottle={16}
         style={styles.containerWrapper}
-      >
+      > */}
         <View
           // source={{ uri: pageInfo.bannerImages[swiperIndex] }}
           style={[
@@ -117,7 +118,7 @@ const Home: React.JSX.Element = () => {
             }
           </View>
         </LinearGradient>
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   );
 }
