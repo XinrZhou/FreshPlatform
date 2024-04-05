@@ -1,31 +1,48 @@
-import React, {useState} from "react";
-import { 
-  ScrollView,
-  Image,
-  Text,
-  View,
-  StyleSheet,
-  Pressable
- } from "react-native";
- import LinearGradient from "react-native-linear-gradient";
- import { Category } from "../../types/type";
+import React, { useState, useEffect, useRef } from "react";
+import { ScrollView, Image, Text, View, StyleSheet, Pressable } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import { Category } from "../../types/type";
 
-const ScrollNavBar: React.JSX.Element = ({
-  navList = [],
-  handleNavIndexChange = () => {},
+const ScrollNavBar: React.FC = ({ 
+  navList = [], 
+  currentNavItem = {}, 
+  handleNavIndexChange 
 }) => {
   const [navActiveIndex, setNavActiveIndex] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    setNavActiveIndex(0);
+  }, [])
+
+  useEffect(() => {
+    navList.forEach((item, index) => {
+      if (item.id === currentNavItem.id) {
+        setNavActiveIndex(index);
+        onNavIndexChange(index, currentNavItem);
+      }
+    })
+  }, [currentNavItem]);
 
   const onNavIndexChange = (index: number, item: Category) => {
     setNavActiveIndex(index);
-    handleNavIndexChange(index, item.id)
-  }
+    handleNavIndexChange(index, item.id);
+    scrollToNavItem(index);
+  };
+
+  // 一级导航跟随index滚动
+  const scrollToNavItem = (index: number) => {
+    const itemWidth = 60; 
+    const offset = index * itemWidth;
+    scrollViewRef.current?.scrollTo({ x: offset, animated: true });
+  };
 
   return (
     <ScrollView 
+      ref={scrollViewRef}
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={styles.scrollWrapper}
+      contentContainerStyle={styles.contentWrapper}
     >
       {
         navList.map((item, index) => {
@@ -72,19 +89,15 @@ const ScrollNavBar: React.JSX.Element = ({
 }
 
 const styles = StyleSheet.create({
-  scrollWrapper: {
-    paddingHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row',
+  contentWrapper: {
+    paddingHorizontal: 8,
   },
-
   navItemWrapper: {
     marginVertical: 12,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   navItemImage: {
     width: 60,
     height: 60,
@@ -92,18 +105,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#fff',
   },
-
   navItemText: {
     paddingHorizontal: 10,
     marginTop: 6,
     color: '#000',
     borderRadius: 16,
   },
-
-  navItemActiveText: {
-    color: '#fff',
-    backgroundColor: '#17A3D4'
-  }
-})
+});
 
 export default ScrollNavBar;

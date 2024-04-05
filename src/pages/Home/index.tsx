@@ -31,7 +31,7 @@ const THEME_COLOR = [
 const PAGE_NAME = 'Home';
 const NAV_LEVEL = 1;
 
-const Home: React.JSX.Element = () => {
+const Home: React.JSX.Element = ({ navigation }) => {
   const stickyTopY = useRef(60).current;
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScroll,setIsScroll]= useState(false);
@@ -42,8 +42,8 @@ const Home: React.JSX.Element = () => {
   const { firstCategoryList} = useSelector(state => state.classification);
 
   const themeColors = Object.keys(pageInfo)
-  .filter(key => key.startsWith('themeColor'))
-  .map(key => pageInfo[key]);
+    .filter(key => key.startsWith('themeColor'))
+    .map(key => pageInfo[key]);
 
   useEffect(() => {
     dispatch(getPageInfo(PAGE_NAME));
@@ -59,10 +59,11 @@ const Home: React.JSX.Element = () => {
     }
   };
 
-  const handleSwiperChange = (index: number) => {
-    setSwiperIndex(index);
-  }
+  const handleSwiperChange = (index: number) => setSwiperIndex(index);
 
+  const handleNavItemClick = (navItem) => {
+    navigation.navigate('分类', { navItem })
+  }
 
   return (
     <View style={styles.container}>
@@ -112,7 +113,11 @@ const Home: React.JSX.Element = () => {
             {
               firstCategoryList.map(item => {
                 return (
-                  <NavCardItem navItem={item} key={item.id} />
+                  <NavCardItem 
+                    navItem={item} 
+                    key={item.id} 
+                    handleNavItemClick={handleNavItemClick}
+                  />
                 )
               })
             }

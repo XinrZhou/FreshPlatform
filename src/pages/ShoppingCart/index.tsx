@@ -34,7 +34,7 @@ const ShoppingCart = ({navigation, route}) => {
   }, [isLogin])
 
   useEffect(() => {
-    setIsSelectAll(selectedList.length === cartList.length);
+    selectedList.length && setIsSelectAll(selectedList.length === cartList.length);
   }, [selectedList, cartList]);
 
   const handleSelectedChange = (id) => {
@@ -63,6 +63,7 @@ const ShoppingCart = ({navigation, route}) => {
   };  
 
   const goPayPage = () => {
+    setSelectedList([]);
     navigation.navigate('PayPage', {
       selectedList: mapSelectedList(selectedList, cartList),
     });
@@ -134,7 +135,10 @@ const ShoppingCart = ({navigation, route}) => {
           </Text>
           <SalePrice originPrice={getTotalPrice(mapSelectedList(selectedList, cartList))} />
           <Pressable onPress={selectedList.length > 0 ? goPayPage : null}>
-            <View style={[styles.payBtn, styles.disabledBtn]}>
+            <View style={[
+              styles.payBtn, 
+              !selectedList.length && styles.disabledBtn 
+            ]}>
               <Text style={styles.btnText}>
                 结算
               </Text>

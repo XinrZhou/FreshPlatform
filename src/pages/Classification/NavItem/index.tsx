@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import CustomStyleSheet from "styles";
 import { Icon } from "assets/fonts";
 
-const NavItem: React.JSX.Element = ({ name, attribute }: {
+const NavItem: React.JSX.Element = ({ name, attribute}: {
   name: string,
   attribute: string, 
 }) => {

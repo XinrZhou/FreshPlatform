@@ -1,25 +1,30 @@
 import React, {useState} from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { Category } from "types/type";
 import CustomStyleSheet from "styles";
 
-const NavCardItem: React.JSX.Element = ({navItem}) => {
+const NavCardItem: React.JSX.Element = ({
+  navItem,
+  handleNavItemClick = () => {}
+}) => {
 
   return (
-    <View 
-      key={navItem.id} 
-      style={styles.navItemWrapper}
-    >
-      <Image
-        source={{
-          uri: navItem.imageUrl
-        }}
-        style={styles.navItemImage} 
-      />
-      <Text style={styles.navItemText}>
-        {navItem.name}
-      </Text>
-    </View>
+    <Pressable onPress={() => handleNavItemClick(navItem)}>
+      <View 
+        key={navItem.id} 
+        style={styles.navItemWrapper}
+      >
+        <Image
+          source={{
+            uri: navItem.imageUrl
+          }}
+          style={styles.navItemImage} 
+        />
+        <Text style={styles.navItemText}>
+          {navItem.name}
+        </Text>
+      </View>
+    </Pressable>
   )
 }
 

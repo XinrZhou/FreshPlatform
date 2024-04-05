@@ -15,7 +15,7 @@ const ADDRESS_SPEC = {
   address: '亲橙里购物中心8号'
 }
 
-const PayPage = ({ navigation, route }: any) => {
+const PayPage = ({ navigation, route }) => {
   const { selectedList } = route.params || [];
   const [price, setPrice] = useState(0);
   const [extParams, setExtParams] = useState({});

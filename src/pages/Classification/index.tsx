@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "assets/fonts";
 import { CATEGORY_LEVEL } from "constants/enums";
@@ -40,12 +40,13 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
   } = useSelector(state => state.classification);
   const { userInfo } = useSelector(state => state.user);
 
-  useEffect(() => {
-    if (firstCategoryList.length > 0) {
-      const pid = firstCategoryList[0].id;
-      dispatch(getCategoryListByParentId({ pid, level: CATEGORY_LEVEL.SECOND }));
-    }
-  }, [firstCategoryList]);
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params === undefined && firstCategoryList.length > 0) {
+        const pid = firstCategoryList[0].id;
+        dispatch(getCategoryListByParentId({ pid, level: CATEGORY_LEVEL.SECOND }));
+      }
+    }, [firstCategoryList]));
 
   useEffect(() => {
     if (secondCategoryList.length > 0) {
@@ -97,13 +98,16 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
     <View>
       {/* 搜索框 */}
       <View style={styles.searchBox}>
-        <Icon name="icon-left" size={24} color={"#000"} />
+        <Pressable onPress={() =>navigation.goBack()}>
+          <Icon name="icon-left" size={24} color={"#000"} />
+        </Pressable>
         <SearchBar cartCount={cartCount} />
       </View>
       {/* 一级导航 */}
       <View>
         <ScrollNavBar
           navList={firstCategoryList}
+          currentNavItem={route.params?.navItem}
           handleNavIndexChange={handleNavIndexChange}
         />
       </View>

@@ -25,7 +25,7 @@ const ScrollSquareNav: React.JSX.Element = ({
     <ScrollView 
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={styles.scrollWrapper}
+      contentContainerStyle={styles.scrollWrapper}
     >
       {
         navList.map((item, index) => {
