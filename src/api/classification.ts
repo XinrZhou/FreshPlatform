@@ -20,7 +20,3 @@ export function getProductDetails(sid: string) {
   return axios.get(`/sku/detail/${sid}`)
 }
 
-// // 获取sku列表
-// export function getSkusBySpuId(sid: string) {
-//   return axios.get(`/sku/skus/${sid}`)
-// }

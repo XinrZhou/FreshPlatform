@@ -18,7 +18,7 @@ const FeedsItem: React.JSX.Element = ({
   configProps = {},
   dataList = [],
   isNumeric = false,
-  showTags = false,
+  showTags = true,
   handleNumericChange = () => {},
   handleAddCart = () => {},
 }) => {
@@ -47,15 +47,15 @@ const FeedsItem: React.JSX.Element = ({
           style={[styles.itemImage, {...imageProps}]}
           source={
             {
-              height: 220,
-              width: 220,
+              height: 200,
+              width: 200,
               uri: imageUrl
             }
           }
         />
       </View>
       <View style={[styles.itemContent, {...contentProps}]}>
-        <Text style={styles.itemTitle}>
+        <Text style={styles.itemTitle} >
           {name || skuName}
         </Text>
         {
@@ -111,9 +111,10 @@ const FeedsItem: React.JSX.Element = ({
 
 const styles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
+    width: 212,
     marginTop: 8,
     marginBottom: 8,
+    marginHorizontal: 8,
     backgroundColor: '#fff',
     borderRadius: 12,
     display: 'flex',
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 
   itemTag: {

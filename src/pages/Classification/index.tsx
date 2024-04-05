@@ -93,7 +93,6 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
     });
   }
 
-
   return (
     <View>
       {/* 搜索框 */}

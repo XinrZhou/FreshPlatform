@@ -64,6 +64,19 @@ export const getCartTotalCount = (cartList: Cart[]) => {
   }, 0);
 }
 
+/**
+ * JSON解析
+ * @param value 
+ * @returns 
+ */
+export const parseJSONIfExists = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return {};
+  }
+};
+
 
 
 

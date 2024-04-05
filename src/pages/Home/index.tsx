@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, Image, ImageBackground, Animated, ScrollView } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector, useDispatch } from "react-redux";
-import { getPageInfo } from "store/slices/homeSlice";
+import { addCart, getCart } from "store/slices/shoppingCartSlice";
+import { getPageInfo, getProductList } from "store/slices/homeSlice";
 import { getCategoryList } from "store/slices/classificationSlice";
 import CustomStyleSheet from "styles";
 import LocationSelector from "components/LocationSelector";
@@ -10,45 +12,35 @@ import BannerSwiper from "./BannerSwiper";
 import StickyHeader from "./StickyHeader";
 import NavCardItem from "./NavCardItem";
 import AnimateBanner from "components/AnimateBanner";
-
-
-const THEME_BACKGROUD = [
-  'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143355054.jpg',
-  'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/qq_pic_merged_1710143370862.jpg'
-]
-
-const THEME_COLOR = [
-  {
-    start: 'rgba(227, 191, 150, 1)',
-    end: 'rgba(227, 191, 150, 0)',
-  },
-  {
-    start: 'rgba(97, 199, 224, 1)',
-    end: 'rgba(97, 199, 224, 0)',
-  }
-]
+import FeedsList from "components/FeedsList";
 
 const PAGE_NAME = 'Home';
 const NAV_LEVEL = 1;
+const PAGE_SIEZ = 20;
 
 const Home: React.JSX.Element = ({ navigation }) => {
   const stickyTopY = useRef(60).current;
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScroll,setIsScroll]= useState(false);
   const [swiperIndex, setSwiperIndex] = useState(0);
+  const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-  const { pageInfo } = useSelector(state => state.home);
-  const { firstCategoryList} = useSelector(state => state.classification);
+  const { userInfo } = useSelector(state => state.user);
+  const { pageInfo, productList } = useSelector(state => state.home);
+  const { firstCategoryList } = useSelector(state => state.classification);
 
   const themeColors = Object.keys(pageInfo)
     .filter(key => key.startsWith('themeColor'))
     .map(key => pageInfo[key]);
 
-  useEffect(() => {
-    dispatch(getPageInfo(PAGE_NAME));
-    dispatch(getCategoryList(NAV_LEVEL));
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getPageInfo(PAGE_NAME));
+      dispatch(getCategoryList(NAV_LEVEL));
+      dispatch(getProductList({ page: page, pageSize: PAGE_SIEZ }));
+    }, [])
+  )
 
   const handleScroll = (event: any) => {
     const offsetY = event.nativeEvent.contentOffset.y;
@@ -61,19 +53,27 @@ const Home: React.JSX.Element = ({ navigation }) => {
 
   const handleSwiperChange = (index: number) => setSwiperIndex(index);
 
-  const handleNavItemClick = (navItem) => {
-    navigation.navigate('分类', { navItem })
+  const handleNavItemClick = (navItem) => navigation.navigate('分类', { navItem });
+
+  const handleAddCart = async(sid) => {
+    await dispatch(addCart({ skuId: sid, userId: userInfo.id }));
+    await dispatch(getCart());
+  };
+
+  const handleFeedsItemClick = (params) => {
+    navigation.navigate('ProductDetail', { 
+      id: params.id
+    });
   }
 
   return (
     <View style={styles.container}>
-      {/* <ScrollView
+      <ScrollView
         onScroll={handleScroll}
         scrollEventThrottle={16}
         style={styles.containerWrapper}
-      > */}
+      >
         <View
-          // source={{ uri: pageInfo.bannerImages[swiperIndex] }}
           style={[
             styles.imageBackground, 
             {
@@ -123,7 +123,14 @@ const Home: React.JSX.Element = ({ navigation }) => {
             }
           </View>
         </LinearGradient>
-      {/* </ScrollView> */}
+        {/* 商品feeds流 */}
+        <FeedsList
+          data={productList} 
+          numColumns={2}
+          handleAddCart={handleAddCart}
+          handleFeedsItemClick={handleFeedsItemClick} 
+        />
+      </ScrollView>
     </View>
   );
 }

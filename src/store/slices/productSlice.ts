@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getProductDetails } from "api/classification";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Sku, Product } from "types/type";
+import { parseJSONIfExists } from "utils";
 
 interface UserState {
   productInfo: Product;
@@ -12,14 +13,6 @@ const initialState: UserState = {
   productInfo: {},
   skuList: [],
 }
-
-const parseJSONIfExists = (value) => {
-  try {
-    return JSON.parse(value);
-  } catch (error) {
-    return {};
-  }
-};
 
 export const getProductDetail = createAsyncThunk('getProductDetail', 
   async (params) => {

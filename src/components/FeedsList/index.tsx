@@ -20,6 +20,8 @@ const configProps = {
   },
   containerProps: {
     flexDirection: "row",
+    width: '100%',
+    marginHorizontal: 0,
   },
   contentProps: {
     paddingVertical: 0,
@@ -58,6 +60,7 @@ const FeedsList: React.JSX.Element = ({
       <FlatList
         style={styles.feedsContainer}
         keyExtractor={(item) => item.id}
+        key={(item) => item.id}
         ref={listRef}
         data={data}
         numColumns={numColumns}

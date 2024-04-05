@@ -7,6 +7,7 @@ import {
 import { Category, Product } from "types/type";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CATEGORY_LEVEL } from "../../constants/enums";
+import { parseJSONIfExists } from "utils";
 
 interface ClassificationState {
   firstCategoryList: Category[];
@@ -21,14 +22,6 @@ const initialState: ClassificationState = {
   thirdCategoryList: [],
   productList: [],
 }
-
-const parseJSONIfExists = (value) => {
-  try {
-    return JSON.parse(value);
-  } catch (error) {
-    return {};
-  }
-};
 
 export const getCategoryList = createAsyncThunk('getCategoryTree', 
   async (params: number) => {
