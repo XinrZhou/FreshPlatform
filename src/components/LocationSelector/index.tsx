@@ -13,7 +13,7 @@ const LocationSelector: React.JSX.Element = ({
       <Icon 
         name="icon-didian" 
         size={32} 
-        color="#fff"
+        color="#000"
         style={iconProps}
       />
       <Text style={[styles.locationText, textProps]}>
@@ -22,7 +22,7 @@ const LocationSelector: React.JSX.Element = ({
       <Icon 
         name="icon-down" 
         size={32} 
-        color="#fff"
+        color="#000"
         style={iconProps}
       />
     </View>
@@ -38,7 +38,7 @@ const styles = CustomStyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: "#fff"
+    color: "#000"
   }
 })
 

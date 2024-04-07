@@ -1,45 +1,50 @@
-import React, { useRef } from 'react';
-import { Animated } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Animated, View } from 'react-native';
 import CustomStyleSheet from 'styles';
 import SearchBar from '../SearchBar';
+import LocationSelector from "components/LocationSelector";
 
 const StickyHeader = ({ 
-  stickyTopY = 0, 
+  stickyTopY = null, 
   stickyScrollY, 
-  isScroll = false, 
-  themeColor = '',
+  isScroll,
+  themeColor = '' 
 }) => {
-  const stickyLayoutY = useRef(0);
+  const [stickyLayoutY, setStickyLayoutY] = useState(null);
 
-  const onLayout = event => {
-    stickyLayoutY.current = event.nativeEvent.layout.y;
-  };
+  useEffect(() => {
+    const onLayout = event => {
+      setStickyLayoutY(event.nativeEvent.layout.y);
+    };
+
+    return () => {};
+  }, []);
+
+  const y = stickyTopY !== null ? stickyTopY : stickyLayoutY;
 
   const translateY = stickyScrollY.interpolate({
-    inputRange: [0, stickyLayoutY.current + 1],
-    outputRange: [0, 1],
-    extrapolate: 'clamp',
+    inputRange: [-1, 0, y, y + 1],
+    outputRange: [0, 0, 0, 1],
+    useNativeDriver: true,
   });
 
   return (
     <Animated.View
-      onLayout={onLayout}
       style={[
         styles.stickyContainer,
-        {
-          transform: [{ translateY }],
-          zIndex: translateY.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1, 2],
-            extrapolate: 'clamp',
-          }),
-        },
+        isScroll && styles.scrollContainer,
+        { 
+          transform: [{ translateY }], 
+          backgroundColor: isScroll ? themeColor : 'transparent' 
+        }
       ]}
     >
-      <SearchBar 
-        isScroll={isScroll} 
-        themeColor={themeColor} 
-      />
+      {/* 位置 */}
+      <View style={styles.locationContainer}>
+        <LocationSelector />
+      </View>
+      {/* 搜索框 */}
+      <SearchBar isScroll={isScroll} themeColor={themeColor} />
     </Animated.View>
   );
 };
@@ -48,7 +53,16 @@ export default React.memo(StickyHeader);
 
 const styles = CustomStyleSheet.create({
   stickyContainer: {
-    zIndex: 10,
-    elevation: 1, // Android 中提高层级
+    zIndex: 100,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 52,
+    paddingHorizontal: 10,
   },
 });

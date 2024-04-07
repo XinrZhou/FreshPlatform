@@ -35,9 +35,10 @@ const FeedsList: React.JSX.Element = ({
   numColumns = 1, 
   handleAddCart = () => {},
   handleFeedsItemClick = () => {},
+  headerComponents,
 }) => {
   const listRef = useRef<FlatList>(null);
-
+  
   const renderItem = ({ item }: { item: any }) => {
     return (
       <Pressable 
@@ -61,6 +62,7 @@ const FeedsList: React.JSX.Element = ({
       {
         numColumns == FEED_COLUMS.SINGLE ?
           <FlatList
+            ListHeaderComponent={headerComponents}
             style={styles.feedsContainer}
             keyExtractor={(item) => item.id}
             key={(item) => item.id}
@@ -68,8 +70,10 @@ const FeedsList: React.JSX.Element = ({
             data={data}
             numColumns={numColumns}
             renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
           /> :
           <WaterfallFlow
+            ListHeaderComponent={headerComponents}
             style={styles.feedsContainer}
             keyExtractor={(item) => item.id}
             key={(item) => item.id}
@@ -77,6 +81,7 @@ const FeedsList: React.JSX.Element = ({
             data={data}
             numColumns={numColumns}
             renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
           />
       }
     </SafeAreaView> 
@@ -88,6 +93,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginLeft: 12,
     marginRight: 12,
+    zIndex: -1
   }
 })
 

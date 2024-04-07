@@ -1,5 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, Text, Image, ImageBackground, Animated, ScrollView } from "react-native";
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { 
+  View, 
+  Text, 
+  Image, 
+  ImageBackground, 
+  Animated, 
+  ScrollView 
+} from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +14,6 @@ import { addCart, getCart } from "store/slices/shoppingCartSlice";
 import { getPageInfo, getProductList } from "store/slices/homeSlice";
 import { getCategoryList } from "store/slices/classificationSlice";
 import CustomStyleSheet from "styles";
-import LocationSelector from "components/LocationSelector";
 import BannerSwiper from "./BannerSwiper";
 import StickyHeader from "./StickyHeader";
 import NavCardItem from "./NavCardItem";
@@ -19,10 +25,10 @@ const NAV_LEVEL = 1;
 const PAGE_SIEZ = 20;
 
 const Home: React.JSX.Element = ({ navigation }) => {
-  const stickyTopY = useRef(60).current;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [isScroll,setIsScroll]= useState(false);
+  const [stickyTopY, setStickyTopY] = useState(0);
   const [swiperIndex, setSwiperIndex] = useState(0);
+  const [isScroll, setIsScroll] = useState(false);
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
@@ -64,34 +70,43 @@ const Home: React.JSX.Element = ({ navigation }) => {
     navigation.navigate('ProductDetail', { 
       id: params.id
     });
-  }
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        onScroll={
+          Animated.event(
+            [
+              {
+                nativeEvent: { contentOffset: { y: scrollY } }
+              }
+            ],
+            { 
+              useNativeDriver: false,
+              listener: handleScroll 
+            }
+          )
+        }
+        scrollEventThrottle={1}
         style={styles.containerWrapper}
       >
         <View
           style={[
             styles.imageBackground, 
             {
-              backgroundColor: themeColors[swiperIndex]
+              backgroundColor: themeColors[swiperIndex] 
             }
           ]}
         >
-          {/* 位置 */}
-          <View style={styles.headerContainer}>
-            <LocationSelector />
-          </View>
           {/* 搜索框吸顶 */}
           <StickyHeader
-            stickyTopY={stickyTopY}
+            stickyTopY={stickyTopY} 
             stickyScrollY={scrollY} 
             isScroll={isScroll}
             themeColor={themeColors[swiperIndex]}
-          />   
+          />
           {/* banner轮播图 */}
           <View style={styles.bannerContainer}>
             <BannerSwiper 
@@ -142,14 +157,6 @@ const styles = CustomStyleSheet.create({
 
   containerWrapper: {
     height: '100%',
-  },
-
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 60,
-    paddingHorizontal: 10,
   },
 
   bannerContainer: {

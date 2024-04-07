@@ -17,7 +17,6 @@ const SearchBar: React.JSX.Element = ({
   return (
     <View style={[
       styles.searchWrapper,
-      isScroll && styles.scrollWrapper
     ]}>
       <View style={[
         styles.searchContainer,
@@ -45,12 +44,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
 
-  scrollWrapper: {
-    paddingTop: 8,
-    paddingBottom: 8,
-    backgroundColor: '#fff'
-  },
-
   searchContainer: {
     marginLeft: 16,
     marginRight: 16,
@@ -62,11 +55,11 @@ const styles = StyleSheet.create({
     borderRadius: 36,
   },
 
-  scrollContainer: {
-    borderWidth: 2,
-    borderColor: '#379E01',
-    backgroundColor: '#fff',
-  },
+  // scrollContainer: {
+  //   borderWidth: 2,
+  //   borderColor: '#379E01',
+  //   backgroundColor: '#fff',
+  // },
 
   searchBtn: {
     position: 'absolute',
@@ -77,12 +70,12 @@ const styles = StyleSheet.create({
     borderRadius: 36,
   },
 
-  scrollBtn: {
-    backgroundColor: '#379E01',
-  },
+  // scrollBtn: {
+  //   backgroundColor: '#379E01',
+  // },
 
   btnText: {
-    margin: 6,
+    margin: 4,
     textAlign: 'center',
     color: '#fff',
     fontSize: 16,
