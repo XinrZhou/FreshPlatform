@@ -1,49 +1,54 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Animated } from 'react-native';
-import { Text } from 'react-native-animatable';
+import { Animated } from 'react-native';
+import CustomStyleSheet from 'styles';
 import SearchBar from '../SearchBar';
-import { Icon } from 'assets/fonts';
 
-const StickyHeader: React.JSX.Element = ({
-  stickyTopY = null,
-  stickyScrollY,
-  isScroll = false,
+const StickyHeader = ({ 
+  stickyTopY = 0, 
+  stickyScrollY, 
+  isScroll = false, 
   themeColor = '',
 }) => {
-  let stickyLayoutY = useRef(0).current;
-  const y = stickyScrollY !== null ? stickyTopY : stickyLayoutY;
+  const stickyLayoutY = useRef(0);
 
   const onLayout = event => {
-    stickyLayoutY = event.nativeEvent.layout.y;
+    stickyLayoutY.current = event.nativeEvent.layout.y;
   };
+
+  const translateY = stickyScrollY.interpolate({
+    inputRange: [0, stickyLayoutY.current + 1],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
 
   return (
     <Animated.View
-      onLayout={onLayout} 
+      onLayout={onLayout}
       style={[
         styles.stickyContainer,
         {
-          transform: [
-            {
-              translateY: stickyScrollY.interpolate({
-                inputRange: [-1, 0, y, y + 1],
-                outputRange: [0, 0, 0, 1],
-              }),
-            },
-          ],
+          transform: [{ translateY }],
+          zIndex: translateY.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 2],
+            extrapolate: 'clamp',
+          }),
         },
-      ]}>
-      <SearchBar isScroll={isScroll} themeColor={themeColor}/>
+      ]}
+    >
+      <SearchBar 
+        isScroll={isScroll} 
+        themeColor={themeColor} 
+      />
     </Animated.View>
   );
 };
 
 export default React.memo(StickyHeader);
 
-const styles = StyleSheet.create({
+const styles = CustomStyleSheet.create({
   stickyContainer: {
     zIndex: 10,
+    elevation: 1, // Android 中提高层级
   },
 });
-
-

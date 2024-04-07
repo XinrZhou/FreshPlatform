@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import FeedsItem from "./Item";
 import { FEED_COLUMS } from "constants";
+import WaterfallFlow from 'react-native-waterfall-flow';
 
 // '1x1'商卡配置
 const configProps = {
@@ -57,15 +58,27 @@ const FeedsList: React.JSX.Element = ({
 
   return (
     <SafeAreaView>
-      <FlatList
-        style={styles.feedsContainer}
-        keyExtractor={(item) => item.id}
-        key={(item) => item.id}
-        ref={listRef}
-        data={data}
-        numColumns={numColumns}
-        renderItem={renderItem}
-      />
+      {
+        numColumns == FEED_COLUMS.SINGLE ?
+          <FlatList
+            style={styles.feedsContainer}
+            keyExtractor={(item) => item.id}
+            key={(item) => item.id}
+            ref={listRef}
+            data={data}
+            numColumns={numColumns}
+            renderItem={renderItem}
+          /> :
+          <WaterfallFlow
+            style={styles.feedsContainer}
+            keyExtractor={(item) => item.id}
+            key={(item) => item.id}
+            ref={listRef}
+            data={data}
+            numColumns={numColumns}
+            renderItem={renderItem}
+          />
+      }
     </SafeAreaView> 
   );
 }

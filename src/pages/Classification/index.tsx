@@ -148,7 +148,6 @@ const Classification: React.JSX.Element = ({navigation, route}: any) => {
           {/* 商品feeds流 */}
           <FeedsList
             data={productList} 
-            numColumns={1}
             handleAddCart={handleAddCart}
             handleFeedsItemClick={handleFeedsItemClick} 
           />
