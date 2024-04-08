@@ -1,69 +1,55 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import CustomStyleSheet from "styles";
 import IconItem from "../IconItem";
 import { Icon } from "assets/fonts";
 import { CARD_CONTENT_LIST } from "constants";
 
+const CardItem = ({title, description}) => {
+  return (
+    <View style={styles.cardItem}>
+      <Text style={styles.cardTitle}> {title} </Text>
+      <Text style={styles.cardDescription}> {description} </Text>
+    </View>
+  )
+}
+
 const VipCard: React.JSX.Element = () => {
 
   return (
-    <LinearGradient 
-      start={{ x: 0, y: 0 }} 
-      end={{ x: 1, y: 0 }}
-      colors={['#D2B188', '#BC976B']} 
-      style={styles.cardContainer}
-    >
-      <View style={styles.cardIntroduction}>
-        <Text style={styles.cardTitle} >买菜卡</Text>
-        <Text style={styles.cardDescription}>预计每月省105元</Text>
+    <View style={styles.cardContainer}>
+      <View >
+        <CardItem title="0元" description="购物卡" />
       </View>
-      <View style={styles.cardContent}>
-        <Text style={styles.contentTitle}>享4大权益</Text>
-        {
-          CARD_CONTENT_LIST.map((item, index) => {
-            return <IconItem key={index} {...item} color={"#000"}/>
-          })
-        }
+      <View >
+        <CardItem title="未开通" description="省钱卡" />
       </View>
-    </LinearGradient>
+    </View>
   )
 };
 
-const styles = StyleSheet.create({
+const styles = CustomStyleSheet.create({
   cardContainer: {
-    marginHorizontal: 12,
-    borderRadius: 16,
-  },
-
-  cardIntroduction: {
-    marginVertical: 8,
-    marginLeft: 16,
-    display: 'flex',
+    marginHorizontal: 16,
+    marginBottom: 20,
+    borderRadius: 20,
+    backgroundColor: '#f0f9ff',
     flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  cardItem: {
+    marginVertical: 12,
     alignItems: 'center',
   },
-
   cardTitle: {
-    marginRight: 12,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  cardContent: {
-    margin:12,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-
-  contentTitle: {
-    fontSize: 16,
     color: '#000',
+    fontSize: 14,
   },
+  cardDescription: {
+    color: '#b6b6b6',
+    fontSize: 10,
+  }
 });
 
 export default VipCard;

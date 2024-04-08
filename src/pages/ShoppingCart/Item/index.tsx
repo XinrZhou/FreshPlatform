@@ -12,6 +12,7 @@ const configProps = {
   },
   containerProps: {
     flexDirection: "row",
+    flex: 1
   },
   contentProps: {
     paddingVertical: 0,

@@ -1,34 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { 
-  View, 
-  Text, 
-  StyleSheet,
-  ScrollView,
-  Image 
-} from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
+import CustomStyleSheet from "styles";
 import { useSelector, useDispatch } from "react-redux";
 import LinearGradient from "react-native-linear-gradient";
-import TopNav from "components/TopNav";
+import { USER_OPERATION_LIST, PLATFORM_OPERATION_LIST } from "constants";
 import SelfPickUpPoint from "components/SelfPickUpPoint";
 import VipCard from "./VipCard";
-import IconItem from "./IconItem";
-import { USER_OPERATION_LIST, PLATFORM_OPERATION_LIST } from "constants";
+import OperationCard from "./OperationCard";
+import RecommendList from "./RecommendList";
 
+const DEFAULT_AVATAR = 'https://tse3-mm.cn.bing.net/th/id/OIP-C.9IFFP25NR6-Rna3JUzGMpgHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7';
 
-const OperationContainer = ({operationList}) => {
-  return (
-    <View style={styles.operationContainer}>
-      {
-        operationList?.map((item, index) => {
-          return <IconItem key={index} {...item} color={"#000"} />
-        })
-      }
-    </View>
-  )
-}
-
-const UserCenter: React.JSX.Element = ({navigation, route}) => {
-  const { isLogin } = useSelector(state => state.user);
+const UserCenter: React.JSX.Element = ({ navigation, route }) => {
+  const { isLogin, userInfo } = useSelector(state => state.user);
 
   useEffect(() => {
     if (!isLogin) {
@@ -41,55 +25,39 @@ const UserCenter: React.JSX.Element = ({navigation, route}) => {
   return (
     <View style={styles.containerWrapper}>
       <LinearGradient
-        colors={['#FBEDBF', '#FEF3F1']} 
+        colors={['#b5e5fb', '#b5e5fb', '#f0f9ff']} 
       >
-        <View style={styles.headerContainer}>
-          <TopNav 
-            pageTitle="" 
-            showBackIcon={true}
-          />
-          <Text style={styles.rightText}>规则</Text>
-        </View>
         <View style={styles.userInfoContainer}>
           <Image
-            width={68}
-            height={68}
+            width={64}
+            height={64}
             source={{
-              uri: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.9IFFP25NR6-Rna3JUzGMpgHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7'
+              uri: userInfo.avatarUrl || DEFAULT_AVATAR,
             }}
             style={styles.avatar}
           />
           <View style={styles.detailInfoWrapper}>
-            <Text style={styles.nickName}>香菜</Text>
-            <SelfPickUpPoint themeColor="#959595"/>
+            <Text style={styles.nickName}>
+              {userInfo.name}
+            </Text>
+            {/* <SelfPickUpPoint themeColor="#959595"/> */}
           </View>
         </View>
+        <VipCard />
       </LinearGradient>
-      <VipCard />
-      <OperationContainer operationList={USER_OPERATION_LIST} />
-      <OperationContainer operationList={PLATFORM_OPERATION_LIST} />
+      <View style={styles.contentContainer}>
+        <OperationCard operationList={USER_OPERATION_LIST} />
+        <OperationCard operationList={PLATFORM_OPERATION_LIST} />
+        <RecommendList />
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    marginTop: 16,
-    marginHorizontal: 8,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  rightText: {
-    marginRight: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
+const styles = CustomStyleSheet.create({
   userInfoContainer: {
-    margin: 12,
+    marginHorizontal: 12,
+    marginVertical: 16,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -105,18 +73,13 @@ const styles = StyleSheet.create({
   },
 
   nickName: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#000',
   },
 
-  operationContainer: {
-    marginTop: 12,
-    marginHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    backgroundColor: '#fff',
-    borderRadius: 16,
+  contentContainer: {
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16
   }
 })
 

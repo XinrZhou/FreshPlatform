@@ -28,12 +28,12 @@ export const USER_OPERATION_LIST = [
     iconName: "icon-a-fukuan3"
   },
   {
-    title: "待提货",
+    title: "待收货",
     iconName: "icon-daitihuo"
   },
   {
     title: "待评价",
-    iconName: "icon-pingjiabaoxian"
+    iconName: "icon-pingjia"
   },
   {
     title: "退款/售后",
@@ -49,10 +49,6 @@ export const PLATFORM_OPERATION_LIST = [
   {
     title: "价保中心",
     iconName: "icon-pingjiabaoxian"
-  },
-  {
-    title: "意见反馈",
-    iconName: "icon-yijianfankui"
   },
   {
     title: "客服咨询",

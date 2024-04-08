@@ -15,7 +15,7 @@ const LoginPage: React.JSX.Element = ({navigation, route}: any) => {
 
   useEffect(() => {
     isLogin && navigation.goBack();
-  }, [])
+  }, [isLogin])
 
   const handleLogin = () => {
     dispatch(login({ number, password }));

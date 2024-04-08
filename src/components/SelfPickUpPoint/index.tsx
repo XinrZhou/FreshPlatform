@@ -10,7 +10,7 @@ const SelfPickUpPoint: React.JSX.Element = ({ themeColor = '#fff' }) => {
         fontSize: 16,
         color: themeColor
       }}>
-        自提点：天猫超市
+        地址：亲橙里购物中心
       </Text>
       <Icon 
         name="icon-right"

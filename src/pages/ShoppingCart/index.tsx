@@ -116,7 +116,7 @@ const ShoppingCart = ({navigation, route}) => {
             </ScrollView> :
             <EmptyCard />
         }
-        
+    
       </SafeAreaView>
       <View style={[
         styles.footerContainer,
@@ -195,6 +195,7 @@ const styles = CustomStyleSheet.create({
 
   listContent: {
     marginVertical: 12,
+    flex: 1
   },
 
   footerContainer: {
