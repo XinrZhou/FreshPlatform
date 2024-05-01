@@ -39,6 +39,12 @@ const Home: React.JSX.Element = ({ navigation }) => {
   const themeColors = Object.keys(pageInfo)
     .filter(key => key.startsWith('themeColor'))
     .map(key => pageInfo[key]);
+  const bannerContentList = Object.keys(pageInfo)
+    .filter(key => key.startsWith('bannerContent'))
+    .map(key => pageInfo[key]);
+  const bannerTitleList = Object.keys(pageInfo)
+    .filter(key => key.startsWith('bannerTitle'))
+    .map(key => pageInfo[key]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -111,6 +117,8 @@ const Home: React.JSX.Element = ({ navigation }) => {
           <View style={styles.bannerContainer}>
             <BannerSwiper 
               bannerList={pageInfo.bannerImages}
+              bannerContentList={bannerContentList}
+              bannerTitleList={bannerTitleList}
               handleSwiperChange={handleSwiperChange} 
             />
           </View>  

@@ -10,8 +10,8 @@ import PriceCard from "./PriceCard";
 import CustomCheckBox from "components/CustomCheckBox";
 
 const ADDRESS_SPEC = {
-  name: '测试',
-  phone: '19912345678',
+  name: '爱吃奶糖的大白兔',
+  phone: '18395378261',
   address: '亲橙里购物中心8号'
 }
 
