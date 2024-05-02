@@ -6,6 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { USER_OPERATION_LIST, PLATFORM_OPERATION_LIST } from "constants";
 import SelfPickUpPoint from "components/SelfPickUpPoint";
 import VipCard from "./VipCard";
+import AdvertiseCard from "./AdvertiseCard";
 import OperationCard from "./OperationCard";
 import RecommendList from "./RecommendList";
 
@@ -25,7 +26,7 @@ const UserCenter: React.JSX.Element = ({ navigation, route }) => {
   return (
     <View style={styles.containerWrapper}>
       <LinearGradient
-        colors={['#b5e5fb', '#b5e5fb', '#f0f9ff']} 
+        colors={['#a7c8e6', '#b7cde1','#cedceb', '#d5dfe9']} 
       >
         <View style={styles.userInfoContainer}>
           <Image
@@ -38,7 +39,8 @@ const UserCenter: React.JSX.Element = ({ navigation, route }) => {
           />
           <View style={styles.detailInfoWrapper}>
             <Text style={styles.nickName}>
-              {userInfo.name}
+              {/* {userInfo.name} */}
+              爱吃奶糖的大白兔
             </Text>
             {/* <SelfPickUpPoint themeColor="#959595"/> */}
           </View>
@@ -47,6 +49,7 @@ const UserCenter: React.JSX.Element = ({ navigation, route }) => {
       </LinearGradient>
       <View style={styles.contentContainer}>
         <OperationCard operationList={USER_OPERATION_LIST} />
+        <AdvertiseCard />
         <OperationCard operationList={PLATFORM_OPERATION_LIST} />
         <RecommendList />
       </View>
@@ -78,6 +81,7 @@ const styles = CustomStyleSheet.create({
   },
 
   contentContainer: {
+    marginTop: -2,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16
   }

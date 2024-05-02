@@ -1,4 +1,5 @@
 export default {
+  "icon-shouhuodizhi": 58973,
   "icon-aixin": 59455,
   "icon-pingjia": 58926,
   "icon-konggouwuche": 58947,

@@ -47,6 +47,10 @@ export const USER_OPERATION_LIST = [
 
 export const PLATFORM_OPERATION_LIST = [
   {
+    title: "收货地址",
+    iconName: "icon-shouhuodizhi"
+  },
+  {
     title: "价保中心",
     iconName: "icon-pingjiabaoxian"
   },
