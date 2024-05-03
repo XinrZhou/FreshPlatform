@@ -28,6 +28,10 @@ export const USER_OPERATION_LIST = [
     iconName: "icon-a-fukuan3"
   },
   {
+    title: '待发货',
+    iconName: 'icon-daifahuo'
+  },
+  {
     title: "待收货",
     iconName: "icon-daitihuo"
   },

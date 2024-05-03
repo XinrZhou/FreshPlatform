@@ -7,7 +7,7 @@ const AdvertiseCard: React.JSX.Element = () => {
     <View style={styles.cardContainer}>
       <Image
           source={{
-            uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/0145df5b2213a8a80121bbecd524aa.jpg%402o.jpg'
+            uri: 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/20240503093328.jpg'
           }} 
           style={styles.cardImage}
         />
@@ -28,7 +28,8 @@ const styles = CustomStyleSheet.create({
 
   cardImage: {
     width: '100%',
-    height: 56,
+    objectFit: 'fill',
+    height: 80,
     borderRadius: 16,
   },
 });

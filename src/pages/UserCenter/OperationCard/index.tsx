@@ -32,7 +32,7 @@ const OperationCard: React.JSX.Element = ({ operationList }) => {
 
 const styles = CustomStyleSheet.create({
   cardContainer: {
-    marginTop: 8,
+    marginTop: 12,
     marginHorizontal: 12,
     display: 'flex',
     flexDirection: 'row',

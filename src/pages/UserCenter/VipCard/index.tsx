@@ -1,16 +1,54 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CustomStyleSheet from "styles";
 import IconItem from "../IconItem";
 import { Icon } from "assets/fonts";
 import { CARD_CONTENT_LIST } from "constants";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
-const CardItem = ({title, description}) => {
+const ITEM_LIST = [
+  {
+    title: "会员日", 
+    description: "可享88折",
+    iconName: "icon-huiyuan", 
+  },
+  {
+    title: "免运费", 
+    description: "每日一次",
+    iconName: "icon-yunsongzhong", 
+  },
+  {
+    title: "30元红包", 
+    description: "限时开卡礼",
+    iconName: "icon-hongbao", 
+  }
+]
+
+const CardItem = ({
+  title, 
+  description, 
+  iconName,
+}) => {
   return (
-    <View style={styles.cardItem}>
-      <Text style={styles.cardTitle}> {title} </Text>
-      <Text style={styles.cardDescription}> {description} </Text>
+    <View style={[styles.flexRow, styles.cardItem]}>
+      <Icon 
+        size={24} 
+        name={iconName}
+        color="#c6ae92" 
+        style={styles.iconWrapper}
+      />
+      <View>
+        <View style={styles.flexRow}>
+          <Text style={styles.itemTitle}> 
+            {title} 
+          </Text>
+          <Icon size={16} color="#c6ae92"  name="icon-right" />
+        </View>
+        <Text style={styles.itemDescription}> 
+          {description} 
+        </Text>
+      </View>
     </View>
   )
 }
@@ -19,11 +57,36 @@ const VipCard: React.JSX.Element = () => {
 
   return (
     <View style={styles.cardContainer}>
-      <View >
-        <CardItem title="0元" description="购物卡" />
+      <View style={[styles.flexRow, styles.cardTitleWrapper]}>
+          <Text style={styles.cardTitle}>
+            开卡预计全年可省880元
+          </Text>
+        <LinearGradient
+          style={styles.cardBtn}
+          start={{ x: 0, y: 0 }}
+          colors={['#f0decb', '#e3bc91']} 
+        >
+          <Pressable style={styles.flexRow}>
+            <Text style={styles.btnText}>
+              立即开通
+            </Text>
+            <Icon size={24}  name="icon-yousanjiao" />
+          </Pressable>
+        </LinearGradient>
       </View>
-      <View >
-        <CardItem title="未开通" description="省钱卡" />
+      <View style={[styles.flexRow, styles.cardItemWrapper]}>
+        {
+          ITEM_LIST.map((item, index) => {
+            return (
+              <CardItem 
+                key={index}
+                title={item.title}
+                description={item.description}
+                iconName={item.iconName}
+              />
+            )
+          })
+        }
       </View>
     </View>
   )
@@ -31,23 +94,52 @@ const VipCard: React.JSX.Element = () => {
 
 const styles = CustomStyleSheet.create({
   cardContainer: {
-    marginHorizontal: 16,
-    marginBottom: 20,
-    borderRadius: 20,
-    backgroundColor: '#f0f9ff',
+    marginHorizontal: 12,
+    marginBottom: 0,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    backgroundColor: '#2d2f33',
+  },
+  flexRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  cardItem: {
-    marginVertical: 12,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  cardTitle: {
-    color: '#000',
-    fontSize: 14,
+  cardTitleWrapper: {
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
-  cardDescription: {
-    color: '#b6b6b6',
+  cardTitle:{
+    color:'#c6ae92',
+  },
+  cardBtn: {
+    paddingLeft: 12,
+    paddingRight: 8,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  btnText: {
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
+  cardItemWrapper: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#3a3c3d',
+  },
+  iconWrapper: {
+    marginRight: 8,
+    padding: 8,
+    borderRadius: 30,
+    borderColor: '#c6ae92',
+    borderWidth: 1
+  },
+  itemTitle: {
+    color: '#c6ae92',
+  },
+  itemDescription: {
+    color: '#88807e',
     fontSize: 10,
   }
 });

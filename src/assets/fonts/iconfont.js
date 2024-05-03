@@ -1,4 +1,11 @@
 export default {
+  "icon-daifahuo": 58889,
+  "icon-hongbao": 58899,
+  "icon-huiyuan": 59006,
+  "icon-huiyuanqia": 59526,
+  "icon-shezhi": 59575,
+  "icon-yunsongzhong": 59255,
+  "icon-yousanjiao": 58884,
   "icon-shouhuodizhi": 58973,
   "icon-aixin": 59455,
   "icon-pingjia": 58926,
