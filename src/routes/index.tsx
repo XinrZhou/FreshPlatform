@@ -8,6 +8,7 @@ import LoginPage from 'pages/LoginPage';
 import PayPage from 'pages/PayPage';
 import PaySuccess from 'pages/PaySuccess';
 import ProductDetail from 'pages/ProductDetail';
+import OrderDetail from 'pages/OrderDetail';
 
 const Stack = createNativeStackNavigator(); 
 
@@ -50,6 +51,10 @@ function PageStack(): React.JSX.Element {
         <Stack.Screen
           name="PaySuccess"
           component={PaySuccess}
+        />
+        <Stack.Screen
+          name="OrderDetail"
+          component={OrderDetail}
         />
       </Stack.Navigator>
     </NavigationContainer>

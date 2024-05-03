@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import CustomStyleSheet from "styles";
 import { Icon } from 'assets/fonts';
 
@@ -18,12 +18,24 @@ const IconItem = ({title, iconName, color}) => {
   )
 }
 
-const OperationCard: React.JSX.Element = ({ operationList }) => {
+const OperationCard: React.JSX.Element = ({ 
+  operationList = [],
+  operationType = '', 
+  onItemPress = () => {},
+}) => {
   return (
     <View style={styles.cardContainer}>
       {
         operationList?.map((item, index) => {
-          return <IconItem key={index} {...item} color={"#000"} />
+          return (
+            <Pressable onPress={() => onItemPress(index)}>
+              <IconItem 
+                key={index} 
+                {...item} 
+                color={"#000"}
+              />
+            </Pressable>
+          )
         })
       }
     </View>

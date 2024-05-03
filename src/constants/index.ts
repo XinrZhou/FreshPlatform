@@ -72,3 +72,26 @@ export const FEED_BTN_TYPE = {
   SHOP_CART: 'shopCart',
   COUNTER: 'counter'
 }
+
+export const TAB_LIST = [
+  {
+    value: 5,
+    name: '全部订单',
+  },
+  {
+    value: 0,
+    name: '待付款',
+  },
+  {
+    value: 1, 
+    name: '待发货',
+  },
+  {
+    value: 2,
+    name: '待收货',
+  },
+  {
+    value: 3,
+    name: '待评价',
+  },
+];
