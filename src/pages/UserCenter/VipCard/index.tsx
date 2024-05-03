@@ -115,7 +115,7 @@ const styles = CustomStyleSheet.create({
   },
   cardBtn: {
     paddingLeft: 12,
-    paddingRight: 8,
+    paddingRight: 6,
     paddingVertical: 6,
     borderRadius: 16,
   },
