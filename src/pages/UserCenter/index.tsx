@@ -14,11 +14,10 @@ import BenefitCard from "./BenefitCard";
 import VipCard from "./VipCard";
 import AdvertiseCard from "./AdvertiseCard";
 import OperationCard from "./OperationCard";
-import RecommendList from "./RecommendList";
 
 const PAGE_SIZE = 20;
 const OPERATION_TYPE = 'order';
-const DEFAULT_AVATAR = 'https://tse3-mm.cn.bing.net/th/id/OIP-C.9IFFP25NR6-Rna3JUzGMpgHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7';
+const DEFAULT_AVATAR = 'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/20211109021644_47094.jpeg';
 
 const UserCenter: React.JSX.Element = ({ navigation, route }) => {
   const [page, setPage] = useState(1);
@@ -97,15 +96,31 @@ const UserCenter: React.JSX.Element = ({ navigation, route }) => {
             operationType={OPERATION_TYPE}
           />
           <AdvertiseCard />
-          <OperationCard operationList={PLATFORM_OPERATION_LIST} />
-          <RecommendList />
+          <OperationCard 
+            operationList={PLATFORM_OPERATION_LIST} 
+          />
+          <View style={styles.recomnedList}>
+            <View style={styles.recommendTitleWrapper}>
+              <Text style={styles.recommendTitle}>
+                为你推荐 · 
+              </Text>
+              <Text style={[
+                styles.recommendTitle,
+                { color:  '#17A3D4'}
+              ]}>
+                RECOMMEND
+              </Text>
+            </View>
+            <View style={styles.feedsWrapper}>
+              <FeedsList
+                data={productList} 
+                numColumns={2}
+                handleAddCart={handleAddCart}
+                handleFeedsItemClick={handleFeedsItemClick} 
+              />
+            </View>
+          </View>
         </View>
-      <FeedsList
-        data={productList} 
-        numColumns={2}
-        handleAddCart={handleAddCart}
-        handleFeedsItemClick={handleFeedsItemClick} 
-      />
     </ScrollView>
   );
 }
@@ -119,7 +134,7 @@ const styles = CustomStyleSheet.create({
   },
   userInfoContainer: {
     marginHorizontal: 12,
-    marginVertical: 12,
+    marginVertical: 16,
   },
   settingsWrapper: {
     marginRight: 2,
@@ -131,22 +146,33 @@ const styles = CustomStyleSheet.create({
     display: 'flex',
     justifyContent: 'space-evenly',
   },
-
   avatar: {
     borderRadius: 34,
     marginRight: 12,
   },
-
   nickName: {
     fontSize: 16,
     color: '#000',
   },
-
   contentContainer: {
-    marginTop: -2,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16
   },
+  recomnedList: {
+    marginTop: 12,
+  },
+  recommendTitleWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recommendTitle: {
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  feedsWrapper: {
+    marginTop: -6
+  }
 })
 
 export default UserCenter;

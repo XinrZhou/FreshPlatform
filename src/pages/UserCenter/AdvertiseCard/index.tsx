@@ -17,7 +17,7 @@ const AdvertiseCard: React.JSX.Element = () => {
 
 const styles = CustomStyleSheet.create({
   cardContainer: {
-    marginTop: 8,
+    marginTop: 12,
     marginHorizontal: 12,
     display: 'flex',
     flexDirection: 'row',
@@ -29,7 +29,7 @@ const styles = CustomStyleSheet.create({
   cardImage: {
     width: '100%',
     objectFit: 'fill',
-    height: 80,
+    height: 96,
     borderRadius: 16,
   },
 });

@@ -13,7 +13,7 @@ export const ORDER_LIST = [
     type: 1,
     imageList: [
       'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/headPic3b160a2a-12c0-4cc6-a769-492f542ecbd8.jpg',
-      'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/headPic3b160a2a-12c0-4cc6-a769-492f542ecbd8.jpg',
+      'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/headPicbbd946f7-ad01-45cf-848e-35f82d8fe573.jpg',
       'https://fresh-platform.oss-cn-hangzhou.aliyuncs.com/head/headPic4de0cbd8-b71d-4449-853d-3285c4e3d370.jpg'
     ],
     price: 55.4,

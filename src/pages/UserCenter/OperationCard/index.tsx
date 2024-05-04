@@ -28,9 +28,11 @@ const OperationCard: React.JSX.Element = ({
       {
         operationList?.map((item, index) => {
           return (
-            <Pressable onPress={() => onItemPress(index)}>
+            <Pressable
+              key={index}  
+              onPress={() => onItemPress(index)}
+            >
               <IconItem 
-                key={index} 
                 {...item} 
                 color={"#000"}
               />

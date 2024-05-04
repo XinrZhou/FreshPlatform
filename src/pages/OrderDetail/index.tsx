@@ -11,7 +11,8 @@ import CustomStyleSheet from "/styles";
 import { Icon } from "/assets/fonts";
 import { Button, Badge } from "@ant-design/react-native";
 import { ORDER_LIST } from "constants/mock";
-import ScrollTab from "components/ScrollTab";
+import EmptyCard from "../../components/EmptyCard";
+import ScrollTab from "./ScrollTab";
 import OrderItem from "./OrderItem";
 
 const ALL_ORDER = 5;
@@ -23,7 +24,7 @@ const OrderDetail: React.JSX.Element = ({ navigation, route }: any) => {
   const handleIndexChange = (index: number) => setActiveIndex(index);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.headerWrapper}>
         <Pressable onPress={() => navigation.popToTop()}>
           <Icon name="icon-left" size={28} color="#000" style={styles.backIcon} />
@@ -37,19 +38,33 @@ const OrderDetail: React.JSX.Element = ({ navigation, route }: any) => {
         />
       </View>
       <View style={styles.contentWrapper}>
-        {
-          activeIndex === ALL_ORDER ?
+        {activeIndex === ALL_ORDER ? (
+          ORDER_LIST.length > 0 ? (
             ORDER_LIST.map((item, index) => (
               <OrderItem key={item.id || index} orderItem={item} />
-            )) : ORDER_LIST
-            .filter((item) => item.type === activeIndex)
-            .map((filteredItem, index) => (
-              <OrderItem key={filteredItem.id || index} orderItem={filteredItem} />
-            )
+            ))
+          ) : (
+            <EmptyCard
+              iconName="icon-meiyoudingdan2"
+              title="暂无订单"
+              tips="快去下单吧~" 
+            />
           )
-        }
+        ) : (
+          ORDER_LIST.filter((item) => item.type === activeIndex).length > 0 ? (
+            ORDER_LIST.filter((item) => item.type === activeIndex).map((filteredItem, index) => (
+              <OrderItem key={filteredItem.id || index} orderItem={filteredItem} />
+            ))
+          ) : (
+            <EmptyCard
+              iconName="icon-meiyoudingdan2"
+              title="暂无订单"
+              tips="快去下单吧~" 
+            />
+          )
+        )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

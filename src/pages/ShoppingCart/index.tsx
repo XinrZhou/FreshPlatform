@@ -114,7 +114,11 @@ const ShoppingCart = ({navigation, route}) => {
                 }
               </View>
             </ScrollView> :
-            <EmptyCard />
+            <EmptyCard
+              iconName='icon-konggouwuche'
+              title='购物车为空'
+              tips='空即是饿，饿即是空' 
+            />
         }
     
       </SafeAreaView>

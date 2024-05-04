@@ -1,4 +1,6 @@
 export default {
+  "icon-meiyoudingdan1": 58907,
+  "icon-meiyoudingdan2": 58890,
   "icon-daifahuo": 58889,
   "icon-hongbao": 58899,
   "icon-huiyuan": 59006,

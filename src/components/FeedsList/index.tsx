@@ -90,7 +90,7 @@ const FeedsList: React.JSX.Element = ({
 
 const styles = StyleSheet.create({
   feedsContainer: {
-    marginTop: 16,
+    marginTop: 12,
     marginLeft: 12,
     marginRight: 12,
     zIndex: -1

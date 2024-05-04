@@ -37,7 +37,7 @@ const styles = CustomStyleSheet.create({
     marginHorizontal: 12,
     marginBottom: 12,
     borderRadius: 16,
-    backgroundColor: '#f0f9ff',
+    backgroundColor: 'rgba(218, 240, 254, 0.4)',
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
@@ -50,6 +50,7 @@ const styles = CustomStyleSheet.create({
     fontSize: 14,
   },
   cardDescription: {
+    marginTop: 2,
     color: '#b6b6b6',
     fontSize: 10,
   }

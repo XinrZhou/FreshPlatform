@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
+import { TAB_BUTTON } from "constants";
 import CustomStyleSheet from "styles";
+
+const ACTIVE_TEXT = '再来一单';
 
 const OrderItem = ({ orderItem }) => {
   const { type, imageList=[], count, price, description, createTime } = orderItem;
@@ -47,19 +50,29 @@ const OrderItem = ({ orderItem }) => {
       </View>
       <Text>下单时间 : {createTime}</Text>
       <View style={styles.cardOperation}>
-        <Pressable style={styles.operationBtn}>
-          <Text style={styles.btnText}>
-            查看订单
-          </Text>
-        </Pressable>
-        <Pressable style={[
-          styles.operationBtn,
-          styles.activeOperationBtn
-        ]}>
-          <Text style={styles.activeBtnText}>
-            再来一单
-          </Text>
-        </Pressable>
+        {
+          TAB_BUTTON.map((item, index) => {
+            if (item.value === type) {
+              return item.buttonList.map((btnText, btnIndex) => (
+                <Pressable 
+                  style={[
+                    styles.operationBtn,
+                    btnText === ACTIVE_TEXT && styles.activeOperationBtn
+                  ]} 
+                  key={btnIndex}
+                >
+                  <Text style={[
+                    styles.btnText,
+                    btnText === ACTIVE_TEXT && styles.activeBtnText
+                  ]}>
+                    {btnText}
+                  </Text>
+                </Pressable>
+              ));
+            }
+            return null;
+          })
+        }
       </View>
     </View>
   );
@@ -112,10 +125,11 @@ const styles = CustomStyleSheet.create({
     gap: 12,
   },
   operationBtn: {
+    paddingVertical: 8,
+    width: 68,
+    alignItems: 'center', 
     borderWidth: 1,
     borderColor: '#ddd',
-    paddingHorizontal: 20,
-    paddingVertical: 8,
     borderRadius: 20,
   },
   activeOperationBtn: {

@@ -95,3 +95,32 @@ export const TAB_LIST = [
     name: '待评价',
   },
 ];
+
+export const TAB_BUTTON = [
+  {
+    value: 0,
+    buttonList: [
+      '取消订单',
+      '去支付'
+    ]
+  },
+  {
+    value: 1,
+    buttonList: [
+      '退货',
+    ]
+  },
+  {
+    value: 2, 
+    buttonList: [
+      '查看物流',
+    ]
+  },
+  {
+    value: 3,
+    buttonList: [
+      '分享',
+      '再来一单',
+    ]
+  }
+]
