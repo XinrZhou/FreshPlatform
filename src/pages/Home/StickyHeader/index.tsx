@@ -30,13 +30,13 @@ const StickyHeader = ({
 
   return (
     <Animated.View
+      pointerEvents={isScroll ? 'auto' : 'none'}
       style={[
-        styles.stickyContainer,
-        isScroll && styles.scrollContainer,
-        { 
-          transform: [{ translateY }], 
-          backgroundColor: isScroll ? themeColor : 'transparent' 
-        }
+          styles.stickyContainer,
+          { 
+            transform: [{ translateY }], 
+            backgroundColor: isScroll ? themeColor : 'transparent' 
+          }
       ]}
     >
       {/* 位置 */}
@@ -54,9 +54,6 @@ export default React.memo(StickyHeader);
 const styles = CustomStyleSheet.create({
   stickyContainer: {
     zIndex: 100,
-  },
-  scrollContainer: {
-    flex: 1,
   },
   locationContainer: {
     flexDirection: 'row',

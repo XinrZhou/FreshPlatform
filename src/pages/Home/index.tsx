@@ -55,7 +55,7 @@ const Home: React.JSX.Element = ({ navigation }) => {
   )
 
   const handleScroll = (event: any) => {
-    const offsetY = event.nativeEvent.contentOffset.y;
+    const offsetY = event.nativeEvent.contentOffset.y || 0;
     if (offsetY <= 0) {
       setIsScroll(false);
     } else if (offsetY > 0 && !isScroll) {
@@ -84,11 +84,9 @@ const Home: React.JSX.Element = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         onScroll={
           Animated.event(
-            [
-              {
-                nativeEvent: { contentOffset: { y: scrollY } }
-              }
-            ],
+            [{
+                nativeEvent: { contentOffset: { y: scrollY} }
+            }],
             { 
               useNativeDriver: false,
               listener: handleScroll 
@@ -148,10 +146,11 @@ const Home: React.JSX.Element = ({ navigation }) => {
         </LinearGradient>
         {/* 商品feeds流 */}
         <FeedsList
-          data={productList} 
+          data={productList}
           numColumns={2}
           handleAddCart={handleAddCart}
           handleFeedsItemClick={handleFeedsItemClick} 
+          headerComponents
         />
       </ScrollView>
     </View>
@@ -168,7 +167,6 @@ const styles = CustomStyleSheet.create({
   },
 
   bannerContainer: {
-    marginTop: 36,
     marginHorizontal: 20,
     height: 120,
     borderRadius: 16,

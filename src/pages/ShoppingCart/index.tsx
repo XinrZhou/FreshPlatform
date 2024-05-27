@@ -34,7 +34,7 @@ const ShoppingCart = ({navigation, route}) => {
   }, [isLogin])
 
   useEffect(() => {
-    selectedList.length && setIsSelectAll(selectedList.length === cartList.length);
+    setIsSelectAll(selectedList.length === cartList.length);
   }, [selectedList, cartList]);
 
   const handleSelectedChange = (id) => {

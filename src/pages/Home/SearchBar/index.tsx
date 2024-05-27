@@ -40,10 +40,9 @@ const SearchBar: React.JSX.Element = ({
 
 const styles = StyleSheet.create({
   searchWrapper: {
-    flex: 1,
+    height: 48,
     backgroundColor: 'transparent'
   },
-
   searchContainer: {
     marginLeft: 16,
     marginRight: 16,
