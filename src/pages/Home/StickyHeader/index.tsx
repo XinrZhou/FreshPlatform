@@ -8,7 +8,8 @@ const StickyHeader = ({
   stickyTopY = null, 
   stickyScrollY, 
   isScroll,
-  themeColor = '' 
+  themeColor = '', 
+  onLocationChange = () => {},
 }) => {
   const [stickyLayoutY, setStickyLayoutY] = useState(null);
 
@@ -30,7 +31,6 @@ const StickyHeader = ({
 
   return (
     <Animated.View
-      pointerEvents={isScroll ? 'auto' : 'none'}
       style={[
           styles.stickyContainer,
           { 
@@ -41,7 +41,9 @@ const StickyHeader = ({
     >
       {/* 位置 */}
       <View style={styles.locationContainer}>
-        <LocationSelector />
+        <LocationSelector
+          onLocationChange={onLocationChange}
+        />
       </View>
       {/* 搜索框 */}
       <SearchBar isScroll={isScroll} themeColor={themeColor} />

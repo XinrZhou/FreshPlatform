@@ -67,6 +67,9 @@ const Home: React.JSX.Element = ({ navigation }) => {
 
   const handleNavItemClick = (navItem) => navigation.navigate('分类', { navItem });
 
+  // 地址变化
+  const handleLocationChange = () => dispatch(getProductList({ page: page, pageSize: PAGE_SIEZ }));
+
   const handleAddCart = async(sid) => {
     await dispatch(addCart({ skuId: sid, userId: userInfo.id }));
     await dispatch(getCart());
@@ -110,6 +113,7 @@ const Home: React.JSX.Element = ({ navigation }) => {
             stickyScrollY={scrollY} 
             isScroll={isScroll}
             themeColor={themeColors[swiperIndex]}
+            onLocationChange={handleLocationChange}
           />
           {/* banner轮播图 */}
           <View style={styles.bannerContainer}>
