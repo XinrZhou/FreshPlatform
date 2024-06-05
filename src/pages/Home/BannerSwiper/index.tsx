@@ -14,7 +14,7 @@ const BannerSwiper: React.JSX.Element = ({
   return (
     <Swiper style={styles.swiper} 
       autoplay={true}
-      autoplayTimeout={6}
+      autoplayTimeout={3}
       loop={true}
       onIndexChanged={index => handleSwiperChange(index)}
     >
@@ -44,13 +44,6 @@ const BannerSwiper: React.JSX.Element = ({
                 </Pressable>
               </View>
             </ImageBackground>
-            // <Image
-            //   key={index}
-            //   source={{
-            //     uri: item
-            //   }}
-            //   style={styles.swiperImage}
-            // />
           )
         })
       }

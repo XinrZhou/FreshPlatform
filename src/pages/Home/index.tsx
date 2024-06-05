@@ -154,7 +154,6 @@ const Home: React.JSX.Element = ({ navigation }) => {
           numColumns={2}
           handleAddCart={handleAddCart}
           handleFeedsItemClick={handleFeedsItemClick} 
-          headerComponents
         />
       </ScrollView>
     </View>
@@ -171,6 +170,7 @@ const styles = CustomStyleSheet.create({
   },
 
   bannerContainer: {
+    zIndex: 100,
     marginHorizontal: 20,
     height: 120,
     borderRadius: 16,
